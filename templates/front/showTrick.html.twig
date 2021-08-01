@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h1>{{title}}</h1>
+
+	<section class="trick">
+		<article>
+			<h2>titre du trick</h2>
+			<div class="content">
+				<img src="http://placehold.it/350X150 " alt="image du trick">
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At iure quam ab aliquam quis facilis dolore sunt culpa ea, numquam eveniet sequi tempore voluptatem inventore et earum rem expedita sit.</p>
+				<a href="{{path('home')}}" class="btn btn-primary">Retourner à l'accueil</a>
+			</div>
+		</article>
+	</section>
+{% endblock %}
