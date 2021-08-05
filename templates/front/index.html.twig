@@ -7,6 +7,12 @@
 		<div class="alert alert-success" role="alert">{{ message }}</div>
 	{% endfor %}
 
+	{# addition of a flash message by tchenio nicolas  #}
+	{% for message in app.flashes('accountToCreate') %}
+		<div class="alert alert-success" role="alert">{{ message }}</div>
+	{% endfor %}
+	{# end of addition of a flash message by tchenio nicolas  #}
+
 	<img src="http://placehold.it/800X300 " alt="image de teste">
 	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At iure quam ab aliquam quis facilis dolore sunt culpa ea, numquam eveniet sequi tempore voluptatem inventore et earum rem expedita sit.</p>
 	<p>Est necessitatibus obcaecati asperiores doloremque vitae et dolorum assumenda tenetur officia. Debitis neque repellendus rerum quaerat eligendi voluptas nulla sunt necessitatibus blanditiis placeat, fugit nemo id accusamus alias possimus numquam!</p>

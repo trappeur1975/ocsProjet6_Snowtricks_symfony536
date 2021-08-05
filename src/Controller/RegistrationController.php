@@ -57,6 +57,10 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
+            // addition of a flash message by tchenio nicolas
+            $this->addFlash('accountToCreate', 'Votre compte a bien été créé et est en attente de validation de votre par dans votre boite email.');
+            // end of adding a flash message by tchenio nicolas 
+
             return $this->redirectToRoute('home');
         }
 
