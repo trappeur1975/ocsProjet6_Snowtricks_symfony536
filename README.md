@@ -3,6 +3,7 @@
 1/08/2021 : integration of a bootstrap template (pulse) and creation of home and trick page with fictitious content
 1/08/2021 : creation of the user entity and its integration in database and implementation of the authentication
 2/08/2021 : integration of the reset password bundle 
+5/08/2021 : Frenchization of text for authentication and password reset 
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé

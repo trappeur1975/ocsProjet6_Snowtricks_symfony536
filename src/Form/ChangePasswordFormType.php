@@ -21,11 +21,11 @@ class ChangePasswordFormType extends AbstractType
                     'attr' => ['autocomplete' => 'new-password'],
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Please enter a password',
+                            'message' => 'Veuillez entrer un mot de passe',
                         ]),
                         new Length([
                             'min' => 6,
-                            'minMessage' => 'Your password should be at least {{ limit }} characters',
+                            'minMessage' => 'Votre mot de passe doit être au moins  {{ limit }} caractéres',
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
@@ -36,12 +36,11 @@ class ChangePasswordFormType extends AbstractType
                     'attr' => ['autocomplete' => 'new-password'],
                     'label' => 'Repeat Password',
                 ],
-                'invalid_message' => 'The password fields must match.',
+                'invalid_message' => 'Les champs de mot de passe doivent correspondre.',
                 // Instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
