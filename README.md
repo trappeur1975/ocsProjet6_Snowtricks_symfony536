@@ -5,6 +5,7 @@
 2/08/2021 : integration of the reset password bundle 
 5/08/2021 : Frenchization of text for authentication and password reset 
 5/08/2021 : integration of a flash message in controller \ RegistrationController.php for the "function register ()"
+6/08/2021 : creation of message, trick, picture, pool, video entities and modification of user 
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
