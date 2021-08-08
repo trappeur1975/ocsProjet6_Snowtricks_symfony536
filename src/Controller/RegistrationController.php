@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Picture;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
@@ -40,6 +41,23 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            // We recover the transmitted image 
+            $image = $form->get('image')->getData();
+
+            //image storage path
+            $path = $this->getParameter('images_directory');
+
+            // We generate a new file name 
+            $fichier = uniqid() . '.' . $image->guessExtension();
+
+            // We copy the file to the images folder 
+            $image->move($path, $fichier);
+
+            // We create the image in the database 
+            $picture = new Picture();
+            $picture->setPath($path . '/' . $fichier);
+            $user->setPicture($picture);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
