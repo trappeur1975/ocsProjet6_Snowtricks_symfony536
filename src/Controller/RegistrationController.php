@@ -42,26 +42,27 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            // We recover the transmitted picture 
-            $picture = $form->get('picture')->getData();
+            if ($form->get('picture')->getData() !== null) {
+                // We recover the transmitted picture 
+                $picture = $form->get('picture')->getData();
 
-            //We generate a new picture file name 
-            // $pictureFileName = $this->getParameter('picture_directory');
+                //We generate a new picture file name 
+                // $pictureFileName = $this->getParameter('picture_directory');
 
-            //We generate a new picture file name 
-            $pictureFileName = uniqid() . '.' . $picture->guessExtension();
+                //We generate a new picture file name 
+                $pictureFileName = uniqid() . '.' . $picture->guessExtension();
 
-            // We copy the file to the images folder 
-            $picture->move(
-                $this->getParameter('pictures_directory'),
-                $pictureFileName
-            );
+                // We copy the file to the images folder 
+                $picture->move(
+                    $this->getParameter('pictures_directory'),
+                    $pictureFileName
+                );
 
-            // We create the image in the database 
-            $picture = new Picture();
-            $picture->setPictureFileName($pictureFileName);
-            $user->setPicture($picture);
-
+                // We create the image in the database 
+                $picture = new Picture();
+                $picture->setPictureFileName($pictureFileName);
+                $user->setPicture($picture);
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

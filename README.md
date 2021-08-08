@@ -7,7 +7,9 @@
 5/08/2021 : integration of a flash message in controller \ RegistrationController.php for the "function register ()"
 6/08/2021 : creation of message, trick, picture, pool, video entities and modification of user 
 7/08/2021 : modification of the registration form (addition of username and picture fields) and its processing in the database
-7/08/2021 : User crude, Picture and Video update and RegistrationController.php and RegistrationFormType.php update 
+7/08/2021 : User crude, Picture and Video update and RegistrationController.php and RegistrationFormType.php update
+7/08/2021 : change the username property of User to nickname
+
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
 
