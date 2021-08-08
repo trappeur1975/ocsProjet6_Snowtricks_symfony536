@@ -20,7 +20,7 @@ class Video
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $path;
+    private $videoFileName;
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="videos")
@@ -33,14 +33,14 @@ class Video
         return $this->id;
     }
 
-    public function getPath(): ?string
+    public function getVideoFileName(): ?string
     {
-        return $this->path;
+        return $this->videoFileName;
     }
 
-    public function setPath(string $path): self
+    public function setVideoFileName(string $videoFileName): self
     {
-        $this->path = $path;
+        $this->videoFileName = $videoFileName;
 
         return $this;
     }

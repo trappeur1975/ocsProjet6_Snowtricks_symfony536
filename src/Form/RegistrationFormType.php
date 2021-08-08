@@ -20,7 +20,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('username')
             ->add('email')
-            ->add('image', FileType::class, [
+            ->add('picture', FileType::class, [
                 'label' => false,
                 'mapped' => false,
                 'required' => false
