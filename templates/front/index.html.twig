@@ -18,30 +18,18 @@
 	<p>Est necessitatibus obcaecati asperiores doloremque vitae et dolorum assumenda tenetur officia. Debitis neque repellendus rerum quaerat eligendi voluptas nulla sunt necessitatibus blanditiis placeat, fugit nemo id accusamus alias possimus numquam!</p>
 
 	<section class="tricks">
-		<article>
-			<h2>titre du trick</h2>
-			<div class="content">
-				<img src="http://placehold.it/350X150 " alt="image du trick">
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At iure quam ab aliquam quis facilis dolore sunt culpa ea, numquam eveniet sequi tempore voluptatem inventore et earum rem expedita sit.</p>
-				<a href="{{path('showTrick')}}" class="btn btn-primary">voir le trick</a>
-			</div>
-		</article>
-		<article>
-			<h2>titre du trick</h2>
-			<div class="content">
-				<img src="http://placehold.it/350X150 " alt="image du trick">
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At iure quam ab aliquam quis facilis dolore sunt culpa ea, numquam eveniet sequi tempore voluptatem inventore et earum rem expedita sit.</p>
-				<a href="{{path('showTrick')}}" class="btn btn-primary">voir le trick</a>
-			</div>
-		</article>
-		<article>
-			<h2>titre du trick</h2>
-			<div class="content">
-				<img src="http://placehold.it/350X150 " alt="image du trick">
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At iure quam ab aliquam quis facilis dolore sunt culpa ea, numquam eveniet sequi tempore voluptatem inventore et earum rem expedita sit.</p>
-				<a href="{{path('showTrick')}}" class="btn btn-primary">voir le trick</a>
-			</div>
-		</article>
+		{% for trick in tricks %}
+			<article>
+				<h2>{{trick.name}}</h2>
+				<div
+					class="content">
+					{# <img src="trick.name" alt="image du trick"> #}
+					<img src="http://placehold.it/350X150 " alt="image du trick">
+					<p>{{ trick.description }}</p>
+					<a href="{{path('showTrick', {'id': trick.id})}}" class="btn btn-primary">voir le trick</a>
+				</div>
+			</article>
+		{% endfor %}
 	</section>
 
 {% endblock %}

@@ -10,7 +10,8 @@
 7/08/2021 : User crude, Picture and Video update and RegistrationController.php and RegistrationFormType.php update
 7/08/2021 : change the username property of User to nickname
 7/08/2021 : integration in the basic template the javascript scripts link to bootstrap
-13/08/2020 : integration of the orm-fixture bundle, creation of a "pool, user, trick" dataset (fixtures) 
+13/08/2020 : integration of the orm-fixture bundle, creation of a "pool, user, trick" dataset (fixtures)
+14/08/2020 : creation d'un script de remise a niveau de mes fixtures dans composer.json, integration de la lirairie faker, jeu de donnée picture et mise a jour du frontController et de ses template
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé

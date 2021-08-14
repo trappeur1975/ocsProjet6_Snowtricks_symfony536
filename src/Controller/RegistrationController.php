@@ -47,9 +47,6 @@ class RegistrationController extends AbstractController
                 $picture = $form->get('picture')->getData();
 
                 //We generate a new picture file name 
-                // $pictureFileName = $this->getParameter('picture_directory');
-
-                //We generate a new picture file name 
                 $pictureFileName = uniqid() . '.' . $picture->guessExtension();
 
                 // We copy the file to the images folder 
