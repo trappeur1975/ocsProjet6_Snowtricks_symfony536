@@ -7,9 +7,18 @@
 		<article>
 			<h2>{{ trick.name}}</h2>
 			<div class="content">
-				<img src="http://placehold.it/350X150 " alt="image du trick">
-				<p>{{ trick.description }}</p>
-				<a href="{{path('home')}}" class="btn btn-primary">Retourner à l'accueil</a>
+				{% if pictures is not empty %}
+					{% for picture in pictures %}
+						<img src="{{ picture.pictureFileName }}" alt="image du trick">
+					{% endfor %}
+				{% else %}
+					<img src="http://placehold.it/350X150 " alt="no image du trick">
+				{% endif %}
+				<p>
+					{{ trick.description }}
+				</p>
+				<a href="{{path('home')}}" class="btn btn-primary">
+					Retourner à l'accueil</a>
 			</div>
 		</article>
 	</section>

@@ -13,7 +13,7 @@
 	{% endfor %}
 	{# end of addition of a flash message by tchenio nicolas  #}
 
-	<img src="http://placehold.it/800X300 " alt="image de teste">
+	<img src="http://placehold.it/800X300 " alt="image de teste" class="PromotePicture">
 	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At iure quam ab aliquam quis facilis dolore sunt culpa ea, numquam eveniet sequi tempore voluptatem inventore et earum rem expedita sit.</p>
 	<p>Est necessitatibus obcaecati asperiores doloremque vitae et dolorum assumenda tenetur officia. Debitis neque repellendus rerum quaerat eligendi voluptas nulla sunt necessitatibus blanditiis placeat, fugit nemo id accusamus alias possimus numquam!</p>
 
@@ -21,12 +21,15 @@
 		{% for trick in tricks %}
 			<article>
 				<h2>{{trick.name}}</h2>
-				<div
-					class="content">
-					{# <img src="trick.name" alt="image du trick"> #}
-					<img src="http://placehold.it/350X150 " alt="image du trick">
+				<div class="content">
+					{% if trick.pictures is not empty %}
+						<img src="{{ trick.pictures|first.pictureFileName }}" alt="image du trick">
+					{% else %}
+						<img src="http://placehold.it/350X150 " alt="no image du trick">
+					{% endif %}
 					<p>{{ trick.description }}</p>
-					<a href="{{path('showTrick', {'id': trick.id})}}" class="btn btn-primary">voir le trick</a>
+					<a href="{{path('showTrick', {'id': trick.id})}}" class="btn btn-primary">
+						voir le trick</a>
 				</div>
 			</article>
 		{% endfor %}
