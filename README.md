@@ -12,7 +12,8 @@
 7/08/2021 : integration in the basic template the javascript scripts link to bootstrap
 13/08/2021 : integration of the orm-fixture bundle, creation of a "pool, user, trick" dataset (fixtures)
 14/08/2021 : creation of a script to upgrade my fixtures in composer.json, integration of the faker directory, picture data set and update of the frontController and its templates
-15/08/2021 : update of the display management of front images (frontConntroller and front template), integration of a css file 
+15/08/2021 : update of the display management of front images (frontConntroller and front template), integration of a css file
+16/08/2021 : change the fzaninotto / Faker library to FakerPHP / Faker and create MessageFixtures.php
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
@@ -62,3 +63,6 @@ commande pour excuter le serveur web de symfony :
             maildev --hide-extensions STARTTLS
 
             Dans son navigateur aller a l adresse : http://localhost:1080
+
+dans le fichier "composer.json" un script (que j ai nommé « reset-data ») a été crée pour remettre a zero ma base de donnée, surtout utile pour l'utilisation d'un jeu de donnée via des fixtures. Pour l executer il suffit d'executer la commande suivante :
+            composer reset-data

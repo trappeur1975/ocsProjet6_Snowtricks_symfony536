@@ -23,7 +23,7 @@ class Message
     private $content;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $create_At;
 
@@ -56,12 +56,12 @@ class Message
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeImmutable
+    public function getCreateAt(): ?\DateTimeInterface
     {
         return $this->create_At;
     }
 
-    public function setCreateAt(\DateTimeImmutable $create_At): self
+    public function setCreateAt(\DateTimeInterface $create_At): self
     {
         $this->create_At = $create_At;
 
