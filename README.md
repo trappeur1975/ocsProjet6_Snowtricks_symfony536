@@ -14,6 +14,7 @@
 14/08/2021 : creation of a script to upgrade my fixtures in composer.json, integration of the faker directory, picture data set and update of the frontController and its templates
 15/08/2021 : update of the display management of front images (frontConntroller and front template), integration of a css file
 16/08/2021 : change the fzaninotto / Faker library to FakerPHP / Faker and create MessageFixtures.php
+17/08/2021 : modify the fixtures "pictureFixtures.php" to integrate the upload of image file in the symfony project and modification of the code for the display of images in the tamplate of the frontController.php
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé

@@ -17,9 +17,6 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
 
         // $img = $faker->image('public/pictures/');
 
-        // $img = $faker->image('public/pictures\\', 640, 480, 'animals');
-        // $img = $faker->image('public/pictures/');
-
         // $nomImg = basename($img);
         // $nomImg = str_replace('public/pictures/', '', $img);
 
@@ -28,11 +25,23 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
             // we retrieve the reference of the trick
             $trick = $this->getReference('trick' . rand(1, 10));
 
+            //Obtenir l'image :
+            $imgUrl = $faker->imageUrl();
+            //Definir le nom de l'image
+            $imgName = "picture$nbrPicture.png";
+            //Définir le chemin et le nom du fichier
+            $imgPath = "./public/pictures/$imgName";
+            //Enregistrer
+            file_put_contents($imgPath, file_get_contents($imgUrl));
+
             $picture = new Picture();
-            $picture->setPictureFileName($faker->imageUrl());
+
+            $picture->setPictureFileName($imgName);
 
             // $picture->setPictureFileName($img);
             // $picture->setPictureFileName($nomImg);
+
+            // $picture->setPictureFileName($faker->imageUrl());
 
             $picture->setTrick($trick);
             $manager->persist($picture);

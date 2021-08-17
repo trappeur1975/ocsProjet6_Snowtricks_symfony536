@@ -23,7 +23,9 @@
 				<h2>{{trick.name}}</h2>
 				<div class="content">
 					{% if trick.pictures is not empty %}
-						<img src="{{ trick.pictures|first.pictureFileName }}" alt="image du trick">
+						<img src="{{ asset('/pictures/'~trick.pictures|first.pictureFileName) }}" alt="image du trick">
+						{# pour image avec url #}
+						{# <img src="{{ trick.pictures|first.pictureFileName }}" alt="image du trick"> #}
 					{% else %}
 						<img src="http://placehold.it/350X150 " alt="no image du trick">
 					{% endif %}

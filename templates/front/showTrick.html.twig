@@ -9,7 +9,9 @@
 			<div class="content">
 				{% if pictures is not empty %}
 					{% for picture in pictures %}
-						<img src="{{ picture.pictureFileName }}" alt="image du trick">
+						<img src="{{ asset('/pictures/'~picture.pictureFileName) }}" alt="image du trick">
+					{# pour image avec url #}
+						{# <img src="{{ picture.pictureFileName }}" alt="image du trick"> #}
 					{% endfor %}
 				{% else %}
 					<img src="http://placehold.it/350X150 " alt="no image du trick">
