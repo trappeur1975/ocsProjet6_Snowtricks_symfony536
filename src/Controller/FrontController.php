@@ -36,8 +36,8 @@ class FrontController extends AbstractController
 
         return $this->render('front/showTrick.html.twig', [
             'title' => 'bienvenue sur le trick',
-            'trick' => $trick,
-            'pictures' => $trick->getPictures()
+            'trick' => $trick
+            // 'pictures' => $trick->getPictures()
         ]);
     }
 }
