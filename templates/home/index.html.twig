@@ -30,8 +30,7 @@
 						<img src="http://placehold.it/350X150 " alt="no image du trick">
 					{% endif %}
 					<p>{{ trick.description }}</p>
-					<a href="{{path('showTrick', {'id': trick.id})}}" class="btn btn-primary">
-						voir le trick</a>
+					<a href="{{path('trick_show', {'id': trick.id})}}" class="btn btn-primary">voir le trick</a>
 				</div>
 			</article>
 		{% endfor %}

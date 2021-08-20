@@ -15,7 +15,8 @@
 15/08/2021 : update of the display management of front images (frontConntroller and front template), integration of a css file
 16/08/2021 : change the fzaninotto / Faker library to FakerPHP / Faker and create MessageFixtures.php
 17/08/2021 : modify the fixtures "pictureFixtures.php" to integrate the upload of image file in the symfony project and modification of the code for the display of images in the template of the frontController.php
-19/08/2021 : integration of messages in the frontController during a "showTrick ()" 
+19/08/2021 : integration of messages in the frontController during a "showTrick ()"
+20/08/2021 : crud trick and restructuring of folders and files (frontController becomes HomeController)
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé

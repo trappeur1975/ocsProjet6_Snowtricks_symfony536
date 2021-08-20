@@ -8,7 +8,6 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-
 class PictureFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
@@ -31,6 +30,7 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
             $imgName = "picture$nbrPicture.png";
             //Définir le chemin et le nom du fichier
             $imgPath = "./public/pictures/$imgName";
+
             //Enregistrer
             file_put_contents($imgPath, file_get_contents($imgUrl));
 

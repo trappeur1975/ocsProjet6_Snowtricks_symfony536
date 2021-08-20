@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FrontController extends AbstractController
+class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
@@ -19,25 +19,9 @@ class FrontController extends AbstractController
         // $repo = $this->getDoctrine()->getRepository(Trick::class);
         $tricks = $repo->findAll();
 
-        return $this->render('front/index.html.twig', [
+        return $this->render('home/index.html.twig', [
             'title' => 'bienvenue sur Snowtricks',
             'tricks' => $tricks
-        ]);
-    }
-
-    /**
-     * @Route("/trick/{id}", name="showTrick")
-     */
-    public function showTrick(Trick $trick): Response
-    // public function showTrick($id): Response
-    {
-        // $repo = $this->getDoctrine()->getRepository(Trick::class);
-        // $trick = $repo->find($id);
-
-        return $this->render('front/showTrick.html.twig', [
-            'title' => 'bienvenue sur le trick',
-            'trick' => $trick
-            // 'pictures' => $trick->getPictures()
         ]);
     }
 }

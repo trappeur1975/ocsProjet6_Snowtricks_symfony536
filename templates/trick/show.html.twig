@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{# {% block title %}Trick
+{% endblock %} #}
+
+{% block body %}
+	{# <h1>{{title}}</h1> #}
+
+	<section class="trick">
+		<article>
+			<h2>{{ trick.name}}</h2>
+			<div class="content">
+				{% if trick.pictures is not empty %}
+					{# {% if pictures is not empty %} #}
+					{% for picture in trick.pictures %}
+						{# {% for picture in pictures %} #}
+						<img src="{{ asset('/pictures/'~picture.pictureFileName) }}" alt="image du trick">
+					{# pour image avec url #}
+						{# <img src="{{ picture.pictureFileName }}" alt="image du trick"> #}
+					{% endfor %}
+				{% else %}
+					<img src="http://placehold.it/350X150 " alt="no image du trick">
+				{% endif %}
+				<p>
+					{{ trick.description }}
+				</p>
+			</div>
+		</article>
+	</section>
+	<section id="messages">
+		<h2>Messages :</h2>
+		{% if trick.messages is not empty %}
+			<div class="row">
+				<div class="col-3">
+					<strong>Auteur</strong>
+				</div>
+				<div class="col">
+					<strong>message</strong>
+				</div>
+			</div>
+			{% for message in trick.messages %}
+				<div class="message">
+					<div class="row">
+						<div class="col-3">
+
+							<span>{{message.user.nickname}}
+								:
+								{{message.createAt | date("d/m/Y")}}</span>
+						</div>
+						<div class="col">
+							{{message.content}}
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		{% else %}
+			<p>Ce trick ne contient aucun mesage. Soyer le premier a écrire un message pour ce trick</p>
+		{% endif %}
+	</section>
+
+	<a href="{{path('home')}}" class="btn btn-primary">Retourner à l'accueil</a>
+	<br>
+
+	{# issu du crud #}
+	<a href="{{ path('trick_index') }}">back to list</a>
+	<a href="{{ path('trick_edit', {'id': trick.id}) }}">edit</a>
+
+	{{ include('trick/_delete_form.html.twig') }}
+{% endblock %}
