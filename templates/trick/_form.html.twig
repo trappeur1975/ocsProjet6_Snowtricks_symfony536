@@ -1,4 +1,10 @@
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_row(form.name, {'attr':{'placeholder':"description du trick"}, 'label': "Nom"}) }}
+{{ form_row(form.description, {'attr':{'placeholder':"description du trick"}}) }}
+{{ form_row(form.pool, {'label': "Groupe"}) }}
+{{ form_row(form.user, {'label': "Auteur"}) }}
+<button class="btn btn-primary">
+	{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
