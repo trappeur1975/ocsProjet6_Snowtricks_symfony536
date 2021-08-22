@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
+use App\Entity\Picture;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/trick")
@@ -35,6 +37,29 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // if ($form->get('pictures')->getData() !== null) {
+            // We recover the transmitted picture 
+            $pictures = $form->get('pictures')->getData();
+
+            // On boucle sur les images
+            foreach ($pictures as $picture) {
+
+                //We generate a new picture file name
+                $pictureFileName = uniqid() . '.' . $picture->guessExtension();
+
+                // We copy the file to the images folder
+                $picture->move(
+                    $this->getParameter('pictures_directory'),
+                    $pictureFileName
+                );
+
+                // We create the image in the database
+                $picture = new Picture();
+                $picture->setPictureFileName($pictureFileName);
+                $trick->addPicture($picture);
+            }
+            // }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($trick);
             $entityManager->flush();
@@ -68,6 +93,27 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $pictures = $form->get('pictures')->getData();
+
+            // On boucle sur les images
+            foreach ($pictures as $picture) {
+
+                //We generate a new picture file name
+                $pictureFileName = uniqid() . '.' . $picture->guessExtension();
+
+                // We copy the file to the images folder
+                $picture->move(
+                    $this->getParameter('pictures_directory'),
+                    $pictureFileName
+                );
+
+                // We create the image in the database
+                $picture = new Picture();
+                $picture->setPictureFileName($pictureFileName);
+                $trick->addPicture($picture);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('trick_index', [], Response::HTTP_SEE_OTHER);
@@ -91,5 +137,31 @@ class TrickController extends AbstractController
         }
 
         return $this->redirectToRoute('trick_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    // ----------------------- FUNCTION PERSO TCHENIO NICOLAS ------------------------
+    /**
+     * @Route("/delete/picture/{id}", name="trick_delete_picture", methods={"DELETE"})
+     */
+    public function deleteImage(Picture $picture, Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        //check if the token is valid
+        if ($this->isCsrfTokenValid('delete' . $picture->getId(), $data['_token'])) {
+            // we delete the file physically 
+            $pictureFileName = $picture->getPictureFileName();
+            unlink($this->getParameter('pictures_directory') . '/' . $pictureFileName);
+
+            // we delete the file from the database 
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($picture);
+            $entityManager->flush();
+
+            // we answer in json
+            return new JsonResponse(['success' => 1]);
+        } else {
+            return new JsonResponse(['error' => 'Token invalid'], 400);
+        }
     }
 }

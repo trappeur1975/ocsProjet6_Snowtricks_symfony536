@@ -17,7 +17,8 @@
 17/08/2021 : modify the fixtures "pictureFixtures.php" to integrate the upload of image file in the symfony project and modification of the code for the display of images in the template of the frontController.php
 19/08/2021 : integration of messages in the frontController during a "showTrick ()"
 20/08/2021 : crud trick and restructuring of folders and files (frontController becomes HomeController)
-21/08/2021 : integration of a bootstrap template for the forms and update of the "design" of the forms 
+21/08/2021 : integration of a bootstrap template for the forms and update of the "design" of the 
+22/08/2021 : addition of the Picture field in the form of new and edit of trick and management of deletion of pictures in ajax for edit of trick 
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé

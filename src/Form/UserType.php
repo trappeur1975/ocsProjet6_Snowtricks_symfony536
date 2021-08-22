@@ -17,8 +17,7 @@ class UserType extends AbstractType
             ->add('password')
             ->add('isVerified')
             ->add('username')
-            ->add('picture')
-        ;
+            ->add('picture');
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -59,11 +59,7 @@
 	</section>
 
 	<a href="{{path('home')}}" class="btn btn-primary">Retourner à l'accueil</a>
-	<br>
-
-	{# issu du crud #}
-	<a href="{{ path('trick_index') }}">back to list</a>
-	<a href="{{ path('trick_edit', {'id': trick.id}) }}">edit</a>
-
+	<a href="{{ path('trick_index') }}" class="btn btn-success">Retourner à l'admin des tricks</a><br>
+	<a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning">Modifier le trick</a>
 	{{ include('trick/_delete_form.html.twig') }}
 {% endblock %}
