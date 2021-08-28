@@ -6,6 +6,7 @@ use App\Entity\Trick;
 use App\Entity\Picture;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
+use App\Repository\PictureRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,10 +40,10 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // if ($form->get('pictures')->getData() !== null) {
             // We recover the transmitted picture 
-            $pictures = $form->get('pictures')->getData();
+            $newPictures = $form->get('newPictures')->getData();
 
             // On boucle sur les images
-            foreach ($pictures as $picture) {
+            foreach ($newPictures as $picture) {
 
                 //We generate a new picture file name
                 $pictureFileName = uniqid() . '.' . $picture->guessExtension();
@@ -90,14 +91,15 @@ class TrickController extends AbstractController
     public function edit(Request $request, Trick $trick): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
+        // $form = $this->createForm(TrickType::class, $trick, ['trickId' => 'delete']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $pictures = $form->get('pictures')->getData();
+            $newPictures = $form->get('newPictures')->getData();
 
             // On boucle sur les images
-            foreach ($pictures as $picture) {
+            foreach ($newPictures as $picture) {
 
                 //We generate a new picture file name
                 $pictureFileName = uniqid() . '.' . $picture->guessExtension();

@@ -5,16 +5,23 @@ namespace App\Form;
 use App\Entity\Pool;
 use App\Entity\User;
 use App\Entity\Trick;
+use App\Entity\Picture;
+use App\Form\PictureType;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TrickType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // $trickId = $options['trickId'];
+
         $builder
             ->add('name')
             ->add('description')
@@ -30,11 +37,32 @@ class TrickType extends AbstractType
                     'choice_label' => 'nickname'
                 ]
             )
-            ->add('pictures', FileType::class, [
+            ->add('newPictures', FileType::class, [
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false
-            ]);
+                'required' => false,
+            ])
+
+            ->add('pictures', CollectionType::class, [
+                'entry_type' => PictureType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ])
+            // ->add('pictures', EntityType::class, [
+            //     'class' => Picture::class,
+            //     'choice_label' => 'pictureFileName',
+            //     'query_builder' => function (EntityRepository $repo) {
+            //         // return $repo->createQueryBuilder('p');
+            //         return $repo->createQueryBuilder('p')
+            //             ->Where('p.trick= :val')
+            //             ->setParameter('val', 15);
+            //     },
+            //     'multiple' => true
+            // ])
+            // ->add('Pictures', PictureType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -18,7 +18,8 @@
 19/08/2021 : integration of messages in the frontController during a "showTrick ()"
 20/08/2021 : crud trick and restructuring of folders and files (frontController becomes HomeController)
 21/08/2021 : integration of a bootstrap template for the forms and update of the "design" of the 
-22/08/2021 : addition of the Picture field in the form of new and edit of trick and management of deletion of pictures in ajax for edit of trick 
+22/08/2021 : addition of the Picture field in the form of new and edit of trick and management of deletion of pictures in ajax for edit of trick
+28/08/2021 : modification de l ajout de picture dans la fonction edit
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
