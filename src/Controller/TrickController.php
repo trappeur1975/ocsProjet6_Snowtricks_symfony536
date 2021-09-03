@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Trick;
 use App\Entity\Picture;
 use App\Form\TrickType;
+use Doctrine\ORM\EntityRepository;
 use App\Repository\TrickRepository;
 use App\Repository\PictureRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,6 +83,7 @@ class TrickController extends AbstractController
         return $this->render('trick/show.html.twig', [
             // 'title' => 'bienvenue sur le trick',
             'trick' => $trick,
+            // 'pictures' => $pictures
         ]);
     }
 
@@ -91,12 +93,14 @@ class TrickController extends AbstractController
     public function edit(Request $request, Trick $trick): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
-        // $form = $this->createForm(TrickType::class, $trick, ['trickId' => 'delete']);
         $form->handleRequest($request);
+
+        // dump($form->get('pictures')->getData());
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $newPictures = $form->get('newPictures')->getData();
+
 
             // On boucle sur les images
             foreach ($newPictures as $picture) {
