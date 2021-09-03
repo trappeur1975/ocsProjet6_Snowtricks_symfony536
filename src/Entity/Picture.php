@@ -27,6 +27,11 @@ class Picture
      */
     private $trick;
 
+    public function isChecked()
+    {
+        return false;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

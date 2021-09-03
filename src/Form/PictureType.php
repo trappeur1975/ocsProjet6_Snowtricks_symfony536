@@ -16,7 +16,11 @@ class PictureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pictureFileName')
+            ->add('isChecked', CheckboxType::class, [
+                // 'label' => $this->get('pictureFileName')
+                'label' => 'supprimer'
+            ])
+            // ->add('pictureFileName')
             // ->add(
             //     'tata',
             //     CheckboxType::class,

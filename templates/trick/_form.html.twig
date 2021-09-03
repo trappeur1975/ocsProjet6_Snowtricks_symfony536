@@ -5,13 +5,13 @@
 {{ form_row(form.description, {'attr':{'placeholder':"description du trick"}}) }}
 {{ form_row(form.pool, {'label': "Groupe de figure du trick"}) }}
 {{ form_row(form.user, {'label': "Auteur"}) }}
-{{ form_row(form.newPictures, {'help':'Selectionner plusieurs images en une seul fois si vous souhaiter rajouter plusieurs images au trick que vous créez.', 'label': "Ajout new picture"}) }}
+{{ form_row(form.newPictures, {'label': "Ajout new picture", 'help':'Selectionner une ou plusieurs images (en maintenant la touche CTRL) si vous souhaiter rajouter une ou des images au trick.'}) }}
 
 {# ------------ #}
-
-{# {{ form_row(form.pictures, {'label': "avec entity Picture"}) }} #}
-{{ form_row(form.pictures, {'label': "avec collection type"}) }}
-
+{% if app.request.attributes.get('_route') =='trick_edit' %}
+	{{ form_row(form.pictures, {'label': "Suppression de picture", 'help':'Selectionner un ou plusieurs nom d\'image dans cette liste (en maintenant la touche CTRL) pour les supprimer du trick.'}) }}
+	{# {{ form_row(form.pictures, {'label': "avec collection type"}) }} #}
+{% endif %}
 {# ------------ #}
 
 {# <ul class="OldPictures" data-prototype="{{ form_widget(form.pictures.vars.prototype)|e('html_attr') }}"></ul>
@@ -25,5 +25,6 @@
 			<img src="{{ asset('/pictures/'~picture.pictureFileName) }}" alt="" class="portraitPicture">
 			<a href="{{path('trick_delete_picture', {id: picture.id})}}" data-delete data-token="{{ csrf_token('delete'~picture.id) }}">Suppimer</a>
 		{% endfor %}
-	{% endif %} #}{# fin ajot perso tchenio nicolas #} <button class="btn btn-primary">{{ button_label|default('Enregister') }}</button>
-{{ form_end(form) }}
+	{% endif %} #}
+{# fin ajot perso tchenio nicolas #}<button class="btn btn-primary"> {{ button_label|default('Enregister') }}</button>
+{{ form_end(form, {render_rest: false}) }}
