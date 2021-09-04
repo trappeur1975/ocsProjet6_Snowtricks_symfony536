@@ -27,6 +27,13 @@ class Picture
      */
     private $trick;
 
+    // pour le formulaire PictureType pour la gestion des champs check pour la suppression d une ou plusieurs picture
+    // renvoie un simple boolean pour que cela puisse la creation du champ chek des picture puisse etre creer
+    public function isChecked()
+    {
+        return false;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -8,6 +8,7 @@ use App\Entity\Trick;
 use App\Entity\Picture;
 use App\Form\PictureType;
 use Doctrine\ORM\EntityRepository;
+use App\Repository\PictureRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,7 +21,10 @@ class TrickType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // $trickId = $options['trickId'];
+        // on recupere notre entity trick
+        $trick = $options['data'];
+        // dd($options['data']->getId())
+        // dd($options['data']);
 
         $builder
             ->add('name')
@@ -42,26 +46,48 @@ class TrickType extends AbstractType
                 'mapped' => false,
                 'required' => false,
             ])
-
-            ->add('pictures', CollectionType::class, [
-                'entry_type' => PictureType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
+            ->add('pictures', EntityType::class, [
+                'class' => Picture::class,
+                'choice_label' => 'pictureFileName',
+                'query_builder' => function (PictureRepository $pictureRepository) use ($trick) {
+                    return $pictureRepository->findPicturesTrick($trick);
+                },
+                'multiple' => true,
+                'expanded' => true
             ])
+            // ---------AUTRES TESTE-------------
+            // ->add('pictures', CollectionType::class, [
+            //     'entry_type' => PictureType::class,
+            //     'entry_options' => ['label' => false],
+            //     'allow_add' => true,
+            //     'allow_delete' => true,
+            //     'by_reference' => false,
+            // ])
             // ->add('pictures', EntityType::class, [
             //     'class' => Picture::class,
             //     'choice_label' => 'pictureFileName',
-            //     'query_builder' => function (EntityRepository $repo) {
-            //         // return $repo->createQueryBuilder('p');
-            //         return $repo->createQueryBuilder('p')
-            //             ->Where('p.trick= :val')
-            //             ->setParameter('val', 15);
+            //     // 'query_builder' => function (PictureRepository $pictureRepository) use ($trick) {
+            //     //     return $pictureRepository->findPicturesTrick($trick);
+            //     // },
+            //     'choice_attr' => function ($choice, $key, $value) {
+            //         // adds a class like attending_yes, attending_no, etc
+            //         return [];
             //     },
             //     'multiple' => true
             // ])
+            // ->add('pictures', CheckboxType::class, [
+            //     'class' => Picture::class,
+            //     'label' => 'pictureFileName',
+            //     // 'query_builder' => function (PictureRepository $pictureRepository) use ($trick) {
+            //     //     return $pictureRepository->findPicturesTrick($trick);
+            //     // },
+            //     // 'attr' => [
+            //     //     'select' => ' '
+            //     // ],
+            //     // 'multiple' => true
+            // ])
             // ->add('Pictures', PictureType::class)
+            // ---------FIN AUTRES TESTE-------------
         ;
     }
 

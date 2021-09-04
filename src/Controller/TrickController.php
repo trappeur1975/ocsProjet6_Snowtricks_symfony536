@@ -94,6 +94,8 @@ class TrickController extends AbstractController
         // $form = $this->createForm(TrickType::class, $trick, ['trickId' => 'delete']);
         $form->handleRequest($request);
 
+        // dump($form->getData());
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $newPictures = $form->get('newPictures')->getData();

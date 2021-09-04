@@ -20,7 +20,7 @@
 21/08/2021 : integration of a bootstrap template for the forms and update of the "design" of the 
 22/08/2021 : addition of the Picture field in the form of new and edit of trick and management of deletion of pictures in ajax for edit of trick
 28/08/2021 : modification de l ajout de picture dans la fonction edit
-3/09/2021 : code temporaire de transition
+4/09/2021 : management of the list of pictures for a trick in image checkbox 
 
 
 ----------------- gestion des email ----------------

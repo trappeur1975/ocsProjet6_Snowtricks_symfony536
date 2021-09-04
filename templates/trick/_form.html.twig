@@ -6,24 +6,37 @@
 {{ form_row(form.pool, {'label': "Groupe de figure du trick"}) }}
 {{ form_row(form.user, {'label': "Auteur"}) }}
 {{ form_row(form.newPictures, {'help':'Selectionner plusieurs images en une seul fois si vous souhaiter rajouter plusieurs images au trick que vous créez.', 'label': "Ajout new picture"}) }}
-
 {# ------------ #}
-
 {# {{ form_row(form.pictures, {'label': "avec entity Picture"}) }} #}
-{{ form_row(form.pictures, {'label': "avec collection type"}) }}
+{# {{ form_row(form.pictures, {'label': "avec collection type"}) }} #}
 
 {# ------------ #}
-
-{# <ul class="OldPictures" data-prototype="{{ form_widget(form.pictures.vars.prototype)|e('html_attr') }}"></ul>
-<button type="button" class="add_item_link" data-collection-holder-class="OldPictures">Add a picture</button> #}
-
 
 {# check that the route is "trick_edit" to display the pictures #}
-{# {% if app.request.attributes.get('_route') =='trick_edit' %}
-		<h2>Images du trick</h2>
-		{% for picture in trick.pictures %}
-			<img src="{{ asset('/pictures/'~picture.pictureFileName) }}" alt="" class="portraitPicture">
-			<a href="{{path('trick_delete_picture', {id: picture.id})}}" data-delete data-token="{{ csrf_token('delete'~picture.id) }}">Suppimer</a>
-		{% endfor %}
-	{% endif %} #}{# fin ajot perso tchenio nicolas #} <button class="btn btn-primary">{{ button_label|default('Enregister') }}</button>
-{{ form_end(form) }}
+	{% if app.request.attributes.get('_route') =='trick_edit' %}
+		<h2>
+	Images du trick
+	</h2>
+		{% for picture in form.pictures %}
+			<div class="img_checkbox"> {{form_widget(picture)}}
+			<img src="/pictures/{{picture.vars.label}}"/>
+		</div>
+
+	{% endfor %}
+
+
+	{# {% for picture in trick.pictures %}
+	<div>
+	<img src="{{ asset('/pictures/'~picture.pictureFileName) }}" alt="" class="portraitPicture"> <p>
+		<input type="checkbox" id={{picture.pictureFileName}} name={{picture.pictureFileName}} value="{{picture.pictureFileName}}" ">
+		<label for={{picture.pictureFileName}}>Supprimer																																																																					"{{picture.pictureFileName}}"</label>
+	</p>
+	</div>
+	{% endfor %} #}
+{# AUTRES TEST #}
+	{# <img src="{{ asset('/pictures/'~picture.pictureFileName) }}" alt="" class="portraitPicture"> <a href="{{path('trick_delete_picture', {id: picture.id})}}" data-delete data-token="{{ csrf_token('delete'~picture.id) }}">Suppimer</a> #}
+	{# AUTRES TEST #}
+{% endif %}
+{# fin ajout perso tchenio nicolas #}
+<button class="btn btn-primary">{{ button_label|default('Enregister') }}</button>
+{{ form_end(form, {render_rest: false}) }}

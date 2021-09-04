@@ -16,12 +16,20 @@ class PictureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pictureFileName')
-            // ->add(
-            //     'tata',
-            //     CheckboxType::class,
-            //     ['mapped' => false]
-            // )
+
+            // ->add('deletePictures', CheckboxType::class, [
+            //     'label' => 'supprimer tchenio',
+            //     'required' => false,
+            //     'mapped' => false
+            // ])
+            // ------------------- AUTRES TESTES -----------
+            // ->add('pictureFileName')
+            // ->add('isChecked', CheckboxType::class, [
+            //     // 'label' => $this->get('pictureFileName')
+            //     'label' => 'supprimer nicolas',
+            //     // 'attr' => ['name' => 'bonjour'],
+
+            // ])
             // ->add('deletePicture', ChoiceType::class, [
             //     // 'choices' => [
             //     //     'In Stock' => true,
@@ -32,7 +40,6 @@ class PictureType extends AbstractType
             //     'mapped' => false,
             //     'required' => false,
             // ])
-
             // ->add('pictureFileName', FileType::class, [
             //     'label' => false,
             //     'data_class' => null,
@@ -40,11 +47,11 @@ class PictureType extends AbstractType
             //         'placeholder' => 'Modifier ou ajouter une image',
             //     ],
             // ])
-
             // ->add('trick', EntityType::class, [
             //     'class' => Trick::class,
             //     'choice_label' => 'name'
             // ])
+            // -------------------FIN AUTRES TESTES-----------
         ;
     }
 
