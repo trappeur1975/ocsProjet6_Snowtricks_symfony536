@@ -48,47 +48,16 @@ class TrickType extends AbstractType
             ])
             ->add('pictures', EntityType::class, [
                 'class' => Picture::class,
+                'label' => 'Images du trick a supprimer',
                 'choice_label' => 'pictureFileName',
                 'query_builder' => function (PictureRepository $pictureRepository) use ($trick) {
                     return $pictureRepository->findPicturesTrick($trick);
                 },
+                'mapped' => false,
                 'multiple' => true,
-                'expanded' => true
-            ])
-            // ---------AUTRES TESTE-------------
-            // ->add('pictures', CollectionType::class, [
-            //     'entry_type' => PictureType::class,
-            //     'entry_options' => ['label' => false],
-            //     'allow_add' => true,
-            //     'allow_delete' => true,
-            //     'by_reference' => false,
-            // ])
-            // ->add('pictures', EntityType::class, [
-            //     'class' => Picture::class,
-            //     'choice_label' => 'pictureFileName',
-            //     // 'query_builder' => function (PictureRepository $pictureRepository) use ($trick) {
-            //     //     return $pictureRepository->findPicturesTrick($trick);
-            //     // },
-            //     'choice_attr' => function ($choice, $key, $value) {
-            //         // adds a class like attending_yes, attending_no, etc
-            //         return [];
-            //     },
-            //     'multiple' => true
-            // ])
-            // ->add('pictures', CheckboxType::class, [
-            //     'class' => Picture::class,
-            //     'label' => 'pictureFileName',
-            //     // 'query_builder' => function (PictureRepository $pictureRepository) use ($trick) {
-            //     //     return $pictureRepository->findPicturesTrick($trick);
-            //     // },
-            //     // 'attr' => [
-            //     //     'select' => ' '
-            //     // ],
-            //     // 'multiple' => true
-            // ])
-            // ->add('Pictures', PictureType::class)
-            // ---------FIN AUTRES TESTE-------------
-        ;
+                'expanded' => true, //pour mettre en chekbox
+                'by_reference' => false, // pour l'enregistrement des infos pour ne pas rechercher une methode setter mais une methode add
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

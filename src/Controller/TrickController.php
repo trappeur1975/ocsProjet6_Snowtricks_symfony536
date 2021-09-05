@@ -40,6 +40,7 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // if ($form->get('pictures')->getData() !== null) {
             // We recover the transmitted picture 
+
             $newPictures = $form->get('newPictures')->getData();
 
             // On boucle sur les images
@@ -59,7 +60,6 @@ class TrickController extends AbstractController
                 $picture->setPictureFileName($pictureFileName);
                 $trick->addPicture($picture);
             }
-            // }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($trick);
@@ -94,13 +94,15 @@ class TrickController extends AbstractController
         // $form = $this->createForm(TrickType::class, $trick, ['trickId' => 'delete']);
         $form->handleRequest($request);
 
-        // dump($form->getData());
+        // dd($form->get('pictures')->getData());
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $em = $this->getDoctrine()->getManager();
+
+            // ajout de nouvelles pictures
             $newPictures = $form->get('newPictures')->getData();
 
-            // On boucle sur les images
             foreach ($newPictures as $picture) {
 
                 //We generate a new picture file name
@@ -118,7 +120,22 @@ class TrickController extends AbstractController
                 $trick->addPicture($picture);
             }
 
-            $this->getDoctrine()->getManager()->flush();
+            //suppression des pictures selectionné via les chexkbox
+            $oldPictures = $form->get('pictures')->getData();
+
+            // foreach ($form->get('pictures')->getData() as $oldpicture) {
+            foreach ($oldPictures as $oldpicture) {
+
+                // we delete the file physically 
+                $pictureFileName = $oldpicture->getPictureFileName();
+                unlink($this->getParameter('pictures_directory') . '/' . $pictureFileName);
+
+                // we delete the file from the database 
+                // $trick->removePicture($oldpicture);
+                $em->remove($oldpicture);
+            }
+
+            $em->flush();
 
             return $this->redirectToRoute('trick_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -147,25 +164,25 @@ class TrickController extends AbstractController
     /**
      * @Route("/delete/picture/{id}", name="trick_delete_picture", methods={"DELETE"})
      */
-    public function deleteImage(Picture $picture, Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
+    // public function deleteImage(Picture $picture, Request $request)
+    // {
+    //     $data = json_decode($request->getContent(), true);
 
-        //check if the token is valid
-        if ($this->isCsrfTokenValid('delete' . $picture->getId(), $data['_token'])) {
-            // we delete the file physically 
-            $pictureFileName = $picture->getPictureFileName();
-            unlink($this->getParameter('pictures_directory') . '/' . $pictureFileName);
+    //     //check if the token is valid
+    //     if ($this->isCsrfTokenValid('delete' . $picture->getId(), $data['_token'])) {
+    //         // we delete the file physically 
+    //         $pictureFileName = $picture->getPictureFileName();
+    //         unlink($this->getParameter('pictures_directory') . '/' . $pictureFileName);
 
-            // we delete the file from the database 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($picture);
-            $entityManager->flush();
+    //         // we delete the file from the database 
+    //         $entityManager = $this->getDoctrine()->getManager();
+    //         $entityManager->remove($picture);
+    //         $entityManager->flush();
 
-            // we answer in json
-            return new JsonResponse(['success' => 1]);
-        } else {
-            return new JsonResponse(['error' => 'Token invalid'], 400);
-        }
-    }
+    //         // we answer in json
+    //         return new JsonResponse(['success' => 1]);
+    //     } else {
+    //         return new JsonResponse(['error' => 'Token invalid'], 400);
+    //     }
+    // }
 }

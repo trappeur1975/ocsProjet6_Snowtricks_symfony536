@@ -21,7 +21,7 @@
 22/08/2021 : addition of the Picture field in the form of new and edit of trick and management of deletion of pictures in ajax for edit of trick
 28/08/2021 : modification de l ajout de picture dans la fonction edit
 4/09/2021 : management of the list of pictures for a trick in image checkbox 
-
+5/09/2021 : updated trick (removing pictures)
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
