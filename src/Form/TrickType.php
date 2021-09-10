@@ -56,7 +56,7 @@ class TrickType extends AbstractType
                 'mapped' => false,
                 'multiple' => true,
                 'expanded' => true, //pour mettre en chekbox
-                'by_reference' => false, // pour l'enregistrement des infos pour ne pas rechercher une methode setter mais une methode add
+                // 'by_reference' => false, // pour l'enregistrement des infos pour ne pas rechercher une methode setter mais une methode add
             ]);
     }
 
