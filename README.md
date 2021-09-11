@@ -23,6 +23,7 @@
 4/09/2021 : management of the list of pictures for a trick in image checkbox 
 5/09/2021 : updated trick (removing pictures)
 6/09/2021 : cascade deletion of pictures
+11/09/2021 : gestion des messages (formulaire, suppression, ...)
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé

@@ -5,8 +5,12 @@ namespace App\Controller;
 use App\Entity\Trick;
 use App\Entity\Picture;
 use App\Form\TrickType;
+use App\Entity\Message;
+use App\Entity\User;
+use App\Form\MessageType;
 use App\Repository\TrickRepository;
 use App\Repository\PictureRepository;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,6 +39,7 @@ class TrickController extends AbstractController
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -70,18 +75,39 @@ class TrickController extends AbstractController
 
         return $this->renderForm('trick/new.html.twig', [
             'trick' => $trick,
-            'form' => $form,
+            'form' => $form
         ]);
     }
 
     /**
-     * @Route("/{id}", name="trick_show", methods={"GET"})
+     * @Route("/{id}", name="trick_show", methods={"GET","POST"})
      */
-    public function show(Trick $trick): Response
+    public function show(Trick $trick, Request $request): Response
     {
-        return $this->render('trick/show.html.twig', [
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $message->setCreateAt(new \Datetime())
+                ->setTrick($trick)
+                ->setUser($this->getUser());
+
+            $entityManager->persist($message);
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('trick/show.html.twig', [
             // 'title' => 'bienvenue sur le trick',
             'trick' => $trick,
+            'form' => $form
         ]);
     }
 
@@ -94,13 +120,9 @@ class TrickController extends AbstractController
         // $form = $this->createForm(TrickType::class, $trick, ['trickId' => 'delete']);
         $form->handleRequest($request);
 
-        // dump($form->get('pictures')->getData());
-
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-
-            dump($form->get('pictures')->getData());
 
             // ajout de nouvelles pictures
             $newPictures = $form->get('newPictures')->getData();
@@ -149,12 +171,22 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="trick_delete", methods={"POST"})
+     * @Route("/delete/{id}", name="trick_delete", methods={"POST"})
      */
     public function delete(Request $request, Trick $trick): Response
     {
         if ($this->isCsrfTokenValid('delete' . $trick->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            //deleting pictures
+            $pictures = $trick->getPictures();
+
+            foreach ($pictures as $picture) {
+                // we delete the file physically 
+                $pictureFileName = $picture->getPictureFileName();
+                unlink($this->getParameter('pictures_directory') . '/' . $pictureFileName);
+            }
+
             $entityManager->remove($trick);
             $entityManager->flush();
         }

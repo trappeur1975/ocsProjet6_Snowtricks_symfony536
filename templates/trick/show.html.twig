@@ -28,7 +28,7 @@
 		</article>
 	</section>
 	<section id="messages">
-		<h2>Messages :</h2>
+		<h2>Messages ({{trick.messages | length}}) :</h2>
 		{% if trick.messages is not empty %}
 			<div class="row">
 				<div class="col-3">
@@ -54,8 +54,21 @@
 				</div>
 			{% endfor %}
 		{% else %}
-			<p>Ce trick ne contient aucun mesage. Soyer le premier a écrire un message pour ce trick</p>
+			<p>Ce trick ne contient aucun message. Soyer le premier a écrire un message pour ce trick</p>
 		{% endif %}
+		<h3>poster un message</h3>
+
+		{% if app.user %}
+			{{ include('trick/_formMessage.html.twig') }}
+		{% else %}
+			<p>Vous souhaitez laisser un message pour ce trick alors
+				<a href="{{path('app_login')}}">identifiez vous</a>
+				ou
+				<a href="{{path('app_register')}}">creer un compte</a>
+				sur ce site
+			</p>
+		{% endif %}
+
 	</section>
 
 	<a href="{{path('home')}}" class="btn btn-primary">Retourner à l'accueil</a>

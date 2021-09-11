@@ -1,0 +1,11 @@
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{{ form_start(form) }}
+{{ form_row(form.content, {'attr':{'placeholder':"Votre message"}, 'label': "Message"}) }}
+{# {{ form_row(form.description, {'attr':{'placeholder':"description du trick"}}) }}
+						{{ form_row(form.pool, {'label': "Groupe de figure du trick"}) }}
+						{{ form_row(form.user, {'label': "Auteur"}) }} #}
+<button class="btn btn-primary">
+	{{ button_label|default('Envoyer') }}</button>
+{# {{ form_end(form, {render_rest: false}) }} #}
+{{ form_end(form) }}
