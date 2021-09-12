@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MessageRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,6 +20,7 @@ class Message
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message = "Le message ne peut être vide.")
      */
     private $content;
 

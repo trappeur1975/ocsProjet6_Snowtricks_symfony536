@@ -18,6 +18,7 @@
 	<p>Est necessitatibus obcaecati asperiores doloremque vitae et dolorum assumenda tenetur officia. Debitis neque repellendus rerum quaerat eligendi voluptas nulla sunt necessitatibus blanditiis placeat, fugit nemo id accusamus alias possimus numquam!</p>
 
 	<section class="tricks">
+
 		{% for trick in tricks %}
 			<article>
 				<h2>{{trick.name}}</h2>
@@ -36,4 +37,32 @@
 		{% endfor %}
 	</section>
 
+	{# pagination of tricks #}
+	{% set pages = (numberTrickTotal/numberTrickPage) | round(0, 'ceil') %}
+	<nav aria-label="paginationTrick">
+		<ul class="pagination justify-content-center">
+			<li class="page-item">
+				<a class="page-link" href="?pageTrick=1">Début</a>
+			</li>
+
+			<li class="page-item {{ (pageTrick == 1) ? 'disabled' : '' }}">
+				<a class="page-link" href="{{ (pageTrick > 1) ? '?pageTrick=' ~ (pageTrick-1) : '' }}" tabindex="-1" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+			{% for result in 1..pages %}
+				<li class="page-item {{ (pageTrick == result) ? 'active' : '' }}">
+					<a class="page-link" href="{{path("home",{pageTrick:result})}}">{{ result }}</a>
+				</li>
+			{% endfor %}
+			<li class="page-item {{ (pageTrick == pages) ? 'disabled' : '' }}">
+				<a class="page-link" href="{{ (pageTrick < pages) ? '?pageTrick=' ~ (pageTrick+1) : '' }}" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="?pageTrick={{pages}}">Fin</a>
+			</li>
+		</ul>
+	</nav>
 {% endblock %}

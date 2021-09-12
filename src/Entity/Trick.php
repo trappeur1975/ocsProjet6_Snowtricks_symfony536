@@ -47,6 +47,7 @@ class Trick
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="trick", orphanRemoval=true)
+     * @ORM\OrderBy({"create_At" = "DESC"})
      */
     private $messages;
 
