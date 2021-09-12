@@ -24,6 +24,7 @@
 6/09/2021 : cascade deletion of pictures
 11/09/2021 : message management (form, deletion, ...)
 12/09/2021 : improvement of message management and integration of the pagination of tricks on the home page 
+12/09/2021 : pagination of messages
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé

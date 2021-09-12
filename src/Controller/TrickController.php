@@ -86,6 +86,10 @@ class TrickController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
+        // page number for messages (for the pagination)
+        $pageMessage = (int) $request->query->get("pageMessage", 1);
+
+        // message form
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
 
@@ -107,6 +111,7 @@ class TrickController extends AbstractController
         return $this->renderForm('trick/show.html.twig', [
             // 'title' => 'bienvenue sur le trick',
             'trick' => $trick,
+            'pageMessage' => $pageMessage,
             'form' => $form
         ]);
     }

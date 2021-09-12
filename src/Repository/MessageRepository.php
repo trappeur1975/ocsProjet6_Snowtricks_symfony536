@@ -19,15 +19,15 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
-    public function paginatedMessage(int $pageMessage, int $numberMessage)
-    {
-        return $this->createQueryBuilder('m')
-            ->orderBy('m.create_At', 'DESC')
-            ->setFirstResult(($pageMessage - 1) * $numberMessage)
-            ->setMaxResults($numberMessage)
-            ->getQuery()
-            ->getResult();
-    }
+    // public function paginatedMessage(int $pageMessage, int $numberMessage)
+    // {
+    //     return $this->createQueryBuilder('m')
+    //         ->orderBy('m.create_At', 'DESC')
+    //         ->setFirstResult(($pageMessage - 1) * $numberMessage)
+    //         ->setMaxResults($numberMessage)
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
 
     // /**

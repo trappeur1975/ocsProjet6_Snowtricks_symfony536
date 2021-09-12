@@ -18,11 +18,12 @@ class HomeController extends AbstractController
     // public function home(): Response
     {
         // number of tricks per page 
-        $numberTrickPage = 3;
+        $numberTrickPage = 5;
 
-        // page number for tricks 
+        // page number for tricks (for the pagination)
         $pageTrick = (int) $request->query->get("pageTrick", 1);
 
+        // the tricks of a page 
         $tricks = $trickRepository->paginatedTrick($pageTrick, $numberTrickPage);
         $numberTrickTotal = $trickRepository->countTrick();
 

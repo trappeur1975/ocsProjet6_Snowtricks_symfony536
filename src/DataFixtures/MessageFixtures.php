@@ -15,7 +15,7 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
 
-        for ($nbrMessage = 1; $nbrMessage <= 20; $nbrMessage++) {
+        for ($nbrMessage = 1; $nbrMessage <= 200; $nbrMessage++) {
 
             // we retrieve the reference of the pool and the user
             $trick = $this->getReference('trick' . rand(1, 10));

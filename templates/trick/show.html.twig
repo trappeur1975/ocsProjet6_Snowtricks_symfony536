@@ -6,6 +6,15 @@
 {% block body %}
 	{# <h1>{{title}}</h1> #}
 
+	{# for pagination and display of messages #}
+	{# {% set messages = trick.messages %} #}	{# tricks #}
+	{# {% set numberMessageTotal = trick.messages | length  %} #}	{# numberTrickTotal #}
+	{% set numberMessagePage = 10  %}	{# number of messages per page  #}
+	{% set startMessageList = ((pageMessage-1)*numberMessagePage) %}	{# numberTrickPage #}
+
+	{% set pages = (trick.messages | length  / numberMessagePage) | round(0, 'ceil') %}
+
+
 	<section class="trick">
 		<article>
 			<h2>{{ trick.name}}</h2>
@@ -56,7 +65,10 @@
 					<strong>message</strong>
 				</div>
 			</div>
-			{% for message in trick.messages %}
+
+			{# display of messages #}
+			{% for message in trick.messages [startMessageList:numberMessagePage] %}
+			{# {% for message in trick.messages %} #}
 				<div class="message">
 					<div class="row">
 						<div class="col-3">
@@ -71,6 +83,34 @@
 					</div>
 				</div>
 			{% endfor %}
+
+			{# pagination of tricks #}		
+			<nav aria-label="PaginationMessage">
+				<ul class="pagination justify-content-center">
+					
+					<li class="page-item">
+						<a class="page-link" href="?pageMessage=1">Début</a>
+					</li>
+					<li class="page-item {{ (pageMessage == 1) ? 'disabled' : '' }}">
+						<a class="page-link" href="{{ (pageMessage > 1) ? '?pageMessage=' ~ (pageMessage-1) : '' }}" tabindex="-1" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+					{% for result in 1..pages %}
+						<li class="page-item {{ (pageMessage == result) ? 'active' : '' }}">
+							<a class="page-link" href="{{ path('trick_show', {'id': trick.id, pageMessage:result}) }}">{{ result }}</a>
+						</li>
+					{% endfor %}
+					<li class="page-item {{ (pageMessage == pages) ? 'disabled' : '' }}">
+						<a class="page-link" href="{{ (pageMessage < pages) ? '?pageMessage=' ~ (pageMessage+1) : '' }}" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="?pageMessage={{pages}}">Fin</a>
+					</li>
+				</ul>
+			</nav>
 		{% else %}
 			<p>Ce trick ne contient aucun message. Soyer le premier a écrire un message pour ce trick</p>
 		{% endif %}
