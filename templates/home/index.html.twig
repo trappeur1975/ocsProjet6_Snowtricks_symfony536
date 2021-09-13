@@ -18,23 +18,27 @@
 	<p>Est necessitatibus obcaecati asperiores doloremque vitae et dolorum assumenda tenetur officia. Debitis neque repellendus rerum quaerat eligendi voluptas nulla sunt necessitatibus blanditiis placeat, fugit nemo id accusamus alias possimus numquam!</p>
 
 	<section class="tricks">
-
-		{% for trick in tricks %}
-			<article>
-				<h2>{{trick.name}}</h2>
-				<div class="content">
-					{% if trick.pictures is not empty %}
-						<img src="{{ asset('/pictures/'~trick.pictures|first.pictureFileName) }}" alt="image du trick">
-						{# pour image avec url #}
-						{# <img src="{{ trick.pictures|first.pictureFileName }}" alt="image du trick"> #}
-					{% else %}
-						<img src="http://placehold.it/350X150 " alt="no image du trick">
-					{% endif %}
-					<p>{{ trick.description }}</p>
-					<a href="{{path('trick_show', {'id': trick.id})}}" class="btn btn-primary">voir le trick</a>
+		<div class="row">
+			{% for trick in tricks %}
+				<div class="col-sm-4">
+					<div class="card">	
+						{% if trick.pictures is not empty %}
+							<img class="card-img-top" src="{{ asset('/pictures/'~trick.pictures|first.pictureFileName) }}" alt="image du trick">
+							{# <img src="{{ trick.pictures|first.pictureFileName }}" alt="image du trick"> #}
+						{% else %}
+							<img class="card-img-top" src="http://placehold.it/350X150" alt="no image du trick">
+						{% endif %}
+						<div class="card-body">
+							<h5 class="card-title">{{trick.name}}</h5>
+							{# <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> #}
+							<p class="card-text">{{ trick.description }}</p>
+							<a href="{{path('trick_show', {'id': trick.id})}}" class="btn btn-primary">voir le trick</a>
+							{# <a href="#" class="card-link">Card link</a> #}
+						</div>
+					</div>
 				</div>
-			</article>
-		{% endfor %}
+			{% endfor %}
+		</div>
 	</section>
 
 	{# pagination of tricks #}

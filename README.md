@@ -25,6 +25,7 @@
 11/09/2021 : message management (form, deletion, ...)
 12/09/2021 : improvement of message management and integration of the pagination of tricks on the home page 
 12/09/2021 : pagination of messages
+13/09/2021 : displays tricks on the home page in the form of cards 
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
