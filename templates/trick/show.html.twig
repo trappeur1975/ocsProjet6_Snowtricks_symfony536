@@ -14,11 +14,11 @@
 
 	{% set pages = (trick.messages | length  / numberMessagePage) | round(0, 'ceil') %}
 
-
-	<section class="trick">
+	<section id="trick">
 		<article>
 			<h2>{{ trick.name}}</h2>
 			<div class="content">
+				{# pictures #}
 				{% if trick.pictures is not empty %}
 					{# {% if pictures is not empty %} #}
 					{% for picture in trick.pictures %}
@@ -30,6 +30,19 @@
 				{% else %}
 					<img src="http://placehold.it/350X150 " alt="no image du trick">
 				{% endif %}
+				
+				{# videos #}
+				
+				{{ dump (video) }}
+
+				{% if video != null %}
+					<iframe width="853" height="480" src= "https://www.youtube.com/embed/{{ video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					{# <iframe width="853" height="480" src="https://www.youtube.com/embed/nVRqq947lNo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> #}
+				{% else %}
+					<h3>Il n'y a aucune actuellement aucune vidéo pour ce trick</h3>
+				{% endif %}
+				
+				{# contents #}
 				<p>
 					{{ trick.description }}
 				</p>

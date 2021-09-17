@@ -111,9 +111,16 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('trick_show', ['id' => $trick->getId()], Response::HTTP_SEE_OTHER);
         }
 
+        // $src = "https://www.youtube.com/watch?v=a3-V_U7_jZY";
+        $src = "https://youtu.be/xAnZwxfI91Q";
+        // $src = "dddsfdsfdsf";
+        $video = $this->sourceVideo($src);
+
+
         return $this->renderForm('trick/show.html.twig', [
             // 'title' => 'bienvenue sur le trick',
             'trick' => $trick,
+            'video' => $video,
             'pageMessage' => $pageMessage,
             'form' => $form
         ]);
@@ -209,6 +216,20 @@ class TrickController extends AbstractController
     }
 
     // ----------------------- FUNCTION PERSO TCHENIO NICOLAS ------------------------
+
+    // retrieve the source of the video (end of the string (youtube url) from the last "/" or the last "=") 
+    private function sourceVideo(String $srcVideo): ?string
+    {
+        if (strripos($srcVideo, "=") == true) {
+            return substr(strrchr($srcVideo, "="), 1);
+            // $result = "bonjour";
+        } else if (strripos($srcVideo, "/") == true) {
+            return substr(strrchr($srcVideo, "/"), 1);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * @Route("/delete/picture/{id}", name="trick_delete_picture", methods={"DELETE"})
      */
