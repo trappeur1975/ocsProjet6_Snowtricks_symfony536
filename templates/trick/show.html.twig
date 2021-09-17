@@ -19,6 +19,7 @@
 			<h2>{{ trick.name}}</h2>
 			<div class="content">
 				{# pictures #}
+				<h3>Images du trick</h3>
 				{% if trick.pictures is not empty %}
 					{# {% if pictures is not empty %} #}
 					{% for picture in trick.pictures %}
@@ -32,20 +33,19 @@
 				{% endif %}
 				
 				{# videos #}
-				
-				{{ dump (video) }}
-
-				{% if video != null %}
-					<iframe width="853" height="480" src= "https://www.youtube.com/embed/{{ video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-					{# <iframe width="853" height="480" src="https://www.youtube.com/embed/nVRqq947lNo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> #}
+				<h3>Vidéos du trick</h3>
+				{% if trick.videos is not empty %}
+					{% for video in trick.videos %}
+						<iframe src= "https://www.youtube.com/embed/{{ video.videoFileName }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					{% endfor %}
 				{% else %}
-					<h3>Il n'y a aucune actuellement aucune vidéo pour ce trick</h3>
+					<p>Il n'y a aucune actuellement aucune vidéo pour ce trick</p>
+					
 				{% endif %}
 				
 				{# contents #}
-				<p>
-					{{ trick.description }}
-				</p>
+				<h3>Descriptif du trick</h3>
+				<p>{{ trick.description }}</p>
 			</div>
 		</article>
 	</section>

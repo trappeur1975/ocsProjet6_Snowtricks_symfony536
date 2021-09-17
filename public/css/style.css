@@ -19,3 +19,11 @@ img {
     border-radius: 10px;
     margin-bottom: 10px;
 }
+
+iframe {
+    width: 400px;
+    /* 853px */
+    height: 200px;
+    /* 480px */
+    border-radius: 10px;
+}

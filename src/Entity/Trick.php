@@ -30,12 +30,12 @@ class Trick
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", cascade={"persist"})
      */
     private $pictures;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", cascade={"persist", "remove"})
      */
     private $videos;
 

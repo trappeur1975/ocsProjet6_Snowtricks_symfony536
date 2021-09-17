@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Trick;
+use App\Entity\Video;
+use App\Entity\Message;
 use App\Entity\Picture;
 use App\Form\TrickType;
-use App\Entity\Message;
-use App\Entity\User;
 use App\Form\MessageType;
 use App\Repository\TrickRepository;
 use App\Repository\PictureRepository;
@@ -43,29 +44,44 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // -------------Picture management--------------- 
             // if ($form->get('pictures')->getData() !== null) {
-            // We recover the transmitted picture 
 
+            // We recover the transmitted pictures 
             $newPictures = $form->get('newPictures')->getData();
 
-            // On boucle sur les images
+            // We loop on the pictures 
             foreach ($newPictures as $picture) {
 
                 //We generate a new picture file name
                 $pictureFileName = uniqid() . '.' . $picture->guessExtension();
 
-                // We copy the file to the images folder
+                // We copy the file to the picture folder
                 $picture->move(
                     $this->getParameter('pictures_directory'),
                     $pictureFileName
                 );
 
-                // We create the image in the database
+                // We create the picture in the database
                 $picture = new Picture();
                 $picture->setPictureFileName($pictureFileName);
                 $trick->addPicture($picture);
             }
 
+            // -------------Video management--------------- 
+            if ($form->get('newVideo')->getData() !== null) {   //A PRIORI A SUPPRIMER SI ON FERA UNE BOUCLE FOR (COMME AVEC LES PICTURES)
+                // We recover the transmitted video
+                $newVideo = $form->get('newVideo')->getData();
+                // we recover the identity of the youtube video (end of the string (youtube url))
+                $videoFileName = $this->sourceVideo($newVideo);
+
+                // We create the picture in the database
+                $video = new Video();
+                $video->setVideoFileName($videoFileName);
+                $trick->addVideo($video);
+            }
+
+            // -------------we record in the database --------------- 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($trick);
             $entityManager->flush();
@@ -111,16 +127,9 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('trick_show', ['id' => $trick->getId()], Response::HTTP_SEE_OTHER);
         }
 
-        // $src = "https://www.youtube.com/watch?v=a3-V_U7_jZY";
-        $src = "https://youtu.be/xAnZwxfI91Q";
-        // $src = "dddsfdsfdsf";
-        $video = $this->sourceVideo($src);
-
-
         return $this->renderForm('trick/show.html.twig', [
             // 'title' => 'bienvenue sur le trick',
             'trick' => $trick,
-            'video' => $video,
             'pageMessage' => $pageMessage,
             'form' => $form
         ]);
@@ -139,9 +148,11 @@ class TrickController extends AbstractController
 
             $em = $this->getDoctrine()->getManager();
 
-            // ajout de nouvelles pictures
+            // -------------Picture management--------------- 
+            // We recover the transmitted pictures 
             $newPictures = $form->get('newPictures')->getData();
 
+            // We loop on the pictures
             foreach ($newPictures as $picture) {
 
                 //We generate a new picture file name
@@ -159,7 +170,7 @@ class TrickController extends AbstractController
                 $trick->addPicture($picture);
             }
 
-            //suppression des pictures selectionné via les chexkbox
+            //deleting selected pictures via checkbox
             $oldPictures = $form->get('pictures')->getData();
 
             // foreach ($form->get('pictures')->getData() as $oldpicture) {
@@ -174,6 +185,30 @@ class TrickController extends AbstractController
                 $em->remove($oldpicture);
             }
 
+            // -------------Video management--------------- 
+            if ($form->get('newVideo')->getData() !== null) {   //A PRIORI A SUPPRIMER SI ON FERA UNE BOUCLE FOR (COMME AVEC LES PICTURES)
+                // We recover the transmitted video
+                $newVideo = $form->get('newVideo')->getData();
+                // we recover the identity of the youtube video (end of the string (youtube url))
+                $videoFileName = $this->sourceVideo($newVideo);
+
+                // We create the picture in the database
+                $video = new Video();
+                $video->setVideoFileName($videoFileName);
+                $trick->addVideo($video);
+            }
+
+            //deleting selected videos via checkbox
+            $oldVideos = $form->get('videos')->getData();
+
+            // foreach ($form->get('pictures')->getData() as $oldpicture) {
+            foreach ($oldVideos as $oldVideo) {
+                // we delete the file from the database 
+                // $trick->removeVideo($oldVideo);
+                $em->remove($oldVideo);
+            }
+
+            // -------------we record in the database --------------- 
             $em->flush();
 
             // flash message for creating, editing or deleting a trick
@@ -222,11 +257,8 @@ class TrickController extends AbstractController
     {
         if (strripos($srcVideo, "=") == true) {
             return substr(strrchr($srcVideo, "="), 1);
-            // $result = "bonjour";
-        } else if (strripos($srcVideo, "/") == true) {
-            return substr(strrchr($srcVideo, "/"), 1);
         } else {
-            return null;
+            return substr(strrchr($srcVideo, "/"), 1);
         }
     }
 

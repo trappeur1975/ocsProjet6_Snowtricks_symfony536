@@ -6,6 +6,7 @@
 {{ form_row(form.pool, {'label': "Groupe de figure du trick"}) }}
 {{ form_row(form.user, {'label': "Auteur"}) }}
 {{ form_row(form.newPictures, {'help':'Selectionner plusieurs images en une seul fois si vous souhaiter rajouter plusieurs images au trick que vous créez.', 'label': "Ajout new picture"}) }}
+
 {# check that the route is "trick_edit" to display the pictures #}
 {% if app.request.attributes.get('_route') =='trick_edit' %}
 	{{ form_label(form.pictures) }}
@@ -16,6 +17,23 @@
 		</div>
 	{% endfor %}
 {% endif %}
+
+{{ form_row(form.newVideo, {'label': "Ajouter de Video",
+							'attr':{'placeholder':"Entrer url d'une video youtube (UNIQUEMENT)"},
+							'help':'Faites un clique droit sur la vidéo youtube que vous souhaitez intégrer au trick et sélectionnez "copier l\'url de la vidéo"'}) }}
+
+{# check that the route is "trick_edit" to display the pictures #}
+{% if app.request.attributes.get('_route') =='trick_edit' %}
+	{{ form_label(form.videos) }}
+	{% for video in form.videos %}
+		<div class="img_checkbox">
+			{{form_widget(video)}}
+			<iframe src= "https://www.youtube.com/embed/{{ video.vars.label }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+	{% endfor %}
+{% endif %}
+
+
 <button class="btn btn-primary">
 	{{ button_label|default('Enregister') }}</button>
 {# {{ form_end(form, {render_rest: false}) }} #}
