@@ -70,6 +70,9 @@ class TrickController extends AbstractController
             $entityManager->persist($trick);
             $entityManager->flush();
 
+            // flash message for creating, editing or deleting a trick
+            $this->addFlash('successTrickManagement', 'Félicitation votre trick "' . $trick->getName() . '" a bien été CREE.');
+
             return $this->redirectToRoute('trick_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -166,6 +169,9 @@ class TrickController extends AbstractController
 
             $em->flush();
 
+            // flash message for creating, editing or deleting a trick
+            $this->addFlash('successTrickManagement', 'Félicitation votre trick "' . $trick->getName() . '" a bien été MODIFIE.');
+
             return $this->redirectToRoute('trick_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -194,6 +200,9 @@ class TrickController extends AbstractController
 
             $entityManager->remove($trick);
             $entityManager->flush();
+
+            // flash message for creating, editing or deleting a trick
+            $this->addFlash('successTrickManagement', 'Félicitation votre trick "' . $trick->getName() . '" a bien été SUPPRIME.');
         }
 
         return $this->redirectToRoute('trick_index', [], Response::HTTP_SEE_OTHER);
