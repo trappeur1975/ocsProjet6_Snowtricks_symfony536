@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Services\Media;
 
 /**
  * @Route("/trick")
@@ -36,7 +37,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/new", name="trick_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Media $media): Response
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
@@ -72,8 +73,9 @@ class TrickController extends AbstractController
             if ($form->get('newVideo')->getData() !== null) {   //A PRIORI A SUPPRIMER SI ON FERA UNE BOUCLE FOR (COMME AVEC LES PICTURES)
                 // We recover the transmitted video
                 $newVideo = $form->get('newVideo')->getData();
-                // we recover the identity of the youtube video (end of the string (youtube url))
-                $videoFileName = $this->sourceVideo($newVideo);
+                // we recover the identity of the youtube video (end of the string (youtube url))  
+                $videoFileName = $media->sourceVideo($newVideo);
+                // $videoFileName = $this->sourceVideo($newVideo);
 
                 // We create the picture in the database
                 $video = new Video();
@@ -138,7 +140,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/{id}/edit", name="trick_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Trick $trick): Response
+    public function edit(Request $request, Trick $trick, Media $media): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
         // $form = $this->createForm(TrickType::class, $trick, ['trickId' => 'delete']);
@@ -190,7 +192,8 @@ class TrickController extends AbstractController
                 // We recover the transmitted video
                 $newVideo = $form->get('newVideo')->getData();
                 // we recover the identity of the youtube video (end of the string (youtube url))
-                $videoFileName = $this->sourceVideo($newVideo);
+                $videoFileName = $media->sourceVideo($newVideo);
+                // $videoFileName = $this->sourceVideo($newVideo);
 
                 // We create the picture in the database
                 $video = new Video();
@@ -253,14 +256,14 @@ class TrickController extends AbstractController
     // ----------------------- FUNCTION PERSO TCHENIO NICOLAS ------------------------
 
     // retrieve the source of the video (end of the string (youtube url) from the last "/" or the last "=") 
-    private function sourceVideo(String $srcVideo): ?string
-    {
-        if (strripos($srcVideo, "=") == true) {
-            return substr(strrchr($srcVideo, "="), 1);
-        } else {
-            return substr(strrchr($srcVideo, "/"), 1);
-        }
-    }
+    // public function sourceVideo(String $srcVideo): ?string
+    // {
+    //     if (strripos($srcVideo, "=") == true) {
+    //         return substr(strrchr($srcVideo, "="), 1);
+    //     } else {
+    //         return substr(strrchr($srcVideo, "/"), 1);
+    //     }
+    // }
 
     /**
      * @Route("/delete/picture/{id}", name="trick_delete_picture", methods={"DELETE"})

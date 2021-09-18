@@ -28,7 +28,8 @@
 13/09/2021 : displays tricks on the home page in the form of cards
 17/09/2021 : addition of falsh messages for creation, deletion, modification of a trick
 17/09/2021 : start of youtube video integration
-17/09/2021 : video management (addition, deletion) 
+17/09/2021 : video management (addition, deletion)
+18/09/2021 : creation of the Media service and the VideoFixture.php fixture
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
