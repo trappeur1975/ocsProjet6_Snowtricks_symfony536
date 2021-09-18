@@ -30,6 +30,7 @@
 17/09/2021 : start of youtube video integration
 17/09/2021 : video management (addition, deletion)
 18/09/2021 : creation of the Media service and the VideoFixture.php fixture
+18/09/2021 : management of the accessibility to the edition and the deletion (page and button) of a trick only if it is the author. for the creation of a trick the author is managed by the connected user
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé

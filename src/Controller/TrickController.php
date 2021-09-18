@@ -48,6 +48,9 @@ class TrickController extends AbstractController
             // -------------Picture management--------------- 
             // if ($form->get('pictures')->getData() !== null) {
 
+            // we define the author of the trick by the user to connect (because we do not define it in a field via the form) (see _form.html.twig) 
+            $trick->setUser($this->getUser());
+
             // We recover the transmitted pictures 
             $newPictures = $form->get('newPictures')->getData();
 
@@ -142,6 +145,12 @@ class TrickController extends AbstractController
      */
     public function edit(Request $request, Trick $trick, Media $media): Response
     {
+        // if ($this->getUser() === $trick->getUser()) {
+        //     dd("bon user");
+        // } else {
+        //     dd("mauvais user");
+        // }
+
         $form = $this->createForm(TrickType::class, $trick);
         // $form = $this->createForm(TrickType::class, $trick, ['trickId' => 'delete']);
         $form->handleRequest($request);

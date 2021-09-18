@@ -4,7 +4,7 @@
 {{ form_row(form.name, {'attr':{'placeholder':"description du trick"}, 'label': "Nom"}) }}
 {{ form_row(form.description, {'attr':{'placeholder':"description du trick"}}) }}
 {{ form_row(form.pool, {'label': "Groupe de figure du trick"}) }}
-{{ form_row(form.user, {'label': "Auteur"}) }}
+{# {{ form_row(form.user, {'label': "Auteur"}) }} #}
 {{ form_row(form.newPictures, {'help':'Selectionner plusieurs images en une seul fois si vous souhaiter rajouter plusieurs images au trick que vous créez.', 'label': "Ajout new picture"}) }}
 
 {# check that the route is "trick_edit" to display the pictures #}
@@ -35,6 +35,6 @@
 
 
 <button class="btn btn-primary">
-	{{ button_label|default('Enregister') }}</button>
+	{{ button_label|default('Enregister ce trick') }}</button>
 {# {{ form_end(form, {render_rest: false}) }} #}
 {{ form_end(form) }}

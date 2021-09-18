@@ -60,11 +60,12 @@
 		{% if app.user %}
 			{{ include('trick/_formMessage.html.twig') }}
 		{% else %}
-			<p>Vous souhaitez laisser un message pour ce trick alors
+			<p>Pour laisser un message sur ce trick vous devez être identifier.</p>
+			<p>Si vous avez déjà un compte utilisateur sur notre site alors
 				<a href="{{path('app_login')}}">identifiez vous</a>
-				ou
+				sinon
 				<a href="{{path('app_register')}}">creer un compte</a>
-				sur ce site
+				dés maintenant.
 			</p>
 		{% endif %}
 
@@ -130,9 +131,15 @@
 
 	</section>
 	<section id="selectionAction">
-		<a href="{{path('home')}}" class="btn btn-primary">Retourner à l'accueil</a>
-		<a href="{{ path('trick_index') }}" class="btn btn-success">Retourner à l'admin des tricks</a><br>
-		<a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning">Modifier le trick</a>
-		{{ include('trick/_delete_form.html.twig') }}
+		<p>
+			<a href="{{path('home')}}" class="btn btn-primary">Retourner à l'accueil</a>
+			<a href="{{ path('trick_index') }}" class="btn btn-success">Retourner à l'admin des tricks</a>
+		</p>
+		{% if app.user is same as trick.user %}
+			
+				<a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning">Modifier le trick</a>
+				{{ include('trick/_delete_form.html.twig') }}
+			
+		{% endif %}
 	</section>
 {% endblock %}

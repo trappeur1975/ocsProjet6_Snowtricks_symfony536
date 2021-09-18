@@ -36,10 +36,10 @@ class TrickType extends AbstractType
                 'class' => Pool::class,
                 'choice_label' => 'name'
             ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'nickname'
-            ])
+            // ->add('user', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'nickname'
+            // ])
             ->add('newPictures', FileType::class, [
                 'multiple' => true,
                 'mapped' => false,
@@ -71,7 +71,7 @@ class TrickType extends AbstractType
                 'mapped' => false,
                 'multiple' => true,
                 'expanded' => true, //pour mettre en chekbox
-                'by_reference' => false, // pour l'enregistrement des infos pour ne pas rechercher une methode setter mais une methode add
+                // 'by_reference' => false, // pour l'enregistrement des infos pour ne pas rechercher une methode setter mais une methode add
             ]);
     }
 

@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	New Trick
-{% endblock %}
+{% block title %} New Trick {% endblock %}
 
 {% block body %}
 	<h1>Création d'un nouveau Trick</h1>
-
-	{{ include('trick/_form.html.twig') }}
-
-	<a href="{{ path('trick_index') }}">back to list</a>
+	
+	{% if app.user %}
+		{{ include('trick/_form.html.twig') }}
+		<p><a href="{{ path('trick_index') }}" class="btn btn-success">Retourner à l'administration des tricks</a></p>
+	{% else %}
+			<p>Pour accéder a cette page et <strong>creer</strong> un trick vous devez être identifier.</p>
+			<p>Si vous avez déjà un compte utilisateur sur notre site alors
+				<a href="{{path('app_login')}}">identifiez vous</a>
+				sinon
+				<a href="{{path('app_register')}}">creer un compte</a>
+				dés maintenant.
+			</p>
+	{% endif %}
 {% endblock %}
