@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class UserType extends AbstractType
 {
@@ -13,11 +14,17 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles')
-            ->add('password')
-            ->add('isVerified')
-            ->add('username')
-            ->add('picture');
+            ->add('nickname')
+            // ->add('roles')
+            // ->add('password')
+            // ->add('isVerified')
+            // ->add('username')
+            // ->add('picture')
+            ->add('newPictures', FileType::class, [
+                'multiple' => false,
+                'mapped' => false,
+                'required' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

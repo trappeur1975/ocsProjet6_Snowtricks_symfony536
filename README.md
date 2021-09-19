@@ -31,6 +31,8 @@
 17/09/2021 : video management (addition, deletion)
 18/09/2021 : creation of the Media service and the VideoFixture.php fixture
 18/09/2021 : management of the accessibility to the edition and the deletion (page and button) of a trick only if it is the author. for the creation of a trick the author is managed by the connected user
+19/09/2021 : addition of missing information on the site (date of creation and modification of the trick, its category)
+19/09/2021 : management of the user's photo (by default) and in the user's edit form for its modification 
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
@@ -82,4 +84,11 @@ commande pour excuter le serveur web de symfony :
             Dans son navigateur aller a l adresse : http://localhost:1080
 
 dans le fichier "composer.json" un script (que j ai nommé « reset-data ») a été crée pour remettre a zero ma base de donnée, surtout utile pour l'utilisation d'un jeu de donnée via des fixtures. Pour l executer il suffit d'executer la commande suivante :
+            
             composer reset-data
+    
+    apres il faudra creer un dossier "migrations" a la racine du projet si il n'existe pas
+    puis lancer les commandes suivantes :
+        php bin/console doctrine:migrations:generate
+        php bin/console make:migration
+        php bin/console doctrine:migrations:migrate

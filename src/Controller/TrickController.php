@@ -172,7 +172,7 @@ class TrickController extends AbstractController
                 //We generate a new picture file name
                 $pictureFileName = uniqid() . '.' . $picture->guessExtension();
 
-                // We copy the file to the images folder
+                // We copy the file to the pictures folder
                 $picture->move(
                     $this->getParameter('pictures_directory'),
                     $pictureFileName

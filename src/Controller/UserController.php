@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Entity\Picture;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/user")
@@ -54,8 +55,7 @@ class UserController extends AbstractController
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
-            'user' => $user,
-            'picture' => $user->getPicture()
+            'user' => $user
         ]);
     }
 
@@ -68,8 +68,45 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            // $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
 
+            // -------------Picture management--------------- 
+
+            // We recover the transmitted pictures
+            $picture = ($form->get('newPictures')->getData());
+            if (!empty($picture)) {
+                //We generate a new picture file name
+                $pictureFileName = uniqid() . '.' . $picture->guessExtension();
+
+                // We copy the file to the picture folder
+                $picture->move(
+                    $this->getParameter('pictures_directory'),
+                    $pictureFileName
+                );
+
+                // we physically delete the old picture of the user
+                $oldPicture = $user->getPicture();
+                $pictureFileNameOldPicture = $oldPicture->getPictureFileName();
+
+                // dd($pictureFileNameOldPicture);
+                // dd($pictureFileNameOldPicture !== "persona.png");
+
+                if ($pictureFileNameOldPicture !== "persona.png") {
+                    unlink($this->getParameter('pictures_directory') . '/' . $pictureFileNameOldPicture);
+                    // dd("image supprimer");
+                }
+
+                // We create the new picture in the database
+                $picture = new Picture();
+                $picture->setPictureFileName($pictureFileName);
+                $user->setPicture($picture);
+
+                // we delete the old picture from the database
+                $em->remove($oldPicture);
+                // -------------we record in the database ---------------
+                $em->flush();
+            }
             return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
         }
 

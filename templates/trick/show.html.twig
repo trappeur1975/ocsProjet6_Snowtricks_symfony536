@@ -94,10 +94,8 @@
 				<div class="message">
 					<div class="row">
 						<div class="col-3">
-
-							<span>{{message.user.nickname}}
-								:
-								{{message.createAt | date("d/m/Y")}}</span>
+							<p><img src="{{ asset('/pictures/'~message.user.picture.pictureFileName) }}" alt="{{message.user.nickname}}" class="portraitPicture">
+							{{message.user.nickname}} : {{message.createAt | date("d/m/Y")}}</p>
 						</div>
 						<div class="col">
 							{{message.content}}
