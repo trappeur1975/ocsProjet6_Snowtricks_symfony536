@@ -24,6 +24,7 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
             $trick = new Trick();
             $trick->setName($faker->sentence())
                 ->setDescription($faker->paragraph())
+                ->setCreateAt($faker->dateTimeBetween('-6 month', 'now'))
                 ->setPool($pool)
                 ->setUser($user);
 

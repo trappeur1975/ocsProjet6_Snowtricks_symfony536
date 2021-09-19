@@ -45,7 +45,15 @@
 				
 				{# contents #}
 				<h3>Descriptif du trick</h3>
-				<p>{{ trick.description }}</p>
+				<p>{{ trick.description }}</p>				
+				
+				{# information trick #}
+				<h3>Infos sur le tricks</h3>
+				<p>Crée le : {{trick.createAt | date("d/m/Y")}}</p>
+				{% if trick.updateAt is not empty %}
+					<p>Modifier le : {{trick.updateAt | date("d/m/Y")}}</p>
+				{% endif %}
+				<p>Catégorie : {{trick.pool.name}}</p>
 			</div>
 		</article>
 	</section>
@@ -128,8 +136,8 @@
 		{% else %}
 			<p>Ce trick ne contient aucun message. Soyer le premier a écrire un message pour ce trick</p>
 		{% endif %}
-
 	</section>
+
 	<section id="selectionAction">
 		<p>
 			<a href="{{path('home')}}" class="btn btn-primary">Retourner à l'accueil</a>
