@@ -75,6 +75,7 @@ class UserController extends AbstractController
 
             // We recover the transmitted pictures
             $picture = ($form->get('newPictures')->getData());
+
             if (!empty($picture)) {
                 //We generate a new picture file name
                 $pictureFileName = uniqid() . '.' . $picture->guessExtension();
@@ -85,25 +86,18 @@ class UserController extends AbstractController
                     $pictureFileName
                 );
 
-                // we physically delete the old picture of the user
+                // we delete the old picture of the user
                 $oldPicture = $user->getPicture();
                 $pictureFileNameOldPicture = $oldPicture->getPictureFileName();
 
-                // dd($pictureFileNameOldPicture);
-                // dd($pictureFileNameOldPicture !== "persona.png");
-
+                //if the picture of the user is not the default picture (personna.png) we delete physically the picture of the user 
                 if ($pictureFileNameOldPicture !== "persona.png") {
                     unlink($this->getParameter('pictures_directory') . '/' . $pictureFileNameOldPicture);
-                    // dd("image supprimer");
                 }
 
-                // We create the new picture in the database
-                $picture = new Picture();
-                $picture->setPictureFileName($pictureFileName);
-                $user->setPicture($picture);
+                //otherwise we modify the picture (its $pictureFileName) in database
+                $oldPicture->setPictureFileName($pictureFileName);
 
-                // we delete the old picture from the database
-                $em->remove($oldPicture);
                 // -------------we record in the database ---------------
                 $em->flush();
             }

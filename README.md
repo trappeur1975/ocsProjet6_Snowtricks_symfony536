@@ -32,7 +32,8 @@
 18/09/2021 : creation of the Media service and the VideoFixture.php fixture
 18/09/2021 : management of the accessibility to the edition and the deletion (page and button) of a trick only if it is the author. for the creation of a trick the author is managed by the connected user
 19/09/2021 : addition of missing information on the site (date of creation and modification of the trick, its category)
-19/09/2021 : management of the user's photo (by default) and in the user's edit form for its modification 
+19/09/2021 : management of the user's photo (by default) and in the user's edit form for its modification
+23/09/2021 : modification of the management of the user's photo (via the user edit form)
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
