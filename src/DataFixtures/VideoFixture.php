@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Video;
-use App\Services\Media;
+use App\Service\MediaManageService;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -13,7 +13,7 @@ class VideoFixture extends Fixture implements DependentFixtureInterface
     // ----------to integrate and use in our fixture the "media" service that we created------
     private $media;
 
-    public function __construct(Media $media)
+    public function __construct(MediaManageService $media)
     {
         $this->media = $media;
     }

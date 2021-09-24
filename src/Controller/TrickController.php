@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Services\Media;
+use App\Service\MediaManageService;
 
 /**
  * @Route("/trick")
@@ -37,7 +37,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/new", name="trick_new", methods={"GET","POST"})
      */
-    public function new(Request $request, Media $media): Response
+    public function new(Request $request, MediaManageService $media): Response
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
@@ -149,7 +149,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/{id}/edit", name="trick_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Trick $trick, Media $media): Response
+    public function edit(Request $request, Trick $trick, MediaManageService $media): Response
     {
         // if ($this->getUser() === $trick->getUser()) {
         //     dd("bon user");
