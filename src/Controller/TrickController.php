@@ -45,6 +45,7 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             // -------------Picture management--------------- 
             // if ($form->get('pictures')->getData() !== null) {
 
@@ -58,14 +59,18 @@ class TrickController extends AbstractController
             // We loop on the pictures 
             foreach ($newPictures as $picture) {
 
-                //We generate a new picture file name
-                $pictureFileName = uniqid() . '.' . $picture->guessExtension();
+                // addition (physically) of an uploader image on the server
+                $pictureFileName = $media->addImageOnServer($picture);
 
-                // We copy the file to the picture folder
-                $picture->move(
-                    $this->getParameter('pictures_directory'),
-                    $pictureFileName
-                );
+                // //We generate a new picture file name
+                // $pictureFileName = uniqid() . '.' . $picture->guessExtension();
+
+                // // We copy the file to the picture folder
+                // $picture->move(
+
+                //     $this->getParameter('pictures_directory'),
+                //     $pictureFileName
+                // );
 
                 // We create the picture in the database
                 $picture = new Picture();
