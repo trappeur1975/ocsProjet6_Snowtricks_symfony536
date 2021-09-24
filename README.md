@@ -39,6 +39,7 @@
 24/09/2021 : modification of the code for managing images with the "MediaManageService" service 
 24/09/2021 : BACKUP AFTER MIGRATION PROBLEM / integration of the alt attribute, update of the MediaManagerService service 
 24/09/2021 : save after testing my files everything looks ok
+24/09/2021 : re save after testing my files everything looks ok
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
 
