@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Picture;
 use App\Entity\User;
-use App\Form\RegistrationFormType;
+use App\Entity\Picture;
 use App\Security\EmailVerifier;
+use App\Form\RegistrationFormType;
+use App\Service\MediaManageService;
+use Symfony\Component\Mime\Address;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
@@ -27,13 +28,17 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, MediaManageService $media): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // We recover the transmitted picture 
+            $picture = $form->get('picture')->getData();
+
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -42,24 +47,23 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            if ($form->get('picture')->getData() !== null) {
-                // We recover the transmitted picture 
-                $picture = $form->get('picture')->getData();
+            // we add the picture to the user 
+            if (empty($picture)) {
+                // we attribute to the user the default picture (here persona.png)
+                $pictureUser = new Picture();
+                $pictureUser->setPictureFileName($this->getParameter('pictureDefault'));
+                $user->setPicture($pictureUser);
+            } else {
+                // addition (physically) of an uploader picture on the server
+                $pictureFileName = $media->addImageOnServer($picture);
 
-                //We generate a new picture file name 
-                $pictureFileName = uniqid() . '.' . $picture->guessExtension();
-
-                // We copy the file to the images folder 
-                $picture->move(
-                    $this->getParameter('pictures_directory'),
-                    $pictureFileName
-                );
-
-                // We create the image in the database 
-                $picture = new Picture();
-                $picture->setPictureFileName($pictureFileName);
-                $user->setPicture($picture);
+                // we attribute to the user the picture upload 
+                $pictureUser = new Picture();
+                $pictureUser->setPictureFileName($pictureFileName);
+                $user->setPicture($pictureUser);
             }
+
+            // we add the user to the database 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

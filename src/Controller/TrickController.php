@@ -47,8 +47,6 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             // -------------Picture management--------------- 
-            // if ($form->get('pictures')->getData() !== null) {
-
             // we define the author of the trick by the user to connect (because we do not define it in a field via the form) (see _form.html.twig) 
             $trick->setCreateAt(new \Datetime())
                 ->setUser($this->getUser());
@@ -62,20 +60,10 @@ class TrickController extends AbstractController
                 // addition (physically) of an uploader image on the server
                 $pictureFileName = $media->addImageOnServer($picture);
 
-                // //We generate a new picture file name
-                // $pictureFileName = uniqid() . '.' . $picture->guessExtension();
-
-                // // We copy the file to the picture folder
-                // $picture->move(
-
-                //     $this->getParameter('pictures_directory'),
-                //     $pictureFileName
-                // );
-
                 // We create the picture in the database
-                $picture = new Picture();
-                $picture->setPictureFileName($pictureFileName);
-                $trick->addPicture($picture);
+                $pictureTrick = new Picture();
+                $pictureTrick->setPictureFileName($pictureFileName);
+                $trick->addPicture($pictureTrick);
             }
 
             // -------------Video management--------------- 
@@ -151,14 +139,8 @@ class TrickController extends AbstractController
      */
     public function edit(Request $request, Trick $trick, MediaManageService $media): Response
     {
-        // if ($this->getUser() === $trick->getUser()) {
-        //     dd("bon user");
-        // } else {
-        //     dd("mauvais user");
-        // }
-
         $form = $this->createForm(TrickType::class, $trick);
-        // $form = $this->createForm(TrickType::class, $trick, ['trickId' => 'delete']);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -174,25 +156,27 @@ class TrickController extends AbstractController
             // We loop on the pictures
             foreach ($newPictures as $picture) {
 
-                //We generate a new picture file name
-                $pictureFileName = uniqid() . '.' . $picture->guessExtension();
+                // addition (physically) of an uploader image on the server
+                $pictureFileName = $media->addImageOnServer($picture);
 
-                // We copy the file to the pictures folder
-                $picture->move(
-                    $this->getParameter('pictures_directory'),
-                    $pictureFileName
-                );
+                // //We generate a new picture file name
+                // $pictureFileName = uniqid() . '.' . $picture->guessExtension();
+
+                // // We copy the file to the pictures folder
+                // $picture->move(
+                //     $this->getParameter('pictures_directory'),
+                //     $pictureFileName
+                // );
 
                 // We create the image in the database
-                $picture = new Picture();
-                $picture->setPictureFileName($pictureFileName);
-                $trick->addPicture($picture);
+                $pictureTrick = new Picture();
+                $pictureTrick->setPictureFileName($pictureFileName);
+                $trick->addPicture($pictureTrick);
             }
 
             //deleting selected pictures via checkbox
             $oldPictures = $form->get('pictures')->getData();
 
-            // foreach ($form->get('pictures')->getData() as $oldpicture) {
             foreach ($oldPictures as $oldpicture) {
 
                 // we delete the file physically 
@@ -200,7 +184,6 @@ class TrickController extends AbstractController
                 unlink($this->getParameter('pictures_directory') . '/' . $pictureFileName);
 
                 // we delete the file from the database 
-                // $trick->removePicture($oldpicture);
                 $em->remove($oldpicture);
             }
 

@@ -3,14 +3,14 @@
 namespace App\Service;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MediaManageService
 {
 
     private $params;
 
-    public function __construct(ContainerBagInterface $params)
+    public function __construct(ParameterBagInterface $params)
     {
         $this->params = $params;
     }

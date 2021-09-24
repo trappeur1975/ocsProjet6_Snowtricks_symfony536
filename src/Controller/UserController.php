@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Entity\Picture;
 use App\Repository\UserRepository;
+use App\Service\MediaManageService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -62,7 +63,7 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $user, MediaManageService $media): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -77,16 +78,10 @@ class UserController extends AbstractController
             $picture = ($form->get('newPictures')->getData());
 
             if (!empty($picture)) {
-                //We generate a new picture file name
-                $pictureFileName = uniqid() . '.' . $picture->guessExtension();
+                // addition (physically) of an uploader picture on the server
+                $pictureFileName = $media->addImageOnServer($picture);
 
-                // We copy the file to the picture folder
-                $picture->move(
-                    $this->getParameter('pictures_directory'),
-                    $pictureFileName
-                );
-
-                // we delete the old picture of the user
+                // we get the name of the picture we want to replace
                 $oldPicture = $user->getPicture();
                 $pictureFileNameOldPicture = $oldPicture->getPictureFileName();
 
