@@ -13,7 +13,7 @@
 	{% endfor %}
 	{# end of addition of a flash message by tchenio nicolas  #}
 
-	<img src="http://placehold.it/800X300 " alt="image de teste" class="PromotePicture">
+	<img src="http://placehold.it/800X300 " alt="homeImage" class="PromotePicture">
 	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At iure quam ab aliquam quis facilis dolore sunt culpa ea, numquam eveniet sequi tempore voluptatem inventore et earum rem expedita sit.</p>
 	<p>Est necessitatibus obcaecati asperiores doloremque vitae et dolorum assumenda tenetur officia. Debitis neque repellendus rerum quaerat eligendi voluptas nulla sunt necessitatibus blanditiis placeat, fugit nemo id accusamus alias possimus numquam!</p>
 
@@ -23,7 +23,7 @@
 				<div class="col-sm-4">
 					<div class="card">	
 						{% if trick.pictures is not empty %}
-							<img class="card-img-top" src="{{ asset('/pictures/'~trick.pictures|first.pictureFileName) }}" alt="image du trick">
+							<img class="card-img-top" src="{{ asset('/pictures/'~trick.pictures|first.pictureFileName) }}" alt="{{ trick.pictures|first.alt }}">
 							{# <img src="{{ trick.pictures|first.pictureFileName }}" alt="image du trick"> #}
 						{% else %}
 							<img class="card-img-top" src="http://placehold.it/350X150" alt="no image du trick">

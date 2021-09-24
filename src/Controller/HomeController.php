@@ -15,7 +15,6 @@ class HomeController extends AbstractController
      * @Route("/", name="home")
      */
     public function home(TrickRepository $trickRepository, Request $request): Response
-    // public function home(): Response
     {
         // number of tricks per page 
         $numberTrickPage = 5;

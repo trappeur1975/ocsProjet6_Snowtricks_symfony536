@@ -35,7 +35,7 @@
 			{% if user.picture %}
 				<tr>
 					<th>picture</th>
-					<td><img src="{{ asset('/pictures/'~user.picture.pictureFileName) }}" alt="" class="portraitPicture"></td>
+					<td><img src="{{ asset('/pictures/'~user.picture.pictureFileName) }}" alt="{{ user.picture.alt }}" class="portraitPicture"></td>
 				</tr>
 			{% endif %}
 		</tbody>

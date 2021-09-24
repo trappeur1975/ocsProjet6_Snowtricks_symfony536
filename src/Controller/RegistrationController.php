@@ -52,15 +52,14 @@ class RegistrationController extends AbstractController
                 // we attribute to the user the default picture (here persona.png)
                 $pictureUser = new Picture();
                 $pictureUser->setPictureFileName($this->getParameter('pictureDefault'));
+                $pictureUser->setAlt('pictureDefaultUser');
                 $user->setPicture($pictureUser);
             } else {
                 // addition (physically) of an uploader picture on the server
-                $pictureFileName = $media->addImageOnServer($picture);
+                $newPicture = $media->addImageOnServer($picture);
 
                 // we attribute to the user the picture upload 
-                $pictureUser = new Picture();
-                $pictureUser->setPictureFileName($pictureFileName);
-                $user->setPicture($pictureUser);
+                $user->setPicture($newPicture);
             }
 
             // we add the user to the database 
@@ -80,9 +79,8 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
-            // addition of a flash message by tchenio nicolas
+            // addition of a flash message
             $this->addFlash('accountToCreate', 'Votre compte a bien été créé et est en attente de validation de votre par dans votre boite email.');
-            // end of adding a flash message by tchenio nicolas 
 
             return $this->redirectToRoute('home');
         }

@@ -28,12 +28,10 @@ class Picture
      */
     private $trick;
 
-    // pour le formulaire PictureType pour la gestion des champs check pour la suppression d une ou plusieurs picture
-    // renvoie un simple boolean pour que cela puisse la creation du champ chek des picture puisse etre creer
-    // public function isChecked()
-    // {
-    //     return false;
-    // }
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $alt;
 
     public function getId(): ?int
     {
@@ -60,6 +58,18 @@ class Picture
     public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
+
+        return $this;
+    }
+
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    public function setAlt(string $alt): self
+    {
+        $this->alt = $alt;
 
         return $this;
     }

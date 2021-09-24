@@ -37,6 +37,7 @@
 24/09/2021 : creation of the "addImageOnServer" function in the Media service
 24/09/2021 : renaming of the "Media" service to "MediaManageService"
 24/09/2021 : modification of the code for managing images with the "MediaManageService" service 
+24/09/2021 : BACKUP AFTER MIGRATION PROBLEM / integration of the alt attribute, update of the MediaManagerService service 
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé

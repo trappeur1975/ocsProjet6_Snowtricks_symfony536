@@ -69,7 +69,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $this->getDoctrine()->getManager()->flush();
             $em = $this->getDoctrine()->getManager();
 
             // -------------Picture management--------------- 
@@ -78,9 +77,8 @@ class UserController extends AbstractController
             $picture = ($form->get('newPictures')->getData());
 
             if (!empty($picture)) {
-                // addition (physically) of an uploader picture on the server
-                $pictureFileName = $media->addImageOnServer($picture);
 
+                // -------------removing the old picture---------------
                 // we get the name of the picture we want to replace
                 $oldPicture = $user->getPicture();
                 $pictureFileNameOldPicture = $oldPicture->getPictureFileName();
@@ -90,8 +88,15 @@ class UserController extends AbstractController
                     unlink($this->getParameter('pictures_directory') . '/' . $pictureFileNameOldPicture);
                 }
 
-                //otherwise we modify the picture (its $pictureFileName) in database
-                $oldPicture->setPictureFileName($pictureFileName);
+                // we delete the file from the database 
+                $em->remove($oldPicture);
+
+                // -------------add new picture---------------
+                // addition (physically) of an uploader picture on the server
+                $newPicture = $media->addImageOnServer($picture);
+
+                // we attribute to the user the picture upload 
+                $user->setPicture($newPicture);
 
                 // -------------we record in the database ---------------
                 $em->flush();

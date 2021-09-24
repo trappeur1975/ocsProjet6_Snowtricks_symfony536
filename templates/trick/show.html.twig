@@ -6,9 +6,6 @@
 {% block body %}
 	{# <h1>{{title}}</h1> #}
 
-	{# for pagination and display of messages #}
-	{# {% set messages = trick.messages %} #}	{# tricks #}
-	{# {% set numberMessageTotal = trick.messages | length  %} #}	{# numberTrickTotal #}
 	{% set numberMessagePage = 10  %}	{# number of messages per page  #}
 	{% set startMessageList = ((pageMessage-1)*numberMessagePage) %}	{# numberTrickPage #}
 
@@ -24,9 +21,7 @@
 					{# {% if pictures is not empty %} #}
 					{% for picture in trick.pictures %}
 						{# {% for picture in pictures %} #}
-						<img src="{{ asset('/pictures/'~picture.pictureFileName) }}" alt="image du trick">
-					{# pour image avec url #}
-						{# <img src="{{ picture.pictureFileName }}" alt="image du trick"> #}
+						<img src="{{ asset('/pictures/'~picture.pictureFileName) }}" alt="{{ picture.alt }}">
 					{% endfor %}
 				{% else %}
 					<img src="http://placehold.it/350X150 " alt="no image du trick">
@@ -94,7 +89,7 @@
 				<div class="message">
 					<div class="row">
 						<div class="col-3">
-							<p><img src="{{ asset('/pictures/'~message.user.picture.pictureFileName) }}" alt="{{message.user.nickname}}" class="portraitPicture">
+							<p><img src="{{ asset('/pictures/'~message.user.picture.pictureFileName) }}" alt="{{message.user.picture.alt}}" class="portraitPicture">
 							{{message.user.nickname}} : {{message.createAt | date("d/m/Y")}}</p>
 						</div>
 						<div class="col">

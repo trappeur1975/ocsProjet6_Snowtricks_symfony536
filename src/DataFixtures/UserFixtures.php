@@ -25,6 +25,7 @@ class UserFixtures extends Fixture
             // we create the Persona picture (default picture of users registered on the site) (the image file "persona.png" is already in the "public> pictures" folder )
             $picture = new Picture();
             $picture->setPictureFileName('persona.png');
+            $picture->setAlt('pictureDefaultPersona' . $nbrUser);
             $manager->persist($picture);
 
             // create user

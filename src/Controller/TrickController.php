@@ -58,12 +58,10 @@ class TrickController extends AbstractController
             foreach ($newPictures as $picture) {
 
                 // addition (physically) of an uploader image on the server
-                $pictureFileName = $media->addImageOnServer($picture);
+                $newPicture = $media->addImageOnServer($picture);
 
                 // We create the picture in the database
-                $pictureTrick = new Picture();
-                $pictureTrick->setPictureFileName($pictureFileName);
-                $trick->addPicture($pictureTrick);
+                $trick->addPicture($newPicture);
             }
 
             // -------------Video management--------------- 
@@ -72,7 +70,6 @@ class TrickController extends AbstractController
                 $newVideo = $form->get('newVideo')->getData();
                 // we recover the identity of the youtube video (end of the string (youtube url))  
                 $videoFileName = $media->sourceVideo($newVideo);
-                // $videoFileName = $this->sourceVideo($newVideo);
 
                 // We create the picture in the database
                 $video = new Video();
@@ -155,47 +152,34 @@ class TrickController extends AbstractController
 
             // We loop on the pictures
             foreach ($newPictures as $picture) {
-
                 // addition (physically) of an uploader image on the server
-                $pictureFileName = $media->addImageOnServer($picture);
-
-                // //We generate a new picture file name
-                // $pictureFileName = uniqid() . '.' . $picture->guessExtension();
-
-                // // We copy the file to the pictures folder
-                // $picture->move(
-                //     $this->getParameter('pictures_directory'),
-                //     $pictureFileName
-                // );
+                $newPicture = $media->addImageOnServer($picture);
 
                 // We create the image in the database
-                $pictureTrick = new Picture();
-                $pictureTrick->setPictureFileName($pictureFileName);
-                $trick->addPicture($pictureTrick);
+                $trick->addPicture($newPicture);
             }
 
             //deleting selected pictures via checkbox
             $oldPictures = $form->get('pictures')->getData();
 
-            foreach ($oldPictures as $oldpicture) {
-
+            foreach ($oldPictures as $oldPicture) {
                 // we delete the file physically 
-                $pictureFileName = $oldpicture->getPictureFileName();
+                $pictureFileName = $oldPicture->getPictureFileName();
                 unlink($this->getParameter('pictures_directory') . '/' . $pictureFileName);
 
                 // we delete the file from the database 
-                $em->remove($oldpicture);
+                $em->remove($oldPicture);
             }
 
             // -------------Video management--------------- 
             if ($form->get('newVideo')->getData() !== null) {   //A PRIORI A SUPPRIMER SI ON FERA UNE BOUCLE FOR (COMME AVEC LES PICTURES)
                 // We recover the transmitted video
                 $newVideo = $form->get('newVideo')->getData();
+
                 // we recover the identity of the youtube video (end of the string (youtube url))
                 $videoFileName = $media->sourceVideo($newVideo);
-                // $videoFileName = $this->sourceVideo($newVideo);
 
-                // We create the picture in the database
+                // We create the video in the database
                 $video = new Video();
                 $video->setVideoFileName($videoFileName);
                 $trick->addVideo($video);
@@ -207,7 +191,6 @@ class TrickController extends AbstractController
             // foreach ($form->get('pictures')->getData() as $oldpicture) {
             foreach ($oldVideos as $oldVideo) {
                 // we delete the file from the database 
-                // $trick->removeVideo($oldVideo);
                 $em->remove($oldVideo);
             }
 

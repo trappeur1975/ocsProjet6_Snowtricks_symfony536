@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Picture;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -25,7 +26,7 @@ class MediaManageService
         }
     }
 
-    // addition (physically) of an uploader image on the server
+    // addition (physically) of an uploader image on the server et return a Picture
     public function addImageOnServer(UploadedFile $pictureUpload)
     {
         //We generate a new picture file name
@@ -37,6 +38,12 @@ class MediaManageService
             $pictureFileName
         );
 
-        return  $pictureFileName;
+        // we create a Picture entity which will be saved after its return to the database
+        $newPicture = new Picture();
+        $newPicture->setPictureFileName($pictureFileName);
+        $newPicture->setAlt(pathinfo($pictureUpload->getClientOriginalName(), PATHINFO_BASENAME));
+
+        // return  $pictureFileName;
+        return  $newPicture;
     }
 }
