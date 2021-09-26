@@ -13,7 +13,9 @@ use App\Repository\VideoRepository;
 use App\Repository\PictureRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\All;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -44,6 +46,23 @@ class TrickType extends AbstractType
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,
+                'constraints' => [
+                    new All([
+                        'constraints' => [
+                            new File([
+                                'maxSize' => '400k',
+                                // 'mimeTypesMessage' => 'les types de photo autorisés sont du png ou du jpg',
+                                'maxSizeMessage' => 'votre fichier doit etre infèrieur à  {{ limit }} Mo',
+                                'mimeTypes' => [
+                                    'image/png',
+                                    'image/jpg',
+                                    'image/jpeg',
+                                    'image/gif',
+                                ],
+                            ])
+                        ],
+                    ]),
+                ]
             ])
             ->add('pictures', EntityType::class, [
                 'class' => Picture::class,
