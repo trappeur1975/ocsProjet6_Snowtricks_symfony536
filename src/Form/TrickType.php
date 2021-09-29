@@ -51,7 +51,7 @@ class TrickType extends AbstractType
                         'constraints' => [
                             new File([
                                 'maxSize' => '400k',
-                                // 'mimeTypesMessage' => 'les types de photo autorisés sont du png ou du jpg',
+                                'mimeTypesMessage' => 'les types de photo autorisés sont du png ou du jpg',
                                 'maxSizeMessage' => 'votre fichier doit etre infèrieur à  {{ limit }} Mo',
                                 'mimeTypes' => [
                                     'image/png',

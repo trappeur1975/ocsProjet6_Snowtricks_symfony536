@@ -40,7 +40,8 @@
 24/09/2021 : BACKUP AFTER MIGRATION PROBLEM / integration of the alt attribute, update of the MediaManagerService service 
 24/09/2021 : save after testing my files everything looks ok
 24/09/2021 : re save after testing my files everything looks ok
-26/09/2021 :added validation constraints for the creation of a user and edit account or the creation of a trick 
+26/09/2021 : added validation constraints for the creation of a user and edit account or the creation of a trick
+29/09/2021 : integration of slugs for tricks 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
 

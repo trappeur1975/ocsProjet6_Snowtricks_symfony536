@@ -113,7 +113,8 @@
 					</li>
 					{% for result in 1..pages %}
 						<li class="page-item {{ (pageMessage == result) ? 'active' : '' }}">
-							<a class="page-link" href="{{ path('trick_show', {'id': trick.id, pageMessage:result}) }}">{{ result }}</a>
+							<a class="page-link" href="{{ path('trick_show', {'slug': trick.slug, pageMessage:result}) }}">{{ result }}</a>
+							{# <a class="page-link" href="{{ path('trick_show', {'id': trick.id, pageMessage:result}) }}">{{ result }}</a> #}
 						</li>
 					{% endfor %}
 					<li class="page-item {{ (pageMessage == pages) ? 'disabled' : '' }}">

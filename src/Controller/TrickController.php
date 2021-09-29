@@ -95,7 +95,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="trick_show", methods={"GET","POST"})
+     * @Route("/{slug}", name="trick_show", methods={"GET","POST"})
      */
     public function show(Trick $trick, Request $request): Response
     {

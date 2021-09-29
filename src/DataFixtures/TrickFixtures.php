@@ -7,10 +7,19 @@ use App\Entity\Trick;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 class TrickFixtures extends Fixture implements DependentFixtureInterface
 {
+    protected $slug;
+
+    public function __construct(SluggerInterface $slugger)
+    {
+        $this->slug = $slugger;
+    }
+
+
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
@@ -26,7 +35,8 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
                 ->setDescription($faker->paragraph())
                 ->setCreateAt($faker->dateTimeBetween('-6 month', 'now'))
                 ->setPool($pool)
-                ->setUser($user);
+                ->setUser($user)
+                ->setSlug(strtolower($this->slug->slug($trick->getName())));
 
             $manager->persist($trick);
 
