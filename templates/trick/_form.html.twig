@@ -14,7 +14,7 @@
 	{% for picture in form.pictures %}
 		<div class="img_checkbox">
 			{{form_widget(picture)}}
-			<img src="/pictures/{{picture.vars.label}}"/>
+			<img src="/pictures/contributions/{{picture.vars.label}}"/>
 		</div>
 	{% endfor %}
 {% endif %}

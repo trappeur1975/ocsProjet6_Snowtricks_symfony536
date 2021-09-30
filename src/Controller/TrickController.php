@@ -165,7 +165,7 @@ class TrickController extends AbstractController
             foreach ($oldPictures as $oldPicture) {
                 // we delete the file physically 
                 $pictureFileName = $oldPicture->getPictureFileName();
-                unlink($this->getParameter('pictures_directory') . '/' . $pictureFileName);
+                unlink($this->getParameter('pictures_directory_contributions') . '/' . $pictureFileName);
 
                 // we delete the file from the database 
                 $em->remove($oldPicture);
@@ -223,7 +223,7 @@ class TrickController extends AbstractController
             foreach ($pictures as $picture) {
                 // we delete the file physically 
                 $pictureFileName = $picture->getPictureFileName();
-                unlink($this->getParameter('pictures_directory') . '/' . $pictureFileName);
+                unlink($this->getParameter('pictures_directory_contributions') . '/' . $pictureFileName);
             }
 
             $entityManager->remove($trick);
@@ -259,7 +259,7 @@ class TrickController extends AbstractController
     //     if ($this->isCsrfTokenValid('delete' . $picture->getId(), $data['_token'])) {
     //         // we delete the file physically 
     //         $pictureFileName = $picture->getPictureFileName();
-    //         unlink($this->getParameter('pictures_directory') . '/' . $pictureFileName);
+    //         unlink($this->getParameter('pictures_directory_contributions') . '/' . $pictureFileName);
 
     //         // we delete the file from the database 
     //         $entityManager = $this->getDoctrine()->getManager();

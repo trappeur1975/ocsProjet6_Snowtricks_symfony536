@@ -85,7 +85,7 @@ class UserController extends AbstractController
 
                 //if the picture of the user is not the default picture (personna.png) we delete physically the picture of the user 
                 if ($pictureFileNameOldPicture !== "persona.png") {
-                    unlink($this->getParameter('pictures_directory') . '/' . $pictureFileNameOldPicture);
+                    unlink($this->getParameter('pictures_directory_contributions') . '/' . $pictureFileNameOldPicture);
                 }
 
                 // we delete the file from the database 

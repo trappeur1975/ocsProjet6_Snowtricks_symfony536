@@ -34,7 +34,7 @@ class MediaManageService
 
         // We copy the file to the picture folder
         $pictureUpload->move(
-            $this->params->get('pictures_directory'),
+            $this->params->get('pictures_directory_contributions'),
             $pictureFileName
         );
 

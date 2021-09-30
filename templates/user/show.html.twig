@@ -35,13 +35,19 @@
 			{% if user.picture %}
 				<tr>
 					<th>picture</th>
-					<td><img src="{{ asset('/pictures/'~user.picture.pictureFileName) }}" alt="{{ user.picture.alt }}" class="portraitPicture"></td>
+					<td>
+						{% if user.picture.pictureFileName is same as('persona.png')  %}
+							<img src="{{ asset('/pictures/site/'~user.picture.pictureFileName) }}" alt="{{ user.picture.alt }}" class="portraitPicture">
+						{% else %}
+							<img src="{{ asset('/pictures/contributions/'~user.picture.pictureFileName) }}" alt="{{ user.picture.alt }}" class="portraitPicture">
+						{% endif %}
+					</td>
 				</tr>
 			{% endif %}
 		</tbody>
 	</table>
 
-	{# <img src="{{ asset('/pictures/'~picture.pictureFileName) }}" alt="" width="50"> #}
+	{# <img src="{{ asset('/pictures/ contributions/'~picture.pictureFileName) }}" alt="" width="50"> #}
 
 	<a href="{{ path('user_index') }}">back to list</a>
 

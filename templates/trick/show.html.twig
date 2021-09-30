@@ -21,10 +21,11 @@
 					{# {% if pictures is not empty %} #}
 					{% for picture in trick.pictures %}
 						{# {% for picture in pictures %} #}
-						<img src="{{ asset('/pictures/'~picture.pictureFileName) }}" alt="{{ picture.alt }}">
+						<img src="{{ asset('/pictures/contributions/'~picture.pictureFileName) }}" alt="{{ picture.alt }}">
 					{% endfor %}
 				{% else %}
-					<img src="http://placehold.it/350X150 " alt="no image du trick">
+					{# <img src="http://placehold.it/350X150 " alt="no image du trick"> #}
+					<img class="card-img-top" src="{{ asset('/pictures/site/no_picture.jpg') }}" alt="noPicture">
 				{% endif %}
 				
 				{# videos #}
@@ -89,8 +90,14 @@
 				<div class="message">
 					<div class="row">
 						<div class="col-3">
-							<p><img src="{{ asset('/pictures/'~message.user.picture.pictureFileName) }}" alt="{{message.user.picture.alt}}" class="portraitPicture">
-							{{message.user.nickname}} : {{message.createAt | date("d/m/Y")}}</p>
+							<p>		
+								{% if message.user.picture.pictureFileName is same as('persona.png')  %}
+									<img src="{{ asset('/pictures/site/'~message.user.picture.pictureFileName) }}" alt="{{message.user.picture.alt}}" class="portraitPicture">
+								{% else %}
+									<img src="{{ asset('/pictures/contributions/'~message.user.picture.pictureFileName) }}" alt="{{message.user.picture.alt}}" class="portraitPicture">
+								{% endif %}
+								{{message.user.nickname}} : {{message.createAt | date("d/m/Y")}}
+							</p>
 						</div>
 						<div class="col">
 							{{message.content}}
