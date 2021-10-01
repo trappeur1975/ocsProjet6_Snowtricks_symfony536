@@ -43,7 +43,8 @@
 26/09/2021 : added validation constraints for the creation of a user and edit account or the creation of a trick
 29/09/2021 : integration of slugs for tricks
 30/09/2021 : restructuring of the storage of images and their use on the site
-01/10/2021 : updated fixtures (code and content) with real content 
+01/10/2021 : updated fixtures (code and content) with real content
+01/10/2021 : added text for datafixture tricks 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
 
