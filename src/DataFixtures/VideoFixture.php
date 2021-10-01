@@ -23,16 +23,16 @@ class VideoFixture extends Fixture implements DependentFixtureInterface
     {
 
         $videosYoutubes = [
-            'https://youtu.be/2WQzBNlZco4',
-            'https://youtu.be/CcUjwt0M31I',
-            'https://youtu.be/xAnZwxfI91Q',
-            'https://youtu.be/3LQYUBw_Icc',
-            'https://youtu.be/W3PBK2hJLnY',
-            'https://youtu.be/98igPe8mv8A',
-            'https://youtu.be/AKCbty2AmO0',
-            'https://youtu.be/sSUnnAr9JGA',
-            'https://youtu.be/2yiTxPj0Jo0',
-            'https://youtu.be/2sSI1esY4JI'
+            'https://youtu.be/SDdfIqJLrq4',
+            'https://youtu.be/-FTl5BAvwWo',
+            'https://youtu.be/KVXJ2E41_xE',
+            'https://youtu.be/axNnKy-jfWw',
+            'https://youtu.be/0uGETVnkujA',
+            'https://youtu.be/_OMar04NRZw',
+            'https://youtu.be/T1zEBh5HLH8',
+            'https://youtu.be/R2Cp1RumorU',
+            'https://youtu.be/FuZc3fTmUnc',
+            'https://youtu.be/mtkXQHrMODk'
         ];
 
         for ($nbrVideo = 1; $nbrVideo <= 20; $nbrVideo++) {
