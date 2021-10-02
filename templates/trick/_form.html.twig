@@ -10,13 +10,17 @@
 
 {# check that the route is "trick_edit" to display the pictures #}
 {% if app.request.attributes.get('_route') =='trick_edit' %}
-	{{ form_label(form.pictures) }}
-	{% for picture in form.pictures %}
-		<div class="img_checkbox">
-			{{form_widget(picture)}}
-			<img src="/pictures/contributions/{{picture.vars.label}}"/>
-		</div>
-	{% endfor %}
+	<div class="row">
+		{{ form_label(form.pictures) }}
+		{% for picture in form.pictures %}
+			<div class="col-sm-2">
+				<div class="card">
+					{{form_widget(picture)}}
+					<img  class="card-img-top" src="/pictures/contributions/{{picture.vars.label}}"/>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 {% endif %}
 
 {{ form_row(form.newVideo, {'label': "Ajouter de Video",

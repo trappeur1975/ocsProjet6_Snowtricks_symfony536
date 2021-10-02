@@ -44,7 +44,8 @@
 29/09/2021 : integration of slugs for tricks
 30/09/2021 : restructuring of the storage of images and their use on the site
 01/10/2021 : updated fixtures (code and content) with real content
-01/10/2021 : added text for datafixture tricks 
+01/10/2021 : added text for datafixture tricks
+02/10/2021 : improvement of the site design
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
 

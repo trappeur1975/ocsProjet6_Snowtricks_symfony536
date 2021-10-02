@@ -10,145 +10,172 @@
 	{% set startMessageList = ((pageMessage-1)*numberMessagePage) %}	{# numberTrickPage #}
 
 	{% set pages = (trick.messages | length  / numberMessagePage) | round(0, 'ceil') %}
-
-	<section id="trick">
-		<article>
-			<h2>{{ trick.name}}</h2>
-			<div class="content">
-				{# pictures #}
-				<h3>Images du trick</h3>
-				{% if trick.pictures is not empty %}
-					{# {% if pictures is not empty %} #}
-					{% for picture in trick.pictures %}
-						{# {% for picture in pictures %} #}
-						<img src="{{ asset('/pictures/contributions/'~picture.pictureFileName) }}" alt="{{ picture.alt }}">
-					{% endfor %}
-				{% else %}
-					{# <img src="http://placehold.it/350X150 " alt="no image du trick"> #}
-					<img class="card-img-top" src="{{ asset('/pictures/site/no_picture.jpg') }}" alt="noPicture">
-				{% endif %}
-				
-				{# videos #}
-				<h3>Vidéos du trick</h3>
-				{% if trick.videos is not empty %}
-					{% for video in trick.videos %}
-						<iframe src= "https://www.youtube.com/embed/{{ video.videoFileName }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-					{% endfor %}
-				{% else %}
-					<p>Il n'y a aucune actuellement aucune vidéo pour ce trick</p>
+	
+	<div class="container p-5">
+		<section id="trick">
+			<article>
+				<div class="content">
+					{# picture home #}
+					{% if trick.pictures is not empty %}
+						<img class="PromotePicture" src="{{ asset('/pictures/contributions/'~trick.pictures | first.pictureFileName) }}" alt="{{ trick.pictures|first.alt }}">
+					{% else %}
+						<img class="PromotePicture" src="{{ asset('/pictures/site/no_picture.jpg') }}" alt="noPicture">
+					{% endif %}
 					
-				{% endif %}
-				
-				{# contents #}
-				<h3>Descriptif du trick</h3>
-				<p>{{ trick.description }}</p>				
-				
-				{# information trick #}
-				<h3>Infos sur le tricks</h3>
-				<p>Crée le : {{trick.createAt | date("d/m/Y")}}</p>
-				{% if trick.updateAt is not empty %}
-					<p>Modifier le : {{trick.updateAt | date("d/m/Y")}}</p>
-				{% endif %}
-				<p>Catégorie : {{trick.pool.name}}</p>
-			</div>
-		</article>
-	</section>
-	<section id="messages">
-		<h2>Zone de discussion du trick (
-			{{trick.messages | length}}
-			messages)
-		</h2>
-
-		<h3>Poster un message</h3>
-
-		{% if app.user %}
-			{{ include('trick/_formMessage.html.twig') }}
-		{% else %}
-			<p>Pour laisser un message sur ce trick vous devez être identifier.</p>
-			<p>Si vous avez déjà un compte utilisateur sur notre site alors
-				<a href="{{path('app_login')}}">identifiez vous</a>
-				sinon
-				<a href="{{path('app_register')}}">creer un compte</a>
-				dés maintenant.
-			</p>
-		{% endif %}
-
-		<h3>Messages du trick</h3>
-		{% if trick.messages is not empty %}
-			<div class="row">
-				<div class="col-3">
-					<strong>Auteur</strong>
-				</div>
-				<div class="col">
-					<strong>message</strong>
-				</div>
-			</div>
-
-			{# display of messages #}
-			{% for message in trick.messages [startMessageList:numberMessagePage] %}
-			{# {% for message in trick.messages %} #}
-				<div class="message">
+					<h1>{{ trick.name}}</h1>
+					
+					{# pictures and videos #}
 					<div class="row">
-						<div class="col-3">
-							<p>		
-								{% if message.user.picture.pictureFileName is same as('persona.png')  %}
-									<img src="{{ asset('/pictures/site/'~message.user.picture.pictureFileName) }}" alt="{{message.user.picture.alt}}" class="portraitPicture">
-								{% else %}
-									<img src="{{ asset('/pictures/contributions/'~message.user.picture.pictureFileName) }}" alt="{{message.user.picture.alt}}" class="portraitPicture">
-								{% endif %}
-								{{message.user.nickname}} : {{message.createAt | date("d/m/Y")}}
-							</p>
+						<div class="col-sm-6">
+							{# pictures #}
+							<h2>Autres photos du trick</h2>
+							{% if trick.pictures is not empty and trick.pictures | length > 1 %}
+								<div class="row">
+									{% for picture in trick.pictures %}
+										<div class="col-sm-4">
+											<div class="card">
+												<img class="card-img-top" src="{{ asset('/pictures/contributions/'~picture.pictureFileName) }}" alt="{{ picture.alt }}" class="PromotePicture">
+											</div>
+										</div>
+									{% endfor %}
+								</div>
+							{# {% endif %} #}
+							{% else %}
+								<img class="card-img-top" src="{{ asset('/pictures/site/no_picture.jpg') }}" alt="noPicture">
+								{# <p>Il n'y a aucune actuellement pas d'autres photos pour ce trick</p>	 #}
+							{% endif %}
 						</div>
-						<div class="col">
-							{{message.content}}
+						<div class="col-sm-6">
+							<h2>Videos du trick</h2>
+							{% if trick.videos is not empty %}
+								<div class="row">
+									{% for video in trick.videos %}
+										<div class="col-sm-4">
+											<div class="card">
+												<iframe class="card-img-top" src= "https://www.youtube.com/embed/{{ video.videoFileName }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+											</div>
+										</div>
+									{% endfor %}	
+								</div>
+							{# {% endif %} #}
+							{% else %}
+								<img class="card-img-top" src="{{ asset('/pictures/site/no_video.jpg') }}" alt="noVideo">
+								{# <p>Il n'y a aucune actuellement aucune vidéo pour ce trick</p>	 #}
+							{% endif %}
 						</div>
 					</div>
-				</div>
-			{% endfor %}
-
-			{# pagination of tricks #}		
-			<nav aria-label="PaginationMessage">
-				<ul class="pagination justify-content-center">
+	
+					{# contents #}
+					<h3>Descriptif du trick</h3>
+					<p>{{ trick.description }}</p>				
 					
-					<li class="page-item">
-						<a class="page-link" href="?pageMessage=1">Début</a>
-					</li>
-					<li class="page-item {{ (pageMessage == 1) ? 'disabled' : '' }}">
-						<a class="page-link" href="{{ (pageMessage > 1) ? '?pageMessage=' ~ (pageMessage-1) : '' }}" tabindex="-1" aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-						</a>
-					</li>
-					{% for result in 1..pages %}
-						<li class="page-item {{ (pageMessage == result) ? 'active' : '' }}">
-							<a class="page-link" href="{{ path('trick_show', {'slug': trick.slug, pageMessage:result}) }}">{{ result }}</a>
-							{# <a class="page-link" href="{{ path('trick_show', {'id': trick.id, pageMessage:result}) }}">{{ result }}</a> #}
-						</li>
-					{% endfor %}
-					<li class="page-item {{ (pageMessage == pages) ? 'disabled' : '' }}">
-						<a class="page-link" href="{{ (pageMessage < pages) ? '?pageMessage=' ~ (pageMessage+1) : '' }}" aria-label="Next">
-							<span aria-hidden="true">&raquo;</span>
-						</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link" href="?pageMessage={{pages}}">Fin</a>
-					</li>
-				</ul>
-			</nav>
-		{% else %}
-			<p>Ce trick ne contient aucun message. Soyer le premier a écrire un message pour ce trick</p>
-		{% endif %}
-	</section>
+					{# information trick #}
+					<h3>Infos sur le tricks</h3>
+					<p>Crée le : {{trick.createAt | date("d/m/Y")}}</p>
+					{% if trick.updateAt is not empty %}
+						<p>Modifier le : {{trick.updateAt | date("d/m/Y")}}</p>
+					{% endif %}
+					<p>Catégorie : {{trick.pool.name}}</p>
+				</div>
+			</article>
+		</section>
+		<section id="messages">
+			<h2>Zone de discussion du trick (
+				{{trick.messages | length}}
+				messages)
+			</h2>
 
-	<section id="selectionAction">
-		<p>
-			<a href="{{path('home')}}" class="btn btn-primary">Retourner à l'accueil</a>
-			<a href="{{ path('trick_index') }}" class="btn btn-success">Retourner à l'admin des tricks</a>
-		</p>
-		{% if app.user is same as trick.user %}
-			
-				<a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning">Modifier le trick</a>
-				{{ include('trick/_delete_form.html.twig') }}
-			
-		{% endif %}
-	</section>
+			<h3>Poster un message</h3>
+
+			{% if app.user %}
+				{{ include('trick/_formMessage.html.twig') }}
+			{% else %}
+				<p>Pour laisser un message sur ce trick vous devez être identifier.</p>
+				<p>Si vous avez déjà un compte utilisateur sur notre site alors
+					<a href="{{path('app_login')}}">identifiez vous</a>
+					sinon
+					<a href="{{path('app_register')}}">creer un compte</a>
+					dés maintenant.
+				</p>
+			{% endif %}
+
+			<h3>Messages du trick</h3>
+			{% if trick.messages is not empty %}
+				<div class="row">
+					<div class="col-3">
+						<strong>Auteur</strong>
+					</div>
+					<div class="col">
+						<strong>message</strong>
+					</div>
+				</div>
+
+				{# display of messages #}
+				{% for message in trick.messages [startMessageList:numberMessagePage] %}
+				{# {% for message in trick.messages %} #}
+					<div class="message">
+						<div class="row">
+							<div class="col-3">
+								<p>		
+									{% if message.user.picture.pictureFileName is same as('persona.png')  %}
+										<img src="{{ asset('/pictures/site/'~message.user.picture.pictureFileName) }}" alt="{{message.user.picture.alt}}" class="portraitPicture">
+									{% else %}
+										<img src="{{ asset('/pictures/contributions/'~message.user.picture.pictureFileName) }}" alt="{{message.user.picture.alt}}" class="portraitPicture">
+									{% endif %}
+									{{message.user.nickname}} : {{message.createAt | date("d/m/Y")}}
+								</p>
+							</div>
+							<div class="col">
+								{{message.content}}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+
+				{# pagination of tricks #}		
+				<nav aria-label="PaginationMessage">
+					<ul class="pagination justify-content-center">
+						
+						<li class="page-item">
+							<a class="page-link" href="?pageMessage=1">Début</a>
+						</li>
+						<li class="page-item {{ (pageMessage == 1) ? 'disabled' : '' }}">
+							<a class="page-link" href="{{ (pageMessage > 1) ? '?pageMessage=' ~ (pageMessage-1) : '' }}" tabindex="-1" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						{% for result in 1..pages %}
+							<li class="page-item {{ (pageMessage == result) ? 'active' : '' }}">
+								<a class="page-link" href="{{ path('trick_show', {'slug': trick.slug, pageMessage:result}) }}">{{ result }}</a>
+								{# <a class="page-link" href="{{ path('trick_show', {'id': trick.id, pageMessage:result}) }}">{{ result }}</a> #}
+							</li>
+						{% endfor %}
+						<li class="page-item {{ (pageMessage == pages) ? 'disabled' : '' }}">
+							<a class="page-link" href="{{ (pageMessage < pages) ? '?pageMessage=' ~ (pageMessage+1) : '' }}" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="?pageMessage={{pages}}">Fin</a>
+						</li>
+					</ul>
+				</nav>
+			{% else %}
+				<p>Ce trick ne contient aucun message. Soyer le premier a écrire un message pour ce trick</p>
+			{% endif %}
+		</section>
+
+		<section id="selectionAction">
+			<p>
+				<a href="{{path('home')}}" class="btn btn-primary">Retourner à l'accueil</a>
+				<a href="{{ path('trick_index') }}" class="btn btn-success">Retourner à l'admin des tricks</a>
+			</p>
+			{% if app.user is same as trick.user %}
+				
+					<a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning">Modifier le trick</a>
+					{{ include('trick/_delete_form.html.twig') }}
+				
+			{% endif %}
+		</section>
+	</div>
 {% endblock %}

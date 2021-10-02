@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<h1>{{title}}</h1>
+	
 
 	{% for message in app.flashes('success') %}
 		<div class="alert alert-success" role="alert">{{ message }}</div>
@@ -14,60 +14,63 @@
 	{# end of addition of a flash message by tchenio nicolas  #}
 
 	<img src="{{ asset('/pictures/site/homePicture.jpg') }}" alt="homeImage" class="PromotePicture">
+	
+	<div class="container p-5">
+		<h1>{{title}}</h1>
+		
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At iure quam ab aliquam quis facilis dolore sunt culpa ea, numquam eveniet sequi tempore voluptatem inventore et earum rem expedita sit.</p>
+		<p>Est necessitatibus obcaecati asperiores doloremque vitae et dolorum assumenda tenetur officia. Debitis neque repellendus rerum quaerat eligendi voluptas nulla sunt necessitatibus blanditiis placeat, fugit nemo id accusamus alias possimus numquam!</p>
 
-	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At iure quam ab aliquam quis facilis dolore sunt culpa ea, numquam eveniet sequi tempore voluptatem inventore et earum rem expedita sit.</p>
-	<p>Est necessitatibus obcaecati asperiores doloremque vitae et dolorum assumenda tenetur officia. Debitis neque repellendus rerum quaerat eligendi voluptas nulla sunt necessitatibus blanditiis placeat, fugit nemo id accusamus alias possimus numquam!</p>
-
-	<section class="tricks">
-		<div class="row">
-			{% for trick in tricks %}
-				<div class="col-sm-4">
-					<div class="card">	
-						{% if trick.pictures is not empty %}
-							<img class="card-img-top" src="{{ asset('/pictures/contributions/'~trick.pictures|first.pictureFileName) }}" alt="{{ trick.pictures|first.alt }}">
-							{# <img src="{{ trick.pictures|first.pictureFileName }}" alt="image du trick"> #}
-						{% else %}
-							<img class="card-img-top" src="{{ asset('/pictures/site/no_picture.jpg') }}" alt="noPicture">
-						{% endif %}
-						<div class="card-body">
-							<h5 class="card-title">{{trick.name}}</h5>
-							{# <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> #}
-							<p class="card-text">{{ trick.description }}</p>
-							<a href="{{path('trick_show', {'slug': trick.slug})}}" class="btn btn-primary">voir le trick</a>
-							{# <a href="#" class="card-link">Card link</a> #}
+		<section class="tricks">
+			<div class="row">
+				{% for trick in tricks %}
+					<div class="col-sm-4">
+						<div class="card">	
+							{% if trick.pictures is not empty %}
+								<img class="card-img-top" src="{{ asset('/pictures/contributions/'~trick.pictures|first.pictureFileName) }}" alt="{{ trick.pictures|first.alt }}">
+							{% else %}
+								<img class="card-img-top" src="{{ asset('/pictures/site/no_picture.jpg') }}" alt="noPicture">
+							{% endif %}
+							<div class="card-body">
+								<h5 class="card-title">{{trick.name}}</h5>
+								{# <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> #}
+								<p class="card-text">{{ trick.description | u.truncate(100, '...')}}</p>
+								<a href="{{path('trick_show', {'slug': trick.slug})}}" class="btn btn-primary">voir le trick</a>
+								{# <a href="#" class="card-link">Card link</a> #}
+							</div>
 						</div>
 					</div>
-				</div>
-			{% endfor %}
-		</div>
-	</section>
+				{% endfor %}
+			</div>
+		</section>
 
-	{# pagination of tricks #}
-	{% set pages = (numberTrickTotal/numberTrickPage) | round(0, 'ceil') %}
-	<nav aria-label="paginationTrick">
-		<ul class="pagination justify-content-center">
-			<li class="page-item">
-				<a class="page-link" href="?pageTrick=1">Début</a>
-			</li>
-
-			<li class="page-item {{ (pageTrick == 1) ? 'disabled' : '' }}">
-				<a class="page-link" href="{{ (pageTrick > 1) ? '?pageTrick=' ~ (pageTrick-1) : '' }}" tabindex="-1" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-			{% for result in 1..pages %}
-				<li class="page-item {{ (pageTrick == result) ? 'active' : '' }}">
-					<a class="page-link" href="{{path("home",{pageTrick:result})}}">{{ result }}</a>
+		{# pagination of tricks #}
+		{% set pages = (numberTrickTotal/numberTrickPage) | round(0, 'ceil') %}
+		<nav aria-label="paginationTrick">
+			<ul class="pagination justify-content-center">
+				<li class="page-item">
+					<a class="page-link" href="?pageTrick=1">Début</a>
 				</li>
-			{% endfor %}
-			<li class="page-item {{ (pageTrick == pages) ? 'disabled' : '' }}">
-				<a class="page-link" href="{{ (pageTrick < pages) ? '?pageTrick=' ~ (pageTrick+1) : '' }}" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>
-			<li class="page-item">
-				<a class="page-link" href="?pageTrick={{pages}}">Fin</a>
-			</li>
-		</ul>
-	</nav>
+
+				<li class="page-item {{ (pageTrick == 1) ? 'disabled' : '' }}">
+					<a class="page-link" href="{{ (pageTrick > 1) ? '?pageTrick=' ~ (pageTrick-1) : '' }}" tabindex="-1" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+				{% for result in 1..pages %}
+					<li class="page-item {{ (pageTrick == result) ? 'active' : '' }}">
+						<a class="page-link" href="{{path("home",{pageTrick:result})}}">{{ result }}</a>
+					</li>
+				{% endfor %}
+				<li class="page-item {{ (pageTrick == pages) ? 'disabled' : '' }}">
+					<a class="page-link" href="{{ (pageTrick < pages) ? '?pageTrick=' ~ (pageTrick+1) : '' }}" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+				<li class="page-item">
+					<a class="page-link" href="?pageTrick={{pages}}">Fin</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
 {% endblock %}
