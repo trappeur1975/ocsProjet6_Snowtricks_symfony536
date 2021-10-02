@@ -7,11 +7,11 @@
 
 	{% if app.user %}
 		{% if app.user is same as trick.user %}
-			{{ include('trick/_form.html.twig', {'button_label': 'Modifier ce trick'}) }}
-			<p>
-				<a href="{{ path('trick_index') }}" class="btn btn-success">Retourner à l'administration des tricks</a>
+			{{ include('trick/_form.html.twig', {'button_label': 'Modifier ce trick'}) }} <br>
+			<div class="btn-group" role="group" aria-label="gestion du trick">
+				<a href="{{ path('trick_index') }}" class="btn btn-success btn-sm">Retourner à l'administration des tricks</a>
 				{{ include('trick/_delete_form.html.twig') }}
-			</p>
+			</div>
 
 		{% else %}
 			<p>Vous ne pouvez pas accéder à cette page et <strong>modifier</strong> ce trick car vous n'en êtes <strong>l'auteur</strong>.</p>

@@ -28,11 +28,13 @@
 					<td>{{ trick.name }}</td>
 					<td>{{ trick.description }}</td>
 					<td>
-						<a href="{{ path('trick_show', {'slug': trick.slug}) }}" class="btn btn-success">Voir le trick</a><br>
-						{% if app.user is same as trick.user %}
-							<a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning">Modifier le trick</a><br>
-							{{ include('trick/_delete_form.html.twig') }}<br>
-						{% endif %}
+						<div class="btn-group" role="group" aria-label="gestion du trick">
+							<a href="{{ path('trick_show', {'slug': trick.slug}) }}" class="btn btn-success btn-sm">Voir le trick</a>
+							{% if app.user is same as trick.user %}
+								<a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning btn-sm">Modifier le trick</a>
+								{{ include('trick/_delete_form.html.twig') }}
+							{% endif %}
+						</div>
 					</td>
 				</tr>
 			{% else %}

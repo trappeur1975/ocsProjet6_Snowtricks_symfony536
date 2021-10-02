@@ -11,7 +11,9 @@
 {# check that the route is "trick_edit" to display the pictures #}
 {% if app.request.attributes.get('_route') =='trick_edit' %}
 	<div class="row">
-		{{ form_label(form.pictures) }}
+		{% if form.pictures is not empty %}
+			{{ form_label(form.pictures) }}
+		{% endif %}
 		{% for picture in form.pictures %}
 			<div class="col-sm-2">
 				<div class="card">
@@ -29,17 +31,24 @@
 
 {# check that the route is "trick_edit" to display the pictures #}
 {% if app.request.attributes.get('_route') =='trick_edit' %}
-	{{ form_label(form.videos) }}
-	{% for video in form.videos %}
-		<div class="img_checkbox">
-			{{form_widget(video)}}
-			<iframe src= "https://www.youtube.com/embed/{{ video.vars.label }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-		</div>
-	{% endfor %}
+	<div class="row">
+		{% if form.videos is not empty %}
+			{{ form_label(form.videos) }}
+		{% endif %}
+		{% for video in form.videos %}
+			<div class="col-sm-4">
+				<div class="card">
+					{{form_widget(video)}}
+					<iframe src= "https://www.youtube.com/embed/{{ video.vars.label }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 {% endif %}
 
+{{ form_widget(form._token) }}
 
 <button class="btn btn-primary">
-	{{ button_label|default('Enregister ce trick') }}</button>
-{# {{ form_end(form, {render_rest: false}) }} #}
-{{ form_end(form) }}
+	{{ button_label|default('Enregister ce trick') }}
+</button>
+{{ form_end(form, {render_rest: false}) }}

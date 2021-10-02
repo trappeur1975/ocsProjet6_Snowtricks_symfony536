@@ -120,7 +120,7 @@ class TrickController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('trick/show.html.twig', [
