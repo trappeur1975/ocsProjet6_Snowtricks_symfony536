@@ -23,6 +23,20 @@
 					{% endif %}
 					
 					<h1>{{ trick.name}}</h1>
+
+					{# information trick #}
+					<p>
+						Crée par : {{trick.user.nickname}} | 
+						le : {{trick.createAt | date("d/m/Y")}}
+						{% if trick.updateAt is not empty %}
+							Et modifier le : {{trick.updateAt | date("d/m/Y")}}
+						{% endif %}
+						 | Catégorie : {{trick.pool.name}} | 
+						Message : {{trick.messages | length}}
+					</p>
+
+					{# contents #}
+					<p>{{ trick.description }}</p>	
 					
 					{# pictures and videos #}
 					<div class="row">
@@ -63,19 +77,7 @@
 								{# <p>Il n'y a aucune actuellement aucune vidéo pour ce trick</p>	 #}
 							{% endif %}
 						</div>
-					</div>
-	
-					{# contents #}
-					<h3>Descriptif du trick</h3>
-					<p>{{ trick.description }}</p>				
-					
-					{# information trick #}
-					<h3>Infos sur le tricks</h3>
-					<p>Crée le : {{trick.createAt | date("d/m/Y")}}</p>
-					{% if trick.updateAt is not empty %}
-						<p>Modifier le : {{trick.updateAt | date("d/m/Y")}}</p>
-					{% endif %}
-					<p>Catégorie : {{trick.pool.name}}</p>
+					</div>				
 				</div>
 			</article>
 		</section>

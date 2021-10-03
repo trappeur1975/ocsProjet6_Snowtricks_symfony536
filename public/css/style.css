@@ -1,12 +1,56 @@
+/* homepage */
+
 .homePicture {
-    background-image: url('/pictures/site/homePicture.jpg');
-    /* background-image: url('/public/pictures/site/homePicture.jpg'); */
-    /* background-color: red; */
-    /* background-size: cover;
+    background-image: linear-gradient(rgba(253, 253, 253, 0.096), rgba(243, 234, 234, 0.747)), url(/pictures/site/homePicture.jpg);
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
     width: 100%;
-    height: 100vh; */
+    height: 80vh;
+}
+
+/* i {
+    position: absolute;
+    right: 3%;
+    bottom: 10%;
+} */
+
+/* .bi {
+    position: absolute;
+    right: 3%;
+    bottom: 10%;
+} */
+
+.bi-arrow-down-circle-fill {
+    position: absolute;
+    right: 3%;
+    bottom: 10%;
+    font-size: 2rem;
+}
+
+.arrowUp {
+    position: relative;
+}
+
+.bi-arrow-up-circle-fill {
+    position: absolute;
+    right: 0.5%;
+    bottom: 0;
+    font-size: 2rem;
+}
+
+.slogan {
+    height: 120vh;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-transform: uppercase;
+    color: #593196;
+    font-weight: bold;
+    font-size: 30px;
+    font-style: italic;
 }
 
 .PromotePicture {

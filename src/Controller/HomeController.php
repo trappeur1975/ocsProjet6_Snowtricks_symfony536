@@ -27,7 +27,7 @@ class HomeController extends AbstractController
         $numberTrickTotal = $trickRepository->countTrick();
 
         return $this->render('home/index.html.twig', [
-            'title' => 'bienvenue sur Snowtricks',
+            'title' => 'Snowtricks du snow et des tricks',
             'tricks' =>  $tricks,
             'numberTrickTotal' =>  $numberTrickTotal,
             'numberTrickPage' => $numberTrickPage,
