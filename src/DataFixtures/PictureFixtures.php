@@ -20,8 +20,7 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
             [
                 'trick2_1.jpg' => '2',
                 'trick2_2.jpg' => '2',
-                'trick2_3.jpg' => '2',
-                'trick2_4.jpg' => '2'
+                'trick2_3.jpg' => '2'
             ],
             ['trick3.jpg' => '3'],
             ['trick4.jpg' => '4'],
@@ -36,7 +35,8 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
             [
                 'trick9_1.jpg' => '9',
                 'trick9_2.jpg' => '9',
-                'trick9_3.jpg' => '9'
+                'trick9_3.jpg' => '9',
+                'trick9_4.jpg' => '9'
             ],
             ['trick10.jpg' => '10']
         ];

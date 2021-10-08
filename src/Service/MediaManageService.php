@@ -9,6 +9,10 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class MediaManageService
 {
 
+    /**
+     * params
+     * @var ParameterBagInterface $params allows access to the parameters defined in the config> service.yaml file 
+     */
     private $params;
 
     public function __construct(ParameterBagInterface $params)
@@ -16,7 +20,13 @@ class MediaManageService
         $this->params = $params;
     }
 
-    // retrieve the source of the video (end of the string (youtube url) from the last "/" or the last "=") 
+    /**
+     * Method sourceVideo retrieve the source of the video (end of the string (youtube url) from the last "/" or the last "=") 
+     *
+     * @param String $srcVideo video url
+     *
+     * @return string
+     */
     public function sourceVideo(String $srcVideo): ?string
     {
         if (strripos($srcVideo, "=") == true) {
@@ -26,7 +36,13 @@ class MediaManageService
         }
     }
 
-    // addition (physically) of an uploader image on the server et return a Picture
+    /**
+     * Method addImageOnServer addition (physically) of an uploader image on the server et return a Picture 
+     *
+     * @param UploadedFile $pictureUpload image file that was uploaded 
+     *
+     * @return Picture
+     */
     public function addImageOnServer(UploadedFile $pictureUpload)
     {
         //We generate a new picture file name

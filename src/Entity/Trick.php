@@ -94,10 +94,11 @@ class Trick
 
     public function computeSlug(SluggerInterface $slugger)
     {
-        if (!$this->slug || '-' === $this->slug) {
-            // $this->slug = (string) $slugger->slug((string) $this)->lower();
-            $this->slug = (string) $slugger->slug((string) $this->getName())->lower();
-        }
+        // if (!$this->slug || '-' === $this->slug) {
+        //     // $this->slug = (string) $slugger->slug((string) $this)->lower();
+        //     $this->slug = (string) $slugger->slug((string) $this->getName())->lower();
+        // }
+        $this->slug = (string) $slugger->slug((string) $this->getName())->lower();
     }
 
 
