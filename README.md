@@ -48,6 +48,7 @@
 02/10/2021 : improvement of the site design
 02/10/2021 : 2 improvement of the site design
 03/10/2021 : 3 improvement of the site design (especially home page = card, icons, welcome image ...), ... 
+06/10/2021 : modification of the images in the fixtures, fixed the bug for the slug, annotation of the file MediaManagerServide.php 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
 
