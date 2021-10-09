@@ -58,7 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $picture;
 
     /**
-     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $tricks;
 
@@ -237,6 +237,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeTrick(Trick $trick): self
     {
+        // if ($this->tricks->contains($trick)) {
+        //     foreach ($pictures as $picture) {
+        //                 // we delete the file physically
+        //                 $pictureFileName = $picture->getPictureFileName();
+        //                 unlink($this->getParameter('pictures_directory_contributions') . '/' . $pictureFileName);
+        //             }
+
+        // }
+
+
         if ($this->tricks->removeElement($trick)) {
             // set the owning side to null (unless already changed)
             if ($trick->getUser() === $this) {

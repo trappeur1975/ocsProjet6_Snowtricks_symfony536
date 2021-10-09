@@ -16,6 +16,9 @@ class HomeController extends AbstractController
      */
     public function home(TrickRepository $trickRepository, Request $request): Response
     {
+        // $session = $request->getSession();
+        // dd($session);
+
         // number of tricks per page 
         $numberTrickPage = 5;
 

@@ -10,6 +10,8 @@ use App\Service\MediaManageService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -117,10 +119,52 @@ class UserController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            // ---------------rajout tchenio nicolas-------------------------
+            //physical deletion of pictures files of users' tricks on the server 
+            $triks = $user->getTricks();
+
+            foreach ($triks as $trick) {
+                $pictures = $trick->getPictures();
+
+                foreach ($pictures as $picture) {
+                    // we delete the file physically
+                    $pictureFileName = $picture->getPictureFileName();
+                    unlink($this->getParameter('pictures_directory_contributions') . '/' . $pictureFileName);
+                }
+            }
+
+            // physical deletion of the user's picture (his portrait) on the server if it is not the default image 
+            $pictureUser = $user->getPicture();
+            if ($pictureUser->getPictureFileName() !== $this->getParameter('pictureDefault')) {
+                $pictureFileName = $pictureUser->getPictureFileName();
+                unlink($this->getParameter('pictures_directory_contributions') . '/' . $pictureFileName);
+            }
+
+            // ---------------fin rajout tchenio nicolas-------------------------
+            // $triks = $user->getTricks();
+
+            // foreach ($triks as $trick) {
+            //     $user->removeTrick($trick);
+            // }
+
             $entityManager->remove($user);
             $entityManager->flush();
+
+            // ---------------PROBLEME-------------------------
+            // to manage the case where the user connects to the site deletes his user account => the user session will have to be "destroyed" to manage the redirection otherwise there will be an error 
+            if ($user === $this->getUser()) {
+                $session = new Session();
+                $session->invalidate();
+                // $session = $request->getSession();
+                // $session->invalidate();
+                return $this->redirectToRoute('home');
+            }
+            // ---------------FIN PROBLEME-------------------------
         }
 
         return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
+        // return $this->redirectToRoute('app_logout');
+        // return $this->redirectToRoute('home');
     }
 }
