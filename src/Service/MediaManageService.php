@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Picture;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -61,5 +62,25 @@ class MediaManageService
 
         // return  $pictureFileName;
         return  $newPicture;
+    }
+
+
+
+    /**
+     * Method deleteImageOnServer delete a single Picture on the server 
+     *
+     * @param Picture $picture picture to be deleted 
+     *
+     * @return void
+     */
+    public function deleteImageOnServer(Picture $picture, EntityManagerInterface $manager)
+    {
+        // we delete the file physically
+        $pictureFileName = $picture->getPictureFileName();
+        unlink($this->params->get('pictures_directory_contributions') . '/' . $pictureFileName);
+
+        // removing the picture from the database 
+        $manager->remove($picture);
+        $manager->flush();
     }
 }

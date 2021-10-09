@@ -115,7 +115,7 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="user_delete", methods={"POST"})
      */
-    public function delete(Request $request, User $user): Response
+    public function delete(Request $request, User $user, MediaManageService $media): Response
     {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -128,30 +128,22 @@ class UserController extends AbstractController
                 $pictures = $trick->getPictures();
 
                 foreach ($pictures as $picture) {
-                    // we delete the file physically
-                    $pictureFileName = $picture->getPictureFileName();
-                    unlink($this->getParameter('pictures_directory_contributions') . '/' . $pictureFileName);
+                    $media->deleteImageOnServer($picture, $entityManager);
                 }
             }
 
             // physical deletion of the user's picture (his portrait) on the server if it is not the default image 
             $pictureUser = $user->getPicture();
             if ($pictureUser->getPictureFileName() !== $this->getParameter('pictureDefault')) {
-                $pictureFileName = $pictureUser->getPictureFileName();
-                unlink($this->getParameter('pictures_directory_contributions') . '/' . $pictureFileName);
+                $media->deleteImageOnServer($picture, $entityManager);
             }
 
             // ---------------fin rajout tchenio nicolas-------------------------
-            // $triks = $user->getTricks();
-
-            // foreach ($triks as $trick) {
-            //     $user->removeTrick($trick);
-            // }
 
             $entityManager->remove($user);
             $entityManager->flush();
 
-            // ---------------PROBLEME-------------------------
+            // ---------------QUESTION FREDERIC-------------------------
             // to manage the case where the user connects to the site deletes his user account => the user session will have to be "destroyed" to manage the redirection otherwise there will be an error 
             if ($user === $this->getUser()) {
                 $session = new Session();
@@ -160,7 +152,7 @@ class UserController extends AbstractController
                 // $session->invalidate();
                 return $this->redirectToRoute('home');
             }
-            // ---------------FIN PROBLEME-------------------------
+            // ---------------FIN QUESTION FREDERIC-------------------------
         }
 
         return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);

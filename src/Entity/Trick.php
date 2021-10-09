@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\TrickRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TrickRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
@@ -149,17 +150,32 @@ class Trick
         return $this;
     }
 
-    public function removePicture(Picture $picture): self
+    // public function removePicture(Picture $picture): self
+    // {
+    //     if ($this->pictures->removeElement($picture)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($picture->getTrick() === $this) {
+    //             $picture->setTrick(null);
+    //         }
+    //     }
+
+    //     return $this;
+    // }
+
+    // ------------------FUNCTION NICOLAS TCHENIO-------------------
+    public function removePicture(Picture $picture, EntityManagerInterface $manager): self
     {
-        if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
-            if ($picture->getTrick() === $this) {
-                $picture->setTrick(null);
-            }
-        }
+        // we delete the file physically
+        $pictureFileName = $picture->getPictureFileName();
+        unlink($this->params->get('pictures_directory_contributions') . '/' . $pictureFileName);
+
+        // removing the picture from the database 
+        $manager->remove($picture);
+        $manager->flush();
 
         return $this;
     }
+    // ------------------fin FUNCTION NICOLAS TCHENIO-------------------
 
     /**
      * @return Collection|Video[]
