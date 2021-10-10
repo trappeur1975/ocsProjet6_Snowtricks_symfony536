@@ -50,7 +50,8 @@
 03/10/2021 : 3 improvement of the site design (especially home page = card, icons, welcome image ...), ... 
 06/10/2021 : modification of the images in the fixtures, fixed the bug for the slug, annotation of the file MediaManagerServide.php
 07/10/2021 : management of the deletion of a user
-07/10/2021 : update the deletion of a user with the use of the "deleteImageOnServer" function of the MediaManagerService.php service 
+07/10/2021 : update the deletion of a user with the use of the "deleteImageOnServer" function of the MediaManagerService.php service
+10/10/2021 : frontend image deletion and modification when displaying a trick (picture crud)
 
 
 ----------------- gestion des email ----------------

@@ -64,8 +64,6 @@ class MediaManageService
         return  $newPicture;
     }
 
-
-
     /**
      * Method deleteImageOnServer delete a single Picture on the server 
      *
