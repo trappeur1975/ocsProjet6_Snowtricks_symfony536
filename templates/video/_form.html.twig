@@ -1,0 +1,20 @@
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{# {{ form_start(form) }} #}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_row(form.addVideo, {'label': "Ajouter de Video",
+							'attr':{'placeholder':"Entrer url d'une video youtube (UNIQUEMENT)"},
+							'help':'Faites un clique droit sur la vidéo youtube que vous souhaitez intégrer au trick et sélectionnez "copier l\'url de la vidéo"'}) }}
+
+{{ form_widget(form._token) }}
+
+<button class="btn btn-primary">
+	{{ button_label|default('Ajouter une video') }}
+</button>
+{{ form_end(form, {render_rest: false}) }}
+
+
+{# {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }} #}

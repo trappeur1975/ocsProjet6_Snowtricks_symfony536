@@ -92,7 +92,7 @@ class PictureController extends AbstractController
             $em->flush();
 
             // flash message for creating, editing or deleting a picture
-            $this->addFlash('successPicturekManagement', 'Félicitation votre image a bien été MODIFIE.');
+            $this->addFlash('successPictureManagement', 'Félicitation votre image a bien été MODIFIE.');
 
             return $this->redirectToRoute('trick_show', ['slug' => $picture->getTrick()->getSlug()], Response::HTTP_SEE_OTHER);
             // return $this->redirectToRoute('picture_index', [], Response::HTTP_SEE_OTHER);
@@ -120,7 +120,7 @@ class PictureController extends AbstractController
         }
 
         // flash message for creating, editing or deleting a picture
-        $this->addFlash('successPicturekManagement', 'Félicitation votre image "' . $picture->getPictureFileName() . '" a bien été SUPPRIME.');
+        $this->addFlash('successPictureManagement', 'Félicitation votre image "' . $picture->getPictureFileName() . '" a bien été SUPPRIME.');
 
         return $this->redirectToRoute('trick_show', ['slug' => $picture->getTrick()->getSlug()], Response::HTTP_SEE_OTHER);
         // return $this->redirectToRoute('picture_index', [], Response::HTTP_SEE_OTHER);

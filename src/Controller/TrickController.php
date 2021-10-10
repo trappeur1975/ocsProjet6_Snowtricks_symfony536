@@ -71,7 +71,7 @@ class TrickController extends AbstractController
                 // we recover the identity of the youtube video (end of the string (youtube url))  
                 $videoFileName = $media->sourceVideo($newVideo);
 
-                // We create the picture in the database
+                // We create the video in the database
                 $video = new Video();
                 $video->setVideoFileName($videoFileName);
                 $trick->addVideo($video);

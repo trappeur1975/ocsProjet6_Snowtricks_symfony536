@@ -12,9 +12,14 @@
 	{% set pages = (trick.messages | length  / numberMessagePage) | round(0, 'ceil') %}
 
 	{# addition of a flash message by tchenio nicolas  #}
-	{% for message in app.flashes('successPicturekManagement') %}
+	{% for message in app.flashes('successPictureManagement') %}
 		<div class="alert alert-success" role="alert">{{ message }}</div>
 	{% endfor %}
+
+	{% for message in app.flashes('successVideoManagement') %}
+		<div class="alert alert-success" role="alert">{{ message }}</div>
+	{% endfor %}
+
 	{# end of addition of a flash message by tchenio nicolas  #}
 	
 	<div class="container p-5">
@@ -56,15 +61,15 @@
 											<div class="card">
 												<img class="card-img-top" src="{{ asset('/pictures/contributions/'~picture.pictureFileName) }}" alt="{{ picture.alt }}" class="PromotePicture">
 											
-											{# ----------------RAJOUT NICOLAS #}
-											{% if app.user is same as trick.user %}
-												<div class="btn-group" role="group" aria-label="gestion du trick">
-													<a href="{{ path('picture_edit', {'id': picture.id}) }}"><i class="btn btn-warning btn-sm bi bi-pencil-fill"></i></a>
-													{{ include('picture/_delete_form.html.twig') }}
-												</div>
-											{% endif %}
-											
-											
+												{# ----------------RAJOUT NICOLAS #}
+												{% if app.user is same as trick.user %}
+													<div class="btn-group" role="group" aria-label="gestion du trick">
+														<a href="{{ path('picture_edit', {'id': picture.id}) }}"><i class="btn btn-warning btn-sm bi bi-pencil-fill"></i></a>
+														{{ include('picture/_delete_form.html.twig') }}
+													</div>
+												{% endif %}
+												{# ----------------fin RAJOUT NICOLAS #}
+
 											</div>
 										</div>
 									{% endfor %}
@@ -83,6 +88,15 @@
 										<div class="col-sm-4">
 											<div class="card">
 												<iframe class="card-img-top" src= "https://www.youtube.com/embed/{{ video.videoFileName }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+																							{# ----------------RAJOUT NICOLAS #}
+												{% if app.user is same as trick.user %}
+													<div class="btn-group" role="group" aria-label="gestion du trick">
+														<a href="{{ path('video_edit', {'id': video.id}) }}"><i class="btn btn-warning btn-sm bi bi-pencil-fill"></i></a>
+														{{ include('video/_delete_form.html.twig') }}
+													</div>
+												{% endif %}
+												{# ----------------fin RAJOUT NICOLAS #}
+											
 											</div>
 										</div>
 									{% endfor %}	
