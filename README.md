@@ -53,6 +53,7 @@
 07/10/2021 : update the deletion of a user with the use of the "deleteImageOnServer" function of the MediaManagerService.php service
 10/10/2021 : frontend image deletion and modification when displaying a trick (picture crud)
 10/10/2021 : frontend video deletion and modification when displaying a trick (picture crud)
+11/10/2021 : page 404 created
 
 
 ----------------- gestion des email ----------------
