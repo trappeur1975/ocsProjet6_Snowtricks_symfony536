@@ -146,10 +146,10 @@ class UserController extends AbstractController
             // ---------------QUESTION FREDERIC-------------------------
             // to manage the case where the user connects to the site deletes his user account => the user session will have to be "destroyed" to manage the redirection otherwise there will be an error 
             if ($user === $this->getUser()) {
-                $session = new Session();
-                $session->invalidate();
-                // $session = $request->getSession();
+                // $session = new Session();
                 // $session->invalidate();
+                $session = $request->getSession();
+                $session->invalidate();
                 return $this->redirectToRoute('home');
             }
             // ---------------FIN QUESTION FREDERIC-------------------------

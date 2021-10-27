@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
@@ -22,6 +23,7 @@ class Trick
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"group1"})
      */
     private $id;
 
@@ -34,17 +36,20 @@ class Trick
      *      minMessage = "Votre titre de trick doit contenir au moins {{ limit }} caractères !",
      *      maxMessage = "Votre titre de trick ne peut pas contenir plus que {{ limit }} caractères !"
      * )
+     * @Groups({"group1"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message = "Ce champ est requis !")
+     * @Groups({"group1"})
      */
     private $description;
 
     /**
      * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", cascade={"persist", "remove"})
+     * @Groups({"group1"})
      */
     private $pictures;
 
@@ -56,6 +61,7 @@ class Trick
     /**
      * @ORM\ManyToOne(targetEntity=Pool::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"group1"})
      */
     private $pool;
 
@@ -67,6 +73,7 @@ class Trick
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks")
+     * @Groups({"group1"})
      */
     private $user;
 
@@ -83,6 +90,7 @@ class Trick
     /**
      * @ORM\Column(type="string", length=255)
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Groups({"group1"})
      */
     private $slug;
 
