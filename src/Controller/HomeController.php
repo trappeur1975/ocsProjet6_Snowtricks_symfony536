@@ -48,9 +48,20 @@ class HomeController extends AbstractController
      */
     public function loadTricks($offset = 3, TrickRepository $trickRepository, SerializerInterface $serializer)
     {
+        // $tricks = $trickRepository->findby([], ['id' => 'ASC'], 1, $offset);
         $tricks = $trickRepository->findby([], ['id' => 'ASC'], 3, $offset);
+
         // $tricks = $trickRepository->findby([], ['id' => 'ASC'], $limit, 3);
-        $jsonContent = $serializer->serialize($tricks, 'json', ['groups' => 'group1']);
+
+        // ----------------------------------
+        $userConnected = $this->getUser();
+        // $templateDeleteTrick = $this->render('trick/_delete_form.html.twig');
+
+        $jsonTricks = $serializer->serialize($tricks, 'json', ['groups' => 'group1']);
+        $jsonUserConnected = $serializer->serialize($userConnected, 'json', ['groups' => 'group1']);
+        // $jsonTemplateDeleteTrick = $serializer->serialize($templateDeleteTrick, 'json');
+
+        // ----------------------------------
 
         // $trick = $trickRepository->find(11);
         // $jsonContent = $serializer->serialize($trick, 'json', ['groups' => 'group1']);
@@ -74,6 +85,11 @@ class HomeController extends AbstractController
         // $dataResponse = $limit;
         // $dataResponse = 'salut nicolas t es le super meilleur';
         // return new JsonResponse(['dataResponse' => $dataResponse]);
-        return new JsonResponse(['dataResponse' => $jsonContent]);
+
+        // return new JsonResponse(['dataResponse' => $jsonContent]);
+
+        // return new JsonResponse(['dataResponse' => $jsonTricks]);
+        return new JsonResponse(['dataJsonTricks' => $jsonTricks, 'dataJsonUserConnected' => $jsonUserConnected]);
+        // return new JsonResponse(['dataJsonTricks' => $jsonTricks, 'dataJsonUserConnected' => $jsonUserConnected, 'dataJsonTemplateDeleteTrick' => $jsonTemplateDeleteTrick]);
     }
 }

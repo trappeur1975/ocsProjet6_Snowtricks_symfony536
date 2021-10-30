@@ -30,6 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message = "Ce champ est requis !")
+     * @Groups({"group1"})
      */
     private $email;
 
@@ -67,7 +68,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message = "Ce champ est requis !")
-     * @Groups({"group1"})
      */
     private $nickname;
 
