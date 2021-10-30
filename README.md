@@ -55,6 +55,7 @@
 10/10/2021 : frontend video deletion and modification when displaying a trick (picture crud)
 11/10/2021 : page 404 created
 27/10/2021 : creation of the loader ("base.html.twig" displacement of the twig tag "block javascript" / "public> js" creation of the loaderTricks.js file "for my ajax request /" homeController.php "creation of the" loadTricks "function for sending the Json response / "index.html.twig" integration of the twig "block javascript" tag to call our javascript file / integration of "goups" annotations in the entities whose certain (property) wants to serialize for our json request )
+30/10/2021 : update of the loader functionality (in particular for the display of the management icons of the trick (see, edit, delete) via the cards on the home page of the site) 
 
 
 ----------------- gestion des email ----------------
