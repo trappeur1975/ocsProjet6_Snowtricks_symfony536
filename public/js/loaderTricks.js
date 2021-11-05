@@ -1,5 +1,5 @@
 
-let zoneTricks = document.getElementById('zoneTricks');
+// let zoneTricks = document.getElementById('zoneTricks');
 // let allCardTrick = document.querySelectorAll('#zoneTricks div.col-sm-4');
 // let lastCardTrick = allCardTrick[allCardTrick.length - 1];
 
@@ -10,7 +10,7 @@ let cardTick = document.querySelector('#zoneTricks div.col-sm-4');
 
 loader = document.getElementById('loadMoreTrick');
 // let zoneTexte = document.getElementById('zoneLoader');
-let zoneTexte = document.getElementById('zoneTricks');
+let zoneTricks = document.getElementById('zoneTricks');
 
 let offset = 3;
 let clickedButton= 0;
@@ -44,7 +44,7 @@ loader.addEventListener('click', function(event) {
             // let dataJsonTemplateDeleteTrick = value.dataJsonTemplateDeleteTrick;
             // let dataJavascriptTemplateDeleteTrick = JSON.parse(dataJsonTemplateDeleteTrick);
 
-        for (let trick of dataJavascriptTricks) {
+            for (let trick of dataJavascriptTricks) {
             // on affiche nos données sur le site
                 //pour connaitre la picture a afficher
                     let picture;
@@ -87,7 +87,7 @@ loader.addEventListener('click', function(event) {
                 let newEltement = document.createElement("div" );
                 newEltement.className = 'col-sm-4';
                 newEltement.innerHTML = content; 
-                zoneTexte.appendChild(newEltement);
+                zoneTricks.appendChild(newEltement);
 
 
         // ----------------------ancien code 1---------------------

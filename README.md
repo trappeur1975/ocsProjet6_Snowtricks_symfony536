@@ -58,7 +58,7 @@
 30/10/2021 : update of the loader functionality (in particular for the display of the management icons of the trick (see, edit, delete) via the cards on the home page of the site)
 30/10/2021 : update of the loader functionality (in particular for the display of the management icons of the trick (see, edit, delete) via the cards on the home page of the site)
 30/10/2021 : re update of the loader functionality (in particular for the display of the management icons of the trick (see, edit, delete) via the cards on the home page of the site) => I do not know why but my previous modifications of files were not taken into account in the push so I start again 
-
+05/11/2021 : change of name of zoneTricks variable for zoneText in the "loaderTricks.js" file 
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
