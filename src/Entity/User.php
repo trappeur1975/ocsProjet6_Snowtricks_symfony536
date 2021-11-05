@@ -82,6 +82,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
+    // EasyAdmin ajout pour tableau bord du site en backend
+    public function __toString(): string
+    {
+        return $this->getEmail();
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;

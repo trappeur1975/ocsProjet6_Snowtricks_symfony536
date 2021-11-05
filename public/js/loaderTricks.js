@@ -25,12 +25,14 @@ loader.addEventListener('click', function(event) {
 
     // fetch(this.getAttribute("href")) // ici c est mon bouton href
     fetch('/loadTricks/'+offset*clickedButton) // ici c est mon bouton href
+    
         .then(function(res) {
             if (res.ok) {
                 return res.json();
             }
         })
         .then(function(value) {
+            console.log('tata');
             // on recupere les donnee en json puis on les transforme en javascript
             let dataJsonTricks = value.dataJsonTricks;
             let dataJavascriptTricks = JSON.parse(dataJsonTricks);

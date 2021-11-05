@@ -36,6 +36,12 @@ class Picture
      */
     private $alt;
 
+    // EasyAdmin ajout pour tableau bord du site en backend
+    public function __toString(): string
+    {
+        return '(id:' . $this->getId() . ')-' . $this->getPictureFileName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

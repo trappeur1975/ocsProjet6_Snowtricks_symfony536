@@ -48,8 +48,9 @@ class TrickController extends AbstractController
 
             // -------------Picture management--------------- 
             // we define the author of the trick by the user to connect (because we do not define it in a field via the form) (see _form.html.twig) 
-            $trick->setCreateAt(new \Datetime())
-                ->setUser($this->getUser());
+            $trick->setUser($this->getUser());
+            // $trick->setCreateAt(new \Datetime())
+            //     ->setUser($this->getUser());
 
             // We recover the transmitted pictures 
             $newPictures = $form->get('newPictures')->getData();
@@ -112,9 +113,12 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $message->setCreateAt(new \Datetime())
-                ->setTrick($trick)
+            $message->setTrick($trick)
                 ->setUser($this->getUser());
+
+            // $message->setCreateAt(new \Datetime())
+            //     ->setTrick($trick)
+            //     ->setUser($this->getUser());
 
             $entityManager->persist($message);
 

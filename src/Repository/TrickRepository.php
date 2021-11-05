@@ -44,6 +44,16 @@ class TrickRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    /**
+     * @return int Return the total number of tricks
+     */
+    public function countAllTrick()
+    {
+        $QueryBuilder = $this->createQueryBuilder('t');
+        $QueryBuilder->select('COUNT(t.id) as value');
+        return $QueryBuilder->getQuery()->getSingleScalarResult();
+    }
+
     // /**
     //  * @return Trick[] Returns an array of Trick objects
     //  */

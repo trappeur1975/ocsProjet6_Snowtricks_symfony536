@@ -99,6 +99,14 @@ class Trick
         $this->pictures = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->createAt = new \Datetime(); // EasyAdmin ajout pour tableau bord du site en backend
+    }
+
+    // EasyAdmin ajout pour tableau bord du site en backend
+    public function __toString(): string
+    {
+        return $this->getName();
+        // return $this->getId() . '-' . $this->getName();
     }
 
     public function computeSlug(SluggerInterface $slugger)
@@ -158,31 +166,31 @@ class Trick
         return $this;
     }
 
-    // public function removePicture(Picture $picture): self
-    // {
-    //     if ($this->pictures->removeElement($picture)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($picture->getTrick() === $this) {
-    //             $picture->setTrick(null);
-    //         }
-    //     }
-
-    //     return $this;
-    // }
-
-    // ------------------FUNCTION NICOLAS TCHENIO-------------------
-    public function removePicture(Picture $picture, EntityManagerInterface $manager): self
+    public function removePicture(Picture $picture): self
     {
-        // we delete the file physically
-        $pictureFileName = $picture->getPictureFileName();
-        unlink($this->params->get('pictures_directory_contributions') . '/' . $pictureFileName);
-
-        // removing the picture from the database 
-        $manager->remove($picture);
-        $manager->flush();
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getTrick() === $this) {
+                $picture->setTrick(null);
+            }
+        }
 
         return $this;
     }
+
+    // ------------------FUNCTION NICOLAS TCHENIO-------------------
+    // public function removePicture(Picture $picture, EntityManagerInterface $manager): self
+    // {
+    //     // we delete the file physically
+    //     $pictureFileName = $picture->getPictureFileName();
+    //     unlink($this->params->get('pictures_directory_contributions') . '/' . $pictureFileName);
+
+    //     // removing the picture from the database 
+    //     $manager->remove($picture);
+    //     $manager->flush();
+
+    //     return $this;
+    // }
     // ------------------fin FUNCTION NICOLAS TCHENIO-------------------
 
     /**

@@ -28,6 +28,12 @@ class Video
      */
     private $trick;
 
+    // EasyAdmin ajout pour tableau bord du site en backend
+    public function __toString(): string
+    {
+        return $this->getVideoFileName();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
