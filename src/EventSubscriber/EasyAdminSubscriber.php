@@ -5,10 +5,11 @@ namespace App\EventSubscriber;
 
 use App\Entity\Trick;
 use App\Entity\Video;
+use App\Entity\Picture;
 use App\Service\MediaManageService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 // use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 
 class EasyAdminSubscriber implements EventSubscriberInterface
@@ -25,6 +26,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         return [
             BeforeEntityPersistedEvent::class => ['setVideoUrlNew'],
             BeforeEntityUpdatedEvent::class => ['setVideoUrlUpdate'],
+            // BeforeEntityUpdatedEvent::class => ['setPictureUpdate']
         ];
     }
 

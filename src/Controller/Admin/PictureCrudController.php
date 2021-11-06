@@ -28,7 +28,6 @@ class PictureCrudController extends AbstractCrudController
                 ->setFormType(VichImageType::class),
             // TextareaField::new('pictureFile')
             //     ->setFormType(VichImageType::class),
-
             // ImageField::new('pictureFile')
             //     ->setFormType(VichFileType::class),
 

@@ -35,6 +35,11 @@ class Picture
     private $pictureFile;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="pictures")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
@@ -61,7 +66,7 @@ class Picture
         return $this->pictureFileName;
     }
 
-    public function setPictureFileName(string $pictureFileName): self
+    public function setPictureFileName(?string $pictureFileName): self
     {
         $this->pictureFileName = $pictureFileName;
 
@@ -106,17 +111,13 @@ class Picture
      * Set the value of pictureFile
      *
      * @param  File|null   $pictureFile
-     * @return  self
      */
     public function setPictureFile(?File $pictureFile = null)
     {
         $this->pictureFile = $pictureFile;
 
-        // if ($pictureFile) {
-        //     // if 'updatedAt' is not defined in your entity, use another property
-        //     $this->setAlt('changer');
-        // }
-
-        return $this;
+        if (null !== $pictureFile) {
+            $this->updated = new \Datetime();
+        }
     }
 }

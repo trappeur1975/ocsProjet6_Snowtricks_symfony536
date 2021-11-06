@@ -61,6 +61,7 @@
 05/11/2021 : change of name of zoneTricks variable for zoneText in the "loaderTricks.js" file
 05/11/2021 : installation of easyAdmin and configuration of pool and video
 06/11/2021 : easyadmin configuration of pictureCrudController, trickCrudController and modification of videoCrudController, videoEasyadminType and easyAdminSubscriber function setVideoUrlUpdate
+06/11/2021 : update of picture entity with addition of the updated property for vichUploader, resolution of edit or deletion of picture via the dashboard 
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
