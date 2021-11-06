@@ -30,13 +30,15 @@ class TrickCrudController extends AbstractCrudController
             // 'slug',
             // ImageField::new('pictures'),
 
-            // CollectionField::new('pictures')
-            //     ->setEntryType(PictureEasyAdminType::class)
-            //     ->onlyOnForms(),
+            CollectionField::new('pictures')
+                ->setEntryType(PictureEasyAdminType::class)
+                ->onlyOnForms(),
 
 
             CollectionField::new('videos')
-                ->setEntryType(Video2Type::class),
+                ->setEntryType(VideoEasyadminType::class)
+                // ->setLabel(source video (url/nom))
+                ->onlyOnForms(),
             // ->setFormTypeOption('by_reference', false),
         ];
     }

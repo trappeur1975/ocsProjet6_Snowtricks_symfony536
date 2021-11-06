@@ -73,9 +73,13 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 
             $sourceVideoFileName = $entity->getVideoFileName();
 
-            $videoFileName = $this->media->sourceVideo($sourceVideoFileName);
+            if (strpos($sourceVideoFileName, '=') === false) { //to manage the case where the source field (url) of the video is not modified
+                $entity->setVideoFileName($sourceVideoFileName);
+            } else {
+                $videoFileName = $this->media->sourceVideo($sourceVideoFileName);
 
-            $entity->setVideoFileName($videoFileName);
+                $entity->setVideoFileName($videoFileName);
+            }
         }
 
         // if we use the form admin > tricks
@@ -86,9 +90,13 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             foreach ($videos as $video) {
                 $sourceVideoFileName = $video->getVideoFileName();
 
-                $videoFileName = $this->media->sourceVideo($sourceVideoFileName);
+                if (strpos($sourceVideoFileName, '=') === false) { //to manage the case where the source field (url) of the video is not modified
+                    $entity->addVideo($video);
+                } else {
+                    $videoFileName = $this->media->sourceVideo($sourceVideoFileName);
 
-                $video->setVideoFileName($videoFileName);
+                    $video->setVideoFileName($videoFileName);
+                }
 
                 $entity->addVideo($video);
             }

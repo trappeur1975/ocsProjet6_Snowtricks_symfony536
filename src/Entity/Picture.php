@@ -5,9 +5,12 @@ namespace App\Entity;
 use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass=PictureRepository::class)
+ * @Vich\Uploadable
  */
 class Picture
 {
@@ -24,6 +27,12 @@ class Picture
      * @Groups({"group1"})
      */
     private $pictureFileName;
+
+    /**
+     * @Vich\UploadableField(mapping="trick_images", fileNameProperty="pictureFileName")
+     * @var File
+     */
+    private $pictureFile;
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="pictures")
@@ -79,6 +88,34 @@ class Picture
     public function setAlt(string $alt): self
     {
         $this->alt = $alt;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of pictureFile
+     *
+     * @return  File | null
+     */
+    public function getPictureFile(): ?file
+    {
+        return $this->pictureFile;
+    }
+
+    /**
+     * Set the value of pictureFile
+     *
+     * @param  File|null   $pictureFile
+     * @return  self
+     */
+    public function setPictureFile(?File $pictureFile = null)
+    {
+        $this->pictureFile = $pictureFile;
+
+        // if ($pictureFile) {
+        //     // if 'updatedAt' is not defined in your entity, use another property
+        //     $this->setAlt('changer');
+        // }
 
         return $this;
     }

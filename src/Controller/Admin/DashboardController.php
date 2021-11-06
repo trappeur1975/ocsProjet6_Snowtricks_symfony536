@@ -60,7 +60,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Tricks', 'fas fa-snowboarding', Trick::class);
         yield MenuItem::linkToCrud('Pool', 'far fa-snowflake', Pool::class);
         yield MenuItem::linkToCrud('Video', 'far fa-snowflake', Video::class, null);
-        yield MenuItem::linkToCrud('Pictures', 'far fa-snowflake', Picture::class);
+        yield MenuItem::linkToCrud('Trick pictures', 'far fa-snowflake', Picture::class);
         yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
         yield MenuItem::linkToLogout('Logout', 'fa fa-sign-out');
     }

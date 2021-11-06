@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Video;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
@@ -19,7 +20,8 @@ class VideoCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            'videoFileName',
+            TextField::new('videoFileName', 'source video (url/nom)'),
+            // 'videoFileName',
             AssociationField::new('trick'),
         ];
     }
