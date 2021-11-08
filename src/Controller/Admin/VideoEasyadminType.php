@@ -14,8 +14,11 @@ class VideoEasyadminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('videoFileName', UrlType::class, [
+            ->add('videoFileName', TextType::class, [
+                // ->add('videoFileName', UrlType::class, [
+                'required' => true,
                 'label' => 'source video (url/nom)',
+                // 'attr' => ['novalidate' => 'novalidate'],
             ])
             // ->add('addVideo', UrlType::class, [
             //         'mapped' => false,

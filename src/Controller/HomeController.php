@@ -48,20 +48,25 @@ class HomeController extends AbstractController
      */
     public function loadTricks($offset = 3, TrickRepository $trickRepository, SerializerInterface $serializer)
     {
-        // $tricks = $trickRepository->findby([], ['id' => 'ASC'], 1, $offset);
         $tricks = $trickRepository->findby([], ['id' => 'ASC'], 3, $offset);
 
-        // $tricks = $trickRepository->findby([], ['id' => 'ASC'], $limit, 3);
+        return $this->render('home/cardTrick.html.twig', [
+            'tricks' =>  $tricks,
+        ]);
 
-        // ----------------------------------
-        $userConnected = $this->getUser();
+        // -------------------ancien code 2---------------
+        // $userConnected = $this->getUser();
         // $templateDeleteTrick = $this->render('trick/_delete_form.html.twig');
 
-        $jsonTricks = $serializer->serialize($tricks, 'json', ['groups' => 'group1']);
-        $jsonUserConnected = $serializer->serialize($userConnected, 'json', ['groups' => 'group1']);
+        // $jsonTricks = $serializer->serialize($tricks, 'json', ['groups' => 'group1']);
+        // $jsonUserConnected = $serializer->serialize($userConnected, 'json', ['groups' => 'group1']);
         // $jsonTemplateDeleteTrick = $serializer->serialize($templateDeleteTrick, 'json');
 
-        // ----------------------------------
+        // return new JsonResponse(['dataResponse' => $jsonTricks]);
+        // return new JsonResponse(['dataJsonTricks' => $jsonTricks, 'dataJsonUserConnected' => $jsonUserConnected]);
+        // return new JsonResponse(['dataJsonTricks' => $jsonTricks, 'dataJsonUserConnected' => $jsonUserConnected, 'dataJsonTemplateDeleteTrick' => $jsonTemplateDeleteTrick]);
+
+        // -----------------ancien code 1-----------------
 
         // $trick = $trickRepository->find(11);
         // $jsonContent = $serializer->serialize($trick, 'json', ['groups' => 'group1']);
@@ -87,9 +92,5 @@ class HomeController extends AbstractController
         // return new JsonResponse(['dataResponse' => $dataResponse]);
 
         // return new JsonResponse(['dataResponse' => $jsonContent]);
-
-        // return new JsonResponse(['dataResponse' => $jsonTricks]);
-        return new JsonResponse(['dataJsonTricks' => $jsonTricks, 'dataJsonUserConnected' => $jsonUserConnected]);
-        // return new JsonResponse(['dataJsonTricks' => $jsonTricks, 'dataJsonUserConnected' => $jsonUserConnected, 'dataJsonTemplateDeleteTrick' => $jsonTemplateDeleteTrick]);
     }
 }

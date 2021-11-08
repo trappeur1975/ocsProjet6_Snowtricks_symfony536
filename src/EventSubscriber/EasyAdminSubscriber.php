@@ -9,6 +9,7 @@ use App\Entity\Picture;
 use App\Service\MediaManageService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 // use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityDeletedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 
@@ -26,7 +27,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         return [
             BeforeEntityPersistedEvent::class => ['setVideoUrlNew'],
             BeforeEntityUpdatedEvent::class => ['setVideoUrlUpdate'],
-            // BeforeEntityUpdatedEvent::class => ['setPictureUpdate']
+            // BeforeEntityDeletedEvent::class => ['deleteVideoUpdate']
         ];
     }
 
@@ -91,6 +92,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 
             foreach ($videos as $video) {
                 $sourceVideoFileName = $video->getVideoFileName();
+                // $video->setTrick($entity);
 
                 if (strpos($sourceVideoFileName, '=') === false) { //to manage the case where the source field (url) of the video is not modified
                     $entity->addVideo($video);
@@ -104,4 +106,15 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             }
         }
     }
+
+    // public function deleteVideoUpdate(BeforeEntityDeletedEvent $event)
+    // {
+    //     $entity = $event->getEntityInstance();
+
+    //     dd($entity);
+
+    //     // if we use the form admin > tricks
+    //     if ($entity instanceof Trick) {
+    //     }
+    // }
 }
