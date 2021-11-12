@@ -1,5 +1,3 @@
-/* homepage */
-
 .homePicture {
     background-image: linear-gradient(rgba(253, 253, 253, 0.096), rgba(243, 234, 234, 0.747)), url(/pictures/site/homePicture.jpg);
     background-size: cover;
@@ -9,7 +7,7 @@
     height: 80vh;
 }
 
-.container-fluid {
+#menu {
     padding-right: 120px;
 }
 

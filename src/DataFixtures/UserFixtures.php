@@ -19,7 +19,23 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        // we create an administrator 
+        $pictureAdmin = new Picture();
+        $pictureAdmin->setPictureFileName('persona.png');
+        $pictureAdmin->setAlt('pictureAdmin');
+        $manager->persist($pictureAdmin);
 
+        $admin = new User();
+        $admin->setNickname('admin')
+            ->setRoles(['ROLE_ADMIN'])
+            ->setEmail('adminTchenio@test.com')
+            ->setPicture($pictureAdmin)
+            ->setPassword($this->encoder->encodePassword($admin, 'tcheni@_re@9741975'))
+            ->setIsVerified(true);
+
+        $manager->persist($admin);
+
+        // we create the users 
         for ($nbrUser = 1; $nbrUser <= 4; $nbrUser++) {
 
             // we create the Persona picture (default picture of users registered on the site) (the image file "persona.png" is already in the "public > pictures > site" folder )
