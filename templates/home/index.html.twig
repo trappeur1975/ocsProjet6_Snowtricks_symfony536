@@ -2,28 +2,25 @@
 
 {% block body %}
 	
+	{# flash message #}
 	{% for message in app.flashes('success') %}
 		<div class="alert alert-success" role="alert">{{ message }}</div>
 	{% endfor %}
 
-	{# addition of a flash message by tchenio nicolas  #}
 	{% for message in app.flashes('accountToCreate') %}
 		<div class="alert alert-success" role="alert">{{ message }}</div>
 	{% endfor %}
-	{# end of addition of a flash message by tchenio nicolas  #}
 
 	<div class="homePicture">
 		<div class="container">
 			<span class="slogan"><p class="slogan-p">{{title}}</p></span>
 		</div>
 		<a href="#tricks"><i class="bi bi-arrow-down-circle-fill"></i></a>
-		{# <a href="#tricks"><i class="fa fa-chevron-circle-down fa-3x" aria-hidden="true"></i></a> #}
-		{# <img src="{{ asset('/pictures/site/homePicture.jpg') }}" alt="homeImage" class="PromotePicture"> #}
 	</div>
 	
 	<div class="container p-5" id="tricks">
 		<section class="tricks">
-			<div class="row" id="zoneTricks">
+			<div class="row" id="zoneTricks"> {# id  for the loader #}
 				{% for trick in tricks %}
 					<div class="col-sm-4">
 						<div class="card">	
@@ -34,8 +31,6 @@
 							{% endif %}
 							<div class="card-body">
 								<h5 class="card-title"><a href="{{path('trick_show', {'slug': trick.slug})}}">{{trick.name}}</a></h5>
-								{# <h5 class="card-title">{{trick.name}}></h5> #}
-								{# <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> #}
 								
 								{% if app.user is same as trick.user %}
 									<div class="btn-group" role="group" aria-label="gestion du trick">
@@ -46,31 +41,22 @@
 								{% endif %}
 
 								<p class="card-text">{{ trick.description | u.truncate(100, '...')}}</p>
-								{# <a href="#" class="card-link">Card link</a> #}
+
 							</div>
 						</div>
 					</div>
 				{% endfor %}
 			</div>
 
-			{# ----------------POUR LE LOADER----------------- #}
-				<div id="zoneLoader">
-					<h3>zone loader</h3>
-					{# <p id="zonetexte"></p> #}
-				</div>
-
+			{# ----------------FOR THE LOADER----------------- #}
 				{# bouton loader #}
-				<div class="container">
-					<div class="row justify-content-center m-3">
+				<div>
+					<div class="text-center">
+					{# <div class="row justify-content-center m-3"> #}
 						<a href="{{ path('loadTricks') }}" id="loadMoreTrick"><i class="fas fa-plus-circle fa-3x"></i></a>
-						{# <a href="/abc" id="loadMoreTrick"><i class="fas fa-plus-circle fa-3x"></i></a> #}
-						{# <a href="{{ path('loadTricks', {'offset': offset}) }}" id="loadMoreTrick"><i class="fas fa-plus-circle fa-3x"></i></a> #}
-						{# <a href="{{ path('loadTricks', {'limit': tricks|length}) }}" id="loadMoreTrick"><i class="fas fa-plus-circle fa-3x"></i></a> #}
-						{# <a href="{{ path('loadTricks')}}" id="loadMoreTrick"><i class="fas fa-plus-circle fa-3x"></i></a> #}
-						{# <a href="#" id="loadMoreTrick"><i class="fas fa-plus-circle fa-3x"></i></a> #}
 					</div>
 				</div>
-				{# ----------------FIN POUR LE LOADER----------------- #}
+				{# ----------------END FOR THE LOADER----------------- #}
 		</section>
 
 		{# pagination of tricks #}
@@ -101,16 +87,18 @@
 				</li>
 			</ul>
 		</nav> #}
-	</div>
 
+	</div>
+	{# ----------------FOR THE LOADER-----------------  #}
 	<div class="arrowUp">
         <a href="#tricks">
             <a href="#tricks"><i class="bi bi-arrow-up-circle-fill"></i></a>
         </a>
     </div>
+	{# ----------------END FOR THE LOADER-----------------  #}
 {% endblock %}
 
-{# ----------------POUR LE LOADER-----------------  #}
+{# ----------------FOR THE LOADER-----------------  #}
 {% block javascripts %}
     <script src="{{ asset('js/loaderTricks.js') }}"></script>
 {% endblock %}

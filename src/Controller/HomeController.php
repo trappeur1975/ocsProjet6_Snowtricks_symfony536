@@ -18,9 +18,7 @@ class HomeController extends AbstractController
      */
     public function home(TrickRepository $trickRepository, Request $request): Response
     {
-        // $session = $request->getSession();
-        // dd($session);
-
+        // ---------------for the pagination------------
         // number of tricks per page 
         // $numberTrickPage = 5;
 
@@ -30,13 +28,15 @@ class HomeController extends AbstractController
         // the tricks of a page 
         // $tricks = $trickRepository->paginatedTrick($pageTrick, $numberTrickPage);
         // $numberTrickTotal = $trickRepository->countTrick();
+        // ---------------end for the pagination------------
 
-        // LIGNE INTEGRER AVEC LA CREATION DU LOADER
+        // FOR THE LOADER
         $tricks = $trickRepository->findby([], ['id' => 'ASC'], 3, 0);
 
         return $this->render('home/index.html.twig', [
             'title' => 'Snowtricks du snow et des tricks',
             'tricks' =>  $tricks,
+            // ---------------for the pagination------------
             // 'numberTrickTotal' =>  $numberTrickTotal,
             // 'numberTrickPage' => $numberTrickPage,
             // 'pageTrick' => $pageTrick
@@ -44,7 +44,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/loadTricks/{offset}", name="loadTricks", methods={"GET","POST"})
+     * @Route("/loadTricks/{offset}", name="loadTricks", methods={"GET"})
      */
     public function loadTricks($offset = 3, TrickRepository $trickRepository, SerializerInterface $serializer)
     {
@@ -53,44 +53,5 @@ class HomeController extends AbstractController
         return $this->render('home/cardTrick.html.twig', [
             'tricks' =>  $tricks,
         ]);
-
-        // -------------------ancien code 2---------------
-        // $userConnected = $this->getUser();
-        // $templateDeleteTrick = $this->render('trick/_delete_form.html.twig');
-
-        // $jsonTricks = $serializer->serialize($tricks, 'json', ['groups' => 'group1']);
-        // $jsonUserConnected = $serializer->serialize($userConnected, 'json', ['groups' => 'group1']);
-        // $jsonTemplateDeleteTrick = $serializer->serialize($templateDeleteTrick, 'json');
-
-        // return new JsonResponse(['dataResponse' => $jsonTricks]);
-        // return new JsonResponse(['dataJsonTricks' => $jsonTricks, 'dataJsonUserConnected' => $jsonUserConnected]);
-        // return new JsonResponse(['dataJsonTricks' => $jsonTricks, 'dataJsonUserConnected' => $jsonUserConnected, 'dataJsonTemplateDeleteTrick' => $jsonTemplateDeleteTrick]);
-
-        // -----------------ancien code 1-----------------
-
-        // $trick = $trickRepository->find(11);
-        // $jsonContent = $serializer->serialize($trick, 'json', ['groups' => 'group1']);
-
-
-        // $encoders = [new JsonEncoder()];
-        // $normalizers = [new ObjectNormalizer()];
-        // $serializer = new Serializer($normalizers, $encoders);
-
-        // $trick = $trickRepository->find(4);
-        // $jsonContent = $serializer->serialize($trick, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['pictures', 'videos', 'messages', 'user']]);
-        // $jsonContent = $serializer->serialize($trick, 'json', [
-        //     'circular_reference_handler' => function ($object) {
-        //         return $object->getId();
-        //     }
-        // ]);
-
-
-        // $dataResponse = $jsonContent;
-        // $dataResponse = $trickJson;
-        // $dataResponse = $limit;
-        // $dataResponse = 'salut nicolas t es le super meilleur';
-        // return new JsonResponse(['dataResponse' => $dataResponse]);
-
-        // return new JsonResponse(['dataResponse' => $jsonContent]);
     }
 }
