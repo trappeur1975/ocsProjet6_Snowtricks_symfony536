@@ -47,7 +47,7 @@ class UserFixtures extends Fixture
             // create user
             $user = new User();
             $user->setNickname('user' . $nbrUser)    //user1, user2, ...
-                // ->setRoles(['ROLE_USER'])
+                ->setRoles(['ROLE_USER'])
                 ->setEmail('user' . $nbrUser . '@test.com')
                 ->setPicture($picture)
                 ->setPassword($this->encoder->encodePassword($user, 'user' . $nbrUser))  //user1, user2, ...

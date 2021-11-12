@@ -65,7 +65,8 @@
 08/11/2021 : update of the ajax loader with html page loading and modification of easyAdmin management of videos (videoEasyadminType, video, EasyAdminSubscriber)
 12/11/2021 : cleaning the code concerning the trick loader and centering its icon on the page
 12/11/2021 : menu update 1
-12/11/2021 : updated menu, UserFixtures.php, security.yaml 
+12/11/2021 : updated menu, UserFixtures.php, security.yaml
+12/11/2021 : cleaning the code
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé

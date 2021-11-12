@@ -50,7 +50,7 @@ class Picture
      */
     private $alt;
 
-    // EasyAdmin ajout pour tableau bord du site en backend
+    // EasyAdmin addition for backend site dashboard 
     public function __toString(): string
     {
         return '(id:' . $this->getId() . ')-' . $this->getPictureFileName();

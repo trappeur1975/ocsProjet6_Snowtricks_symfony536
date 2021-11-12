@@ -83,7 +83,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    // EasyAdmin ajout pour tableau bord du site en backend
+    // EasyAdmin addition for backend site dashboard 
     public function __toString(): string
     {
         return $this->getEmail();
@@ -247,16 +247,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeTrick(Trick $trick): self
     {
-        // if ($this->tricks->contains($trick)) {
-        //     foreach ($pictures as $picture) {
-        //                 // we delete the file physically
-        //                 $pictureFileName = $picture->getPictureFileName();
-        //                 unlink($this->getParameter('pictures_directory_contributions') . '/' . $pictureFileName);
-        //             }
-
-        // }
-
-
         if ($this->tricks->removeElement($trick)) {
             // set the owning side to null (unless already changed)
             if ($trick->getUser() === $this) {

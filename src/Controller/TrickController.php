@@ -49,8 +49,6 @@ class TrickController extends AbstractController
             // -------------Picture management--------------- 
             // we define the author of the trick by the user to connect (because we do not define it in a field via the form) (see _form.html.twig) 
             $trick->setUser($this->getUser());
-            // $trick->setCreateAt(new \Datetime())
-            //     ->setUser($this->getUser());
 
             // We recover the transmitted pictures 
             $newPictures = $form->get('newPictures')->getData();
@@ -116,10 +114,6 @@ class TrickController extends AbstractController
             $message->setTrick($trick)
                 ->setUser($this->getUser());
 
-            // $message->setCreateAt(new \Datetime())
-            //     ->setTrick($trick)
-            //     ->setUser($this->getUser());
-
             $entityManager->persist($message);
 
             $entityManager->flush();
@@ -128,7 +122,6 @@ class TrickController extends AbstractController
         }
 
         return $this->renderForm('trick/show.html.twig', [
-            // 'title' => 'bienvenue sur le trick',
             'trick' => $trick,
             'pageMessage' => $pageMessage,
             'form' => $form
@@ -239,41 +232,4 @@ class TrickController extends AbstractController
 
         return $this->redirectToRoute('trick_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    // ----------------------- FUNCTION PERSO TCHENIO NICOLAS ------------------------
-
-    // retrieve the source of the video (end of the string (youtube url) from the last "/" or the last "=") 
-    // public function sourceVideo(String $srcVideo): ?string
-    // {
-    //     if (strripos($srcVideo, "=") == true) {
-    //         return substr(strrchr($srcVideo, "="), 1);
-    //     } else {
-    //         return substr(strrchr($srcVideo, "/"), 1);
-    //     }
-    // }
-
-    /**
-     * @Route("/delete/picture/{id}", name="trick_delete_picture", methods={"DELETE"})
-     */
-    // public function deleteImage(Picture $picture, Request $request)
-    // {
-    //     $data = json_decode($request->getContent(), true);
-
-    //     //check if the token is valid
-    //     if ($this->isCsrfTokenValid('delete' . $picture->getId(), $data['_token'])) {
-    //         // we delete the file physically 
-    //         $pictureFileName = $picture->getPictureFileName();
-    //         unlink($this->getParameter('pictures_directory_contributions') . '/' . $pictureFileName);
-
-    //         // we delete the file from the database 
-    //         $entityManager = $this->getDoctrine()->getManager();
-    //         $entityManager->remove($picture);
-    //         $entityManager->flush();
-
-    //         // we answer in json
-    //         return new JsonResponse(['success' => 1]);
-    //     } else {
-    //         return new JsonResponse(['error' => 'Token invalid'], 400);
-    //     }
-    // }
 }

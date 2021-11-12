@@ -25,16 +25,5 @@ class PoolFixtures extends Fixture
         }
 
         $manager->flush();
-
-        // for ($nbrPool = 1; $nbrPool <= 4; $nbrPool++) {
-        //     $pool = new Pool();
-        //     $pool->setName('pool' . $nbrPool);
-        //     $manager->persist($pool);
-
-        //     // we save the reference of the pool
-        //     $this->addReference('pool' . $nbrPool, $pool);
-        // }
-
-        // $manager->flush();
     }
 }

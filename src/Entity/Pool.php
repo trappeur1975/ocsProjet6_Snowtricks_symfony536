@@ -25,7 +25,7 @@ class Pool
      */
     private $name;
 
-    // EasyAdmin ajout pour tableau bord du site en backend
+    // EasyAdmin addition for backend site dashboard 
     public function __toString(): string
     {
         return $this->getName();

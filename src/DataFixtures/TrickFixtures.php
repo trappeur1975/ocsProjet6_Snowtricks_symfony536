@@ -121,30 +121,6 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $manager->flush();
-
-        // $faker = Factory::create('fr_FR');
-
-        // for ($nbrTrick = 1; $nbrTrick <= 10; $nbrTrick++) {
-
-        //     // we retrieve the reference of the pool and the user
-        //     $pool = $this->getReference('pool' . rand(1, 4));
-        //     $user = $this->getReference('user' . rand(1, 4));
-
-        //     $trick = new Trick();
-        //     $trick->setName($faker->sentence())
-        //         ->setDescription($faker->paragraph())
-        //         ->setCreateAt($faker->dateTimeBetween('-6 month', 'now'))
-        //         ->setPool($pool)
-        //         ->setUser($user)
-        //         ->setSlug(strtolower($this->slug->slug($trick->getName())));
-
-        //     $manager->persist($trick);
-
-        //     // we save the reference of the trick
-        //     $this->addReference('trick' . $nbrTrick, $trick);
-        // }
-
-        // $manager->flush();
     }
 
     // returns the list of our fixture dependencies for this fixture

@@ -41,7 +41,7 @@ class Message
      */
     private $trick;
 
-    // EasyAdmin ajout pour tableau bord du site en backend
+    // EasyAdmin addition for backend site dashboard 
     public function __construct()
     {
         $this->create_At = new \Datetime();
