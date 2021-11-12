@@ -63,7 +63,8 @@
 06/11/2021 : easyadmin configuration of pictureCrudController, trickCrudController and modification of videoCrudController, videoEasyadminType and easyAdminSubscriber function setVideoUrlUpdate
 06/11/2021 : update of picture entity with addition of the updated property for vichUploader, resolution of edit or deletion of picture via the dashboard 
 08/11/2021 : update of the ajax loader with html page loading and modification of easyAdmin management of videos (videoEasyadminType, video, EasyAdminSubscriber)
-12/11/2021 : cleaning the code concerning the trick loader and centering its icon on the page 
+12/11/2021 : cleaning the code concerning the trick loader and centering its icon on the page
+12/11/2021 : menu update 1
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé

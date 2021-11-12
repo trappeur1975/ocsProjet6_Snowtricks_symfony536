@@ -8,49 +8,47 @@
 			{% endblock %}
 		</title>
 
-		<link
-		rel="stylesheet" href="https://bootswatch.com/5/pulse/bootstrap.min.css">
-		{# Run `composer require symfony/webpack-encore-bundle`and uncomment the following Encore helpers to start using Symfony UX #}
-
-		{# https://fontawesome.com #}
-		{# <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> #}
+		<link rel="stylesheet" href="https://bootswatch.com/5/pulse/bootstrap.min.css">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 		{% block stylesheets %}
-			{#{{ encore_entry_link_tags('app') }}#}
 			<link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
 		{% endblock %}
-
-		{# {% block javascripts %}
-			<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-		{% endblock %} #}
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="#">Snowtricks</a>
+				<a class="navbar-brand" href="/">Snowtricks</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
-				</button>
+				</button>		
 
-				<div class="collapse navbar-collapse" id="navbarColor01">
-					<ul class="navbar-nav me-auto">
+				{# <div class="collapse navbar-collapse" id="navbarColor01"> #}
+					<ul class="navbar-nav justify-content-end collapse navbar-collapse" id="navbarColor01">
+					{# <ul class="navbar-nav me-auto"> #}
 						<li class="nav-item">
 							<a class="nav-link active" href="/">Accueil
 								<span class="visually-hidden">(current)</span>
 							</a>
 						</li>
+
+						{# <li class="nav-item">
+							<a class="nav-link" href="/#tricks">Tricks</a>
+						</li> #}
+
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Trick</a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="/trick">Admin Trick</a>
-								<a class="dropdown-item" href="/trick/new">Créer un trick</a>
+								<a class="dropdown-item" href="/#tricks">Voir les tricks</a>
+								{% if app.user %}
+									<a class="dropdown-item" href="/trick">Administrer ses tricks</a>
+									<a class="dropdown-item" href="/trick/new">Créer un trick</a>
+								{% endif %}
 							</div>
 						</li>
-						<li class="nav-item dropdown">
+
+						{# <li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">administration</a>
 							<div class="dropdown-menu">
 								<a class="dropdown-item" href="/user">Admin User</a>
@@ -58,26 +56,32 @@
 								<a class="dropdown-item" href="/picture">gestion pictures</a>
 								<a class="dropdown-item" href="/video">gestion videos</a>
 							</div>
-						</li>
+						</li> #}
+
 						{# <li class="nav-item"> #}
 						{# <a class="nav-link" href="#">Features</a> #}
 						{# </li> #}
-							<li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Compte</a>
+							<li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">S'identifier</a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="/register">Creer un compte user</a>
 								<a class="dropdown-item" href="/login">Se connecter</a>
-								<a class="dropdown-item" href="/logout">Se déconnecter</a>
+								<a class="dropdown-item" href="/register">Creer son compte</a>
 								<a class="dropdown-item" href="/reset-password">Réinitialiser son compte</a>
+								{# <a class="dropdown-item" href="/logout">Se déconnecter</a> #}
 								{# <div class="dropdown-divider"></div> #}
 								{# <a class="dropdown-item" href="#">Separated link</a> #}
 							</div>
 						</li>
+						{% if app.user %}
+							<li class="nav-item">
+								<a class="nav-link" href="/logout">Se déconnecter</a>
+							</li>
+						{% endif %}
 					</ul>
 					{# <form class="d-flex">
 						<input class="form-control me-sm-2" type="text" placeholder="Search">
 						<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
 					</form> #}
-				</div>
+				{# </div> #}
 			</div>
 		</nav>
 		<div class="container-fluid">
@@ -90,7 +94,7 @@
 			</div>
 		</footer>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
-		{% block javascripts %}{% endblock %}
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+		{% block javascripts %}{% endblock %}
 	</body>
 </html>

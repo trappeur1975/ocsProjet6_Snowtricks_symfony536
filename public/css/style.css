@@ -9,17 +9,9 @@
     height: 80vh;
 }
 
-/* i {
-    position: absolute;
-    right: 3%;
-    bottom: 10%;
-} */
-
-/* .bi {
-    position: absolute;
-    right: 3%;
-    bottom: 10%;
-} */
+.container-fluid {
+    padding-right: 120px;
+}
 
 .bi-arrow-down-circle-fill {
     position: absolute;
@@ -74,9 +66,3 @@
     height: 200px;
     border-radius: 10px;
 }
-
-/* iframe {
-    width: 400px;
-    height: 200px;
-    border-radius: 10px;
-} */
