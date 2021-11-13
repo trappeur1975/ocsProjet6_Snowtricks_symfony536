@@ -6,7 +6,6 @@ use App\Entity\Trick;
 use App\Entity\Picture;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-// use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -20,7 +19,6 @@ class PictureType extends AbstractType
         $builder
 
             ->add('addPicture', FileType::class, [
-                // 'multiple' => false,
                 'mapped' => false,
                 'required' => true,
                 'constraints' => [
@@ -36,44 +34,7 @@ class PictureType extends AbstractType
                         ],
                     ]),
                 ]
-            ])
-
-            // ->add('deletePictures', CheckboxType::class, [
-            //     'label' => 'supprimer tchenio',
-            //     'required' => false,
-            //     'mapped' => false
-            // ])
-            // ------------------- AUTRES TESTES -----------
-            // ->add('pictureFileName')
-            // ->add('isChecked', CheckboxType::class, [
-            //     // 'label' => $this->get('pictureFileName')
-            //     'label' => 'supprimer nicolas',
-            //     // 'attr' => ['name' => 'bonjour'],
-
-            // ])
-            // ->add('deletePicture', ChoiceType::class, [
-            //     // 'choices' => [
-            //     //     'In Stock' => true,
-            //     //     'Out of Stock' => false,
-            //     // ],
-            //     'label'    => 'Supprimer cette Picture',
-            //     // 'choice_label' => 'pictureFileName',
-            //     'mapped' => false,
-            //     'required' => false,
-            // ])
-            // ->add('pictureFileName', FileType::class, [
-            //     'label' => false,
-            //     'data_class' => null,
-            //     'attr' => [
-            //         'placeholder' => 'Modifier ou ajouter une image',
-            //     ],
-            // ])
-            // ->add('trick', EntityType::class, [
-            //     'class' => Trick::class,
-            //     'choice_label' => 'name'
-            // ])
-            // -------------------FIN AUTRES TESTES-----------
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

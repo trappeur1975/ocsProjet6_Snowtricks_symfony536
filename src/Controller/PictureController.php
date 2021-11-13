@@ -69,7 +69,6 @@ class PictureController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            // $this->getDoctrine()->getManager()->flush();
 
             //we recover the initial FileName picture of the bite that we want to replace 
             $oldpictureFileName = $picture->getPictureFileName();
@@ -95,7 +94,6 @@ class PictureController extends AbstractController
             $this->addFlash('successPictureManagement', 'Félicitation votre image a bien été MODIFIE.');
 
             return $this->redirectToRoute('trick_show', ['slug' => $picture->getTrick()->getSlug()], Response::HTTP_SEE_OTHER);
-            // return $this->redirectToRoute('picture_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('picture/edit.html.twig', [
@@ -114,15 +112,11 @@ class PictureController extends AbstractController
 
             //deletion of the picture (database, server) 
             $media->deleteImageOnServer($picture, $entityManager);
-
-            // $entityManager->remove($picture);
-            // $entityManager->flush();
         }
 
         // flash message for creating, editing or deleting a picture
-        $this->addFlash('successPictureManagement', 'Félicitation votre image "' . $picture->getPictureFileName() . '" a bien été SUPPRIME.');
+        $this->addFlash('successPictureManagement', 'Félicitation votre image a bien été SUPPRIME.');
 
         return $this->redirectToRoute('trick_show', ['slug' => $picture->getTrick()->getSlug()], Response::HTTP_SEE_OTHER);
-        // return $this->redirectToRoute('picture_index', [], Response::HTTP_SEE_OTHER);
     }
 }

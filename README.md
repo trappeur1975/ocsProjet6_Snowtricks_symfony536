@@ -67,6 +67,7 @@
 12/11/2021 : menu update 1
 12/11/2021 : updated menu, UserFixtures.php, security.yaml
 12/11/2021 : cleaning the code
+13/11/2021 : code cleanup and update userController and Forms
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé

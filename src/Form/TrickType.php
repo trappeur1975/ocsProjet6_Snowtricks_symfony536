@@ -3,12 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Pool;
-use App\Entity\User;
+// use App\Entity\User;
 use App\Entity\Trick;
 use App\Entity\Video;
 use App\Entity\Picture;
-use App\Form\PictureType;
-use Doctrine\ORM\EntityRepository;
+// use App\Form\PictureType;
+// use Doctrine\ORM\EntityRepository;
 use App\Repository\VideoRepository;
 use App\Repository\PictureRepository;
 use Symfony\Component\Form\AbstractType;
@@ -19,17 +19,15 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+// use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+// use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TrickType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // on recupere notre entity trick
+        // we get our entity trick 
         $trick = $options['data'];
-        // dd($options['data']->getId())
-        // dd($options['data']);
 
         $builder
             ->add('name')
@@ -38,10 +36,7 @@ class TrickType extends AbstractType
                 'class' => Pool::class,
                 'choice_label' => 'name'
             ])
-            // ->add('user', EntityType::class, [
-            //     'class' => User::class,
-            //     'choice_label' => 'nickname'
-            // ])
+
             ->add('newPictures', FileType::class, [
                 'multiple' => true,
                 'mapped' => false,
@@ -73,7 +68,7 @@ class TrickType extends AbstractType
                 },
                 'mapped' => false,
                 'multiple' => true,
-                'expanded' => true, //pour mettre en chekbox
+                'expanded' => true, //to put in checkbox 
                 // 'by_reference' => false, // pour l'enregistrement des infos pour ne pas rechercher une methode setter mais une methode add
             ])
             ->add('newVideo', UrlType::class, [

@@ -69,7 +69,6 @@ class VideoController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            // $this->getDoctrine()->getManager()->flush();
 
             if ($form->get('addVideo')->getData() !== null) {
                 // We recover the transmitted video
@@ -88,7 +87,6 @@ class VideoController extends AbstractController
             }
 
             return $this->redirectToRoute('trick_show', ['slug' => $video->getTrick()->getSlug()], Response::HTTP_SEE_OTHER);
-            // return $this->redirectToRoute('video_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('video/edit.html.twig', [
@@ -114,6 +112,5 @@ class VideoController extends AbstractController
         $this->addFlash('successVideoManagement', 'Félicitation votre video "' . $video->getVideoFileName() . '" a bien été SUPPRIME.');
 
         return $this->redirectToRoute('trick_show', ['slug' => $video->getTrick()->getSlug()], Response::HTTP_SEE_OTHER);
-        // return $this->redirectToRoute('video_index', [], Response::HTTP_SEE_OTHER);
     }
 }

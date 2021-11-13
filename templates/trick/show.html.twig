@@ -59,17 +59,13 @@
 									{% for picture in trick.pictures %}
 										<div class="col-sm-4">
 											<div class="card">
-												<img class="card-img-top" src="{{ asset('/pictures/contributions/'~picture.pictureFileName) }}" alt="{{ picture.alt }}" class="PromotePicture">
-											
-												{# ----------------RAJOUT NICOLAS #}
+												<img class="card-img-top" src="{{ asset('/pictures/contributions/'~picture.pictureFileName) }}" alt="{{ picture.alt }}" class="PromotePicture">											
 												{% if app.user is same as trick.user %}
 													<div class="btn-group" role="group" aria-label="gestion du trick">
 														<a href="{{ path('picture_edit', {'id': picture.id}) }}"><i class="btn btn-warning btn-sm bi bi-pencil-fill"></i></a>
 														{{ include('picture/_delete_form.html.twig') }}
 													</div>
 												{% endif %}
-												{# ----------------fin RAJOUT NICOLAS #}
-
 											</div>
 										</div>
 									{% endfor %}
@@ -77,7 +73,6 @@
 							{# {% endif %} #}
 							{% else %}
 								<img class="card-img-top" src="{{ asset('/pictures/site/no_picture.jpg') }}" alt="noPicture">
-								{# <p>Il n'y a aucune actuellement pas d'autres photos pour ce trick</p>	 #}
 							{% endif %}
 						</div>
 						<div class="col-sm-6">
@@ -94,9 +89,7 @@
 														<a href="{{ path('video_edit', {'id': video.id}) }}"><i class="btn btn-warning btn-sm bi bi-pencil-fill"></i></a>
 														{{ include('video/_delete_form.html.twig') }}
 													</div>
-												{% endif %}
-												{# ----------------fin RAJOUT NICOLAS #}
-											
+												{% endif %}							
 											</div>
 										</div>
 									{% endfor %}	
@@ -104,7 +97,6 @@
 							{# {% endif %} #}
 							{% else %}
 								<img class="card-img-top" src="{{ asset('/pictures/site/no_video.jpg') }}" alt="noVideo">
-								{# <p>Il n'y a aucune actuellement aucune vidéo pour ce trick</p>	 #}
 							{% endif %}
 						</div>
 					</div>				

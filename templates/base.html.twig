@@ -40,14 +40,22 @@
 							{% endif %}
 						</div>
 					</li>
-					<li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">S'identifier</a>
+					<li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Connexion</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="/login">Se connecter</a>
-							<a class="dropdown-item" href="/register">Creer son compte</a>
+							{% if not app.user %}
+								<a class="dropdown-item" href="/login">Se connecter</a>
+								<a class="dropdown-item" href="/register">Creer son compte</a>
+							{% else %}
+								<a class="dropdown-item" href="/user/{{ app.user.id }}/edit">Modifier son compte</a>
+							{% endif %}
 							<a class="dropdown-item" href="/reset-password">Réinitialiser son compte</a>
+							{% if is_granted('ROLE_USER') %}
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="/user/{{ app.user.id }}">Mon Dashboard</a>
+							{% endif %}
 							{% if is_granted('ROLE_ADMIN') %}
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/admin">Dashboard</a>
+								<a class="dropdown-item" href="/admin">Dashboard Snowtricks</a>
 							{% endif %}
 						</div>
 					</li>

@@ -13,12 +13,7 @@ class MessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ->add('content')
-            ->add('content', TextareaType::class, ['required' => true])
-            // ->add('create_At')
-            // ->add('user')
-            // ->add('trick')
-        ;
+            ->add('content', TextareaType::class, ['required' => true]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

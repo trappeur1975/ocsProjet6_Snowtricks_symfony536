@@ -4,11 +4,33 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Edit User</h1>
+	<h1>Modifier son compte</h1>
 
-	{{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
+	{% if app.user %}
+		{% if app.user is same as user %}
+			{# to display the user's photo  #}
+			{% if user.picture.pictureFileName is same as('persona.png')  %}
+				<img src="{{ asset('/pictures/site/'~user.picture.pictureFileName) }}" alt="{{ user.picture.alt }}" class="portraitPicture">
+			{% else %}
+				<img src="{{ asset('/pictures/contributions/'~user.picture.pictureFileName) }}" alt="{{ user.picture.alt }}" class="portraitPicture">
+			{% endif %}
 
-	<a href="{{ path('user_index') }}">back to list</a>
+			{{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-	{{ include('user/_delete_form.html.twig') }}
+
+
+			{# <a href="{{ path('user_index') }}">back to list</a>
+			{{ include('user/_delete_form.html.twig') }} #}
+		{% else %}
+			<p>Vous ne pouvez pas accéder à cette page  car vous n'êtes pas le bon utilisateur.</p>
+			<p><a href="{{ path('home') }}" class="btn btn-success">Retourner à la page d'accueil</a></p>
+		{% endif %}
+	{% else %}
+		<p>Pour accéder a cette page vous devez être identifier et être titulaire de ce compte.</p>
+		<p>Si vous avez déjà un compte utilisateur sur notre site
+			<a href="{{path('app_login')}}">identifiez vous</a>
+		</p>
+		<p><a href="{{ path('home') }}" class="btn btn-success">Retourner à la page d'accueil</a></p>
+	{% endif %}
+
 {% endblock %}
