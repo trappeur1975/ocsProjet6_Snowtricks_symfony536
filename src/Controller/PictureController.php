@@ -17,49 +17,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PictureController extends AbstractController
 {
     /**
-     * @Route("/", name="picture_index", methods={"GET"})
-     */
-    public function index(PictureRepository $pictureRepository): Response
-    {
-        return $this->render('picture/index.html.twig', [
-            'pictures' => $pictureRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="picture_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $picture = new Picture();
-        $form = $this->createForm(PictureType::class, $picture);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($picture);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('picture_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('picture/new.html.twig', [
-            'picture' => $picture,
-            'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="picture_show", methods={"GET"})
-     */
-    public function show(Picture $picture): Response
-    {
-        return $this->render('picture/show.html.twig', [
-            'picture' => $picture,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="picture_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Picture $picture, MediaManageService $media): Response
