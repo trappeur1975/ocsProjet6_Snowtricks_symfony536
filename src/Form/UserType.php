@@ -18,15 +18,16 @@ class UserType extends AbstractType
             ->add('nickname')
             ->add('email')
 
-            ->add('password')
+            // ->add('password')
             // ->add('password', PasswordType::class, [
             //     'attr' => ['placeholder' => 'entrer votre mot de passe']
             // ])
-            // ->add('password', PasswordType::class, [
-            //     'always_empty' => false,
-            //     'required' => false,
-            //     'attr' => ['placeholder' => 'entrer votre mot de passe']
-            // ])
+            ->add('password', PasswordType::class, [
+                // 'always_empty' => false,
+                'required' => false,
+                'mapped' => false,
+                // 'attr' => ['placeholder' => 'entrer votre mot de passe']
+            ])
 
             ->add('newPictures', FileType::class, [
                 'multiple' => false,
