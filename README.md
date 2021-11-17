@@ -72,6 +72,7 @@
 13/11/2021 : update of repositories 
 13/11/2021 : integration of icon delete and update of the featured image in a trick
 14/11/2021 : update .env for test heroku
+14/11/2021 : delete file for herohu
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
