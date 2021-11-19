@@ -74,6 +74,7 @@
 14/11/2021 : update .env for test heroku
 17/11/2021 : delete file for herohu
 17/11/2021 : update of the site for deployment on online server 
+19/11/2021 : update userType.php password field 
 
 ----------------- gestion des email ----------------
 pour tester l'envoi des email un serveur de email ("MailDev) en local a été utilisé
