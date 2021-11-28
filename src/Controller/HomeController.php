@@ -46,7 +46,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/loadTricks/{offset}", name="loadTricks", methods={"GET"})
      */
-    public function loadTricks($offset = 3, TrickRepository $trickRepository, SerializerInterface $serializer)
+    public function loadTricks($offset = 3, TrickRepository $trickRepository)
     {
         $tricks = $trickRepository->findby([], ['id' => 'ASC'], 3, $offset);
 
